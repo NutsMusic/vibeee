@@ -1,0 +1,20 @@
+{
+  "coinListen": 10,
+  "coinVideo": 20,
+  "coinLike": 5,
+  "coinSave": 3,
+  "coinShare": 15,
+  "coinFollow": 10,
+  "coinDownload": 5,
+  "coinReferral": 100,
+  "coinToman": 15,
+  "minWithdraw": 100,
+  "revArtist": 70,
+  "revPlatform": 20,
+  "revListener": 10,
+  "feeWithdraw": 5,
+  "antifraudMute": true,
+  "antifraudBg": true,
+  "maxListensPerDay": 3,
+  "minCompletionPct": 85
+}

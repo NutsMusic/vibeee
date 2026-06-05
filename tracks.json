@@ -1,0 +1,96 @@
+[
+  {
+    "id": "t1",
+    "title": "نه بدون تو",
+    "artist": "Hichkas",
+    "artistId": "hichkas",
+    "genre": "Rap",
+    "emoji": "🎵",
+    "color": "#1a0a3d",
+    "duration": 222,
+    "reward": 12,
+    "videoReward": 20,
+    "badge": "hot",
+    "badgeLabel": "🔥 Trending",
+    "earnText": "کامل گوش بده و +12 Coin بگیر",
+    "earnType": "normal",
+    "hasVideo": true,
+    "audioUrl": "",
+    "coverUrl": "",
+    "links": [
+      { "name": "Spotify",   "icon": "🎵", "color": "#1DB954", "followers": "2.1M", "url": "" },
+      { "name": "Instagram", "icon": "📷", "color": "#E1306C", "followers": "380K", "url": "" },
+      { "name": "YouTube",   "icon": "▶️", "color": "#FF0000", "followers": "94K",  "url": "" }
+    ]
+  },
+  {
+    "id": "t2",
+    "title": "ساعت صفر",
+    "artist": "Behzad Leito",
+    "artistId": "leito",
+    "genre": "R&B",
+    "emoji": "🌿",
+    "color": "#0a2d1a",
+    "duration": 251,
+    "reward": 25,
+    "videoReward": 0,
+    "badge": "new",
+    "badgeLabel": "✨ Early Discover",
+    "earnText": "Early Discover — Viral بشه +25 Coin اضافه",
+    "earnType": "early",
+    "hasVideo": false,
+    "audioUrl": "",
+    "coverUrl": "",
+    "links": [
+      { "name": "Spotify",   "icon": "🎵", "color": "#1DB954", "followers": "980K", "url": "" },
+      { "name": "Instagram", "icon": "📷", "color": "#E1306C", "followers": "240K", "url": "" }
+    ]
+  },
+  {
+    "id": "t3",
+    "title": "آتشفشان",
+    "artist": "Sijal",
+    "artistId": "sijal",
+    "genre": "Trap",
+    "emoji": "🔶",
+    "color": "#2d1a0a",
+    "duration": 208,
+    "reward": 20,
+    "videoReward": 30,
+    "badge": "sp",
+    "badgeLabel": "💼 Sponsored",
+    "earnText": "Sponsored — تا آخر گوش بده +20 Coin",
+    "earnType": "normal",
+    "hasVideo": true,
+    "audioUrl": "",
+    "coverUrl": "",
+    "links": [
+      { "name": "Spotify",   "icon": "🎵", "color": "#1DB954", "followers": "1.4M", "url": "" },
+      { "name": "Instagram", "icon": "📷", "color": "#E1306C", "followers": "520K", "url": "" },
+      { "name": "TikTok",    "icon": "🎵", "color": "#555555", "followers": "210K", "url": "" }
+    ]
+  },
+  {
+    "id": "t4",
+    "title": "دریا",
+    "artist": "Tataloo",
+    "artistId": "tataloo",
+    "genre": "Pop",
+    "emoji": "🌊",
+    "color": "#0a1a2d",
+    "duration": 302,
+    "reward": 8,
+    "videoReward": 15,
+    "badge": "hot",
+    "badgeLabel": "❤️ Popular",
+    "earnText": "گوش بده و +8 Coin بگیر",
+    "earnType": "normal",
+    "hasVideo": true,
+    "audioUrl": "",
+    "coverUrl": "",
+    "links": [
+      { "name": "Instagram", "icon": "📷", "color": "#E1306C", "followers": "2.1M", "url": "" },
+      { "name": "Telegram",  "icon": "✈️", "color": "#229ED9", "followers": "480K", "url": "" }
+    ]
+  }
+]

@@ -1,0 +1,2103 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#08080f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Vibe — گوش بده، Earn کن</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#08080f;--bg2:#0e0e1a;--bg3:#151525;--card:#111120;--card2:#191930;
+  --b1:rgba(255,255,255,.07);--b2:rgba(255,255,255,.13);
+  --tx:#ebebf5;--mu:#6868a0;--mu2:#9090c0;
+  --pu:#a78bfa;--pu2:#7c3aed;--pu3:#4c1d95;
+  --gr:#34d399;--gr2:#065f46;
+  --pk:#f472b6;--am:#fbbf24;--re:#f87171;--bl:#60a5fa;
+  --r:12px;--r2:18px;
+}
+html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmatn',sans-serif;overflow:hidden;-webkit-tap-highlight-color:transparent;user-select:none}
+.app{display:flex;flex-direction:column;height:100vh;max-width:430px;margin:0 auto;background:var(--bg)}
+/* HEADER */
+.hdr{padding:11px 16px 9px;display:flex;align-items:center;justify-content:space-between;border-bottom:.5px solid var(--b1);background:var(--bg2);flex-shrink:0}
+.logo{font-size:21px;font-weight:900;letter-spacing:-1px}.logo em{color:var(--pu);font-style:normal}
+.hdr-r{display:flex;align-items:center;gap:7px}
+.pill{display:flex;align-items:center;gap:4px;border-radius:20px;padding:4px 10px;font-size:12px;font-weight:500;border:.5px solid}
+.pill.xp{background:rgba(124,58,237,.12);border-color:rgba(167,139,250,.25);color:var(--pu)}
+.pill.co{background:rgba(251,191,36,.1);border-color:rgba(251,191,36,.22);color:var(--am)}
+.hbtn{background:none;border:none;cursor:pointer;color:var(--mu);font-size:21px;padding:2px;position:relative}
+.ndot{position:absolute;top:0;right:0;width:6px;height:6px;background:var(--re);border-radius:50%;border:1.5px solid var(--bg2);display:none}
+.ndot.on{display:block}
+/* OFFLINE */
+.offbar{background:rgba(248,113,113,.09);border-bottom:.5px solid rgba(248,113,113,.2);padding:5px 14px;font-size:11px;color:var(--re);display:none;align-items:center;gap:7px;flex-shrink:0}
+.offbar.on{display:flex}
+/* NAV */
+.nav{display:flex;border-top:.5px solid var(--b1);background:var(--bg2);flex-shrink:0}
+.nb{flex:1;padding:8px 0 5px;background:none;border:none;cursor:pointer;color:var(--mu);display:flex;flex-direction:column;align-items:center;gap:3px;font-family:'Vazirmatn',sans-serif;transition:color .12s;position:relative}
+.nb i{font-size:19px}.nb s{font-size:9px;text-decoration:none}.nb.on{color:var(--pu)}
+.nbadge{position:absolute;top:4px;right:calc(50% - 14px);min-width:16px;height:16px;border-radius:8px;font-size:9px;color:#fff;display:none;align-items:center;justify-content:center;padding:0 3px;border:1.5px solid var(--bg2)}
+.nbadge.on{display:flex}
+/* CONTENT */
+.content{flex:1;overflow:hidden;position:relative}
+.page{position:absolute;inset:0;overflow-y:auto;display:none;padding-bottom:4px}
+.page.on{display:block}
+.page::-webkit-scrollbar{width:2px}.page::-webkit-scrollbar-thumb{background:var(--b2);border-radius:2px}
+/* SHARED */
+.sec{padding:13px 16px 7px;font-size:10px;font-weight:600;color:var(--mu);letter-spacing:1.1px;text-transform:uppercase}
+.bsp{height:90px}
+.chips{display:flex;gap:7px;padding:8px 14px 6px;overflow-x:auto;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{padding:5px 13px;border-radius:20px;border:.5px solid var(--b2);font-size:12px;cursor:pointer;white-space:nowrap;background:var(--bg3);color:var(--mu);transition:all .13s;flex-shrink:0;font-family:'Vazirmatn',sans-serif}
+.chip.on{background:var(--pu2);border-color:var(--pu);color:#fff}
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:0 14px 14px}
+.sbox{background:var(--card);border:.5px solid var(--b1);border-radius:var(--r);padding:13px}
+.slbl{font-size:10px;color:var(--mu)}.sval{font-size:20px;font-weight:700;margin-top:4px}
+/* TOGGLE */
+.stgl{position:relative;display:inline-block;width:40px;height:22px}
+.stgl input{opacity:0;width:0;height:0;position:absolute}
+.stgl-s{position:absolute;inset:0;background:var(--bg3);border-radius:11px;cursor:pointer;transition:background .2s;border:.5px solid var(--b2)}
+.stgl-s:before{content:'';position:absolute;height:16px;width:16px;left:2px;bottom:2px;background:var(--mu);border-radius:50%;transition:all .2s}
+.stgl input:checked+.stgl-s{background:var(--pu2);border-color:var(--pu2)}
+.stgl input:checked+.stgl-s:before{transform:translateX(18px);background:#fff}
+/* TRACK CARD */
+.tc{margin:0 14px 10px;border-radius:var(--r2);background:var(--card);border:.5px solid var(--b1);overflow:hidden;transition:border-color .12s}
+.tc:hover{border-color:var(--b2)}
+.tctop{display:flex;align-items:center;gap:11px;padding:13px 13px 7px}
+.tccov{width:52px;height:52px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:22px;background:var(--bg3);overflow:hidden;position:relative}
+.tccov img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;border-radius:10px}
+.tcinfo{flex:1;min-width:0}
+.tct{font-size:14px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tca{font-size:12px;color:var(--mu);margin-top:2px;cursor:pointer;display:inline-flex;align-items:center;gap:4px}
+.tca:hover{color:var(--pu)}
+.tcm{display:flex;gap:5px;margin-top:5px;align-items:center;flex-wrap:wrap}
+.bdg{font-size:10px;padding:2px 7px;border-radius:8px;font-weight:500}
+.bhot{background:rgba(248,113,113,.13);color:var(--re)}.bnew{background:rgba(52,211,153,.13);color:var(--gr)}
+.bsp2{background:rgba(96,165,250,.13);color:var(--bl)}.bsp{background:rgba(251,191,36,.13);color:var(--am)}
+.bmv{background:rgba(248,113,113,.13);color:var(--re);cursor:pointer}
+/* WAVEFORM */
+.wvwrap{height:30px;padding:0 13px 5px;display:flex;align-items:center;gap:1.5px;cursor:pointer}
+.wvb{flex:1;border-radius:1.5px;background:rgba(255,255,255,.09);transition:background .05s}
+.wvb.p{background:var(--pu)}.wvb.c{background:var(--pu);animation:wvp .5s ease infinite alternate}
+@keyframes wvp{from{opacity:.5}to{opacity:1}}
+.tprog{height:2px;background:var(--bg3);margin:0 13px 7px;border-radius:1px;cursor:pointer;overflow:hidden}
+.tpfill{height:100%;background:var(--pu);width:0%;transition:width .3s}
+/* ACTIONS */
+.tcacts{display:flex;align-items:center;padding:0 9px 9px;gap:2px}
+.abtn{background:none;border:none;cursor:pointer;color:var(--mu);font-size:21px;padding:5px;border-radius:8px;transition:color .1s,background .1s}
+.abtn:hover{background:var(--bg3);color:var(--tx)}
+.abtn.liked{color:var(--pk)}.abtn.saved{color:var(--pu)}.abtn.cached{color:var(--gr)}
+.pbtn{margin-right:auto;width:35px;height:35px;border-radius:50%;background:var(--pu2);border:none;cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;transition:transform .1s,background .15s}
+.pbtn:active{transform:scale(.9)}.pbtn.on{background:var(--gr2);border:1.5px solid var(--gr);color:var(--gr)}
+/* EARN */
+.erow{margin:0 13px 10px;display:flex;align-items:center;gap:7px;background:rgba(251,191,36,.05);border:.5px solid rgba(251,191,36,.18);border-radius:8px;padding:6px 11px}
+.erow span{font-size:11px;color:var(--am)}
+.erow.early{background:rgba(52,211,153,.05);border-color:rgba(52,211,153,.18)}.erow.early span{color:var(--gr)}
+/* AFBAR */
+.afbar{margin:6px 14px 4px;display:flex;align-items:center;gap:7px;background:rgba(52,211,153,.06);border:.5px solid rgba(52,211,153,.2);border-radius:8px;padding:5px 12px}
+.afdot{width:6px;height:6px;background:var(--gr);border-radius:50%;flex-shrink:0;animation:afp 2s infinite}
+@keyframes afp{0%,100%{opacity:1}50%{opacity:.3}}
+.afbar span{font-size:11px;color:var(--gr)}
+/* VIDEO PAGE */
+.vc{margin:0 14px 14px;border-radius:var(--r2);background:var(--card);border:.5px solid var(--b1);overflow:hidden;cursor:pointer;transition:border-color .12s}
+.vc:hover{border-color:var(--b2)}
+.vthumb{height:190px;position:relative;overflow:hidden}
+.vtcenter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.vtpbtn{width:52px;height:52px;border-radius:50%;background:rgba(0,0,0,.5);backdrop-filter:blur(6px);border:1.5px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;color:#fff;transition:transform .15s}
+.vc:hover .vtpbtn{transform:scale(1.08)}
+.vcinfo{padding:12px 13px 13px}
+.vct{font-size:14px;font-weight:500}.vca{font-size:12px;color:var(--mu);margin-top:3px}
+.vcmeta{display:flex;align-items:center;gap:8px;margin-top:7px}
+/* VIDEO PLAYER */
+.vov{position:fixed;inset:0;background:#000;z-index:80;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .25s}
+.vov.on{opacity:1;pointer-events:all}
+.vhdr{display:flex;align-items:center;gap:10px;padding:12px 14px;background:linear-gradient(to bottom,rgba(0,0,0,.8),transparent);position:absolute;top:0;left:0;right:0;z-index:2}
+.vback{background:none;border:none;cursor:pointer;color:#fff;font-size:22px;padding:4px}
+.vtitle{flex:1;font-size:14px;font-weight:500;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.vcbdg{background:rgba(251,191,36,.2);border:.5px solid rgba(251,191,36,.4);border-radius:12px;padding:4px 10px;font-size:11px;color:var(--am);white-space:nowrap}
+.vscreen{width:100%;flex:1;display:flex;align-items:center;justify-content:center;background:#000;position:relative;cursor:pointer}
+.vscreen video{width:100%;height:100%;object-fit:contain;display:none}
+.vscreen canvas{width:100%;height:100%;display:block}
+.vpov{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.35);transition:opacity .2s}
+.vpov.hide{opacity:0;pointer-events:none}
+.vpicobox{width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.15);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;font-size:26px;color:#fff;border:1.5px solid rgba(255,255,255,.3)}
+.vbottom{padding:12px 14px 20px;background:linear-gradient(to top,rgba(0,0,0,.85),transparent);position:absolute;bottom:0;left:0;right:0}
+.vpbar{height:4px;background:rgba(255,255,255,.2);border-radius:2px;cursor:pointer;margin-bottom:10px}
+.vpfill{height:100%;background:var(--re);border-radius:2px;transition:width .3s}
+.vctrl{display:flex;align-items:center;gap:12px}
+.vcbtn{background:none;border:none;cursor:pointer;color:#fff;font-size:22px;padding:3px}
+.vcbtn.main{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.15);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;font-size:20px;border:1px solid rgba(255,255,255,.25)}
+.vtime{font-size:12px;color:rgba(255,255,255,.7);flex:1;text-align:center}
+.verow{background:rgba(251,191,36,.15);border:.5px solid rgba(251,191,36,.3);border-radius:8px;padding:6px 12px;display:flex;align-items:center;gap:7px;margin-top:10px}
+.verow span{font-size:11px;color:var(--am)}
+/* LOCAL */
+.dropzone{margin:12px 14px;border-radius:var(--r2);border:1.5px dashed var(--b2);background:var(--card);padding:22px 20px;text-align:center;cursor:pointer;transition:all .15s;position:relative}
+.dropzone.dov{border-color:var(--pu);background:rgba(124,58,237,.08)}
+.dropzone i{font-size:36px;color:var(--mu);display:block;margin-bottom:8px}
+.dropzone p{font-size:13px;color:var(--mu);line-height:1.6}
+.dropzone b{color:var(--pu)}
+.dropzone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer}
+.lsrch{padding:8px 14px 4px;position:relative}
+.lsinp{width:100%;padding:10px 40px 10px 14px;border-radius:var(--r);background:var(--card);border:.5px solid var(--b2);color:var(--tx);font-size:13px;font-family:'Vazirmatn',sans-serif;outline:none;transition:border-color .15s}
+.lsinp:focus{border-color:rgba(167,139,250,.4)}.lsinp::placeholder{color:var(--mu)}
+.ltabs{display:flex;gap:0;margin:4px 14px 0;border-radius:var(--r);overflow:hidden;border:.5px solid var(--b2)}
+.ltab{flex:1;padding:8px;background:var(--bg3);color:var(--mu);border:none;cursor:pointer;font-family:'Vazirmatn',sans-serif;font-size:12px;font-weight:500;transition:all .13s}
+.ltab.on{background:var(--pu2);color:#fff}
+.lhdr{display:flex;align-items:center;justify-content:space-between;padding:8px 16px 6px}
+.lhlbl{font-size:10px;font-weight:600;color:var(--mu);letter-spacing:1.1px;text-transform:uppercase}
+.lhtool{background:none;border:none;cursor:pointer;color:var(--mu);font-size:12px;font-family:'Vazirmatn',sans-serif;display:flex;align-items:center;gap:4px;padding:4px 8px;border-radius:8px;transition:background .12s}
+.lhtool:hover{background:var(--bg3);color:var(--tx)}
+.ltc{margin:0 14px 7px;border-radius:var(--r);background:var(--card);border:.5px solid var(--b1);padding:10px 12px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:border-color .12s}
+.ltc:hover{border-color:var(--b2)}.ltc.pl{border-color:rgba(52,211,153,.4);background:rgba(52,211,153,.03)}
+.lcov{width:44px;height:44px;border-radius:9px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:18px;background:var(--bg3);overflow:hidden;position:relative}
+.lcov img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.linf{flex:1;min-width:0}
+.lt2{font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.la2{font-size:11px;color:var(--mu);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ldur{font-size:10px;color:var(--mu);flex-shrink:0}
+.lpbtn{width:30px;height:30px;border-radius:50%;background:none;border:.5px solid var(--b2);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--mu);font-size:13px;flex-shrink:0;transition:all .12s}
+.lpbtn:hover{background:var(--pu2);border-color:transparent;color:#fff}
+.lpbtn.on{background:var(--gr2);border-color:var(--gr);color:var(--gr)}
+.cachecard{margin:0 14px 8px;border-radius:var(--r);background:var(--card);border:.5px solid rgba(52,211,153,.2);padding:10px 12px;display:flex;align-items:center;gap:10px;cursor:pointer}
+.empty{text-align:center;padding:36px 20px;color:var(--mu)}
+.empty i{font-size:42px;display:block;margin-bottom:10px;opacity:.25}
+.empty p{font-size:13px;line-height:1.6}
+/* WALLET */
+.whero{margin:12px 14px;border-radius:var(--r2);background:linear-gradient(135deg,var(--pu3),#1a0a3d);border:.5px solid rgba(124,58,237,.4);padding:20px;position:relative;overflow:hidden}
+.whero::after{content:'';position:absolute;top:-40px;right:-40px;width:150px;height:150px;background:radial-gradient(circle,rgba(124,58,237,.2),transparent 70%);pointer-events:none}
+.wbtns{display:flex;gap:9px;margin-top:14px}
+.wbtn{flex:1;padding:9px;border-radius:10px;border:.5px solid rgba(167,139,250,.35);background:rgba(124,58,237,.13);color:var(--pu);font-size:13px;cursor:pointer;font-family:'Vazirmatn',sans-serif;transition:background .12s}
+.wbtn:hover{background:rgba(124,58,237,.22)}.wbtn.sol{background:var(--pu2);color:#fff;border-color:transparent}
+.txlist{margin:0 14px;background:var(--card);border:.5px solid var(--b1);border-radius:var(--r2);overflow:hidden}
+.txi{display:flex;align-items:center;gap:10px;padding:11px 13px;border-bottom:.5px solid var(--b1)}
+.txi:last-child{border-bottom:none}
+.txic{width:35px;height:35px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.txic.e{background:rgba(251,191,36,.12);color:var(--am)}.txic.b{background:rgba(52,211,153,.12);color:var(--gr)}.txic.sp{background:rgba(124,58,237,.12);color:var(--pu)}
+.txd{font-size:10px;color:var(--mu);margin-top:1px}
+.txa{font-size:13px;font-weight:600;flex-shrink:0}.pos{color:var(--gr)}.neg{color:var(--re)}
+/* MISSIONS */
+.mcard{margin:0 14px 9px;border-radius:var(--r2);background:var(--card);border:.5px solid var(--b1);padding:12px 13px;display:flex;align-items:center;gap:11px;transition:opacity .3s}
+.mcard.done{opacity:.4}
+.mico{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;background:rgba(124,58,237,.13);color:var(--pu)}
+.mico.a{background:rgba(251,191,36,.12);color:var(--am)}.mico.g{background:rgba(52,211,153,.12);color:var(--gr)}.mico.p{background:rgba(244,114,182,.12);color:var(--pk)}
+.mbod{flex:1;min-width:0}
+.mt3{font-size:13px;font-weight:500}.ms2{font-size:11px;color:var(--mu);margin-top:2px}
+.prog{height:4px;background:var(--bg3);border-radius:2px;margin-top:7px;overflow:hidden}
+.pf{height:100%;border-radius:2px;transition:width .4s}
+.mrew{font-size:13px;font-weight:600;color:var(--am);flex-shrink:0}
+/* PROFILE */
+.phero{padding:22px 16px 14px;text-align:center}
+.pava{width:76px;height:76px;border-radius:50%;margin:0 auto 11px;display:flex;align-items:center;justify-content:center;font-size:30px;border:2px solid rgba(167,139,250,.35);background:radial-gradient(circle,rgba(124,58,237,.3),rgba(76,29,149,.5))}
+.pname{font-size:20px;font-weight:700}.phdl{font-size:13px;color:var(--mu);margin-top:3px}
+.plvl{display:inline-flex;align-items:center;gap:5px;margin-top:9px;background:rgba(124,58,237,.12);border:.5px solid rgba(167,139,250,.28);border-radius:20px;padding:5px 14px;font-size:12px;color:var(--pu)}
+.xpsec{padding:0 16px 14px}
+.xprow{display:flex;justify-content:space-between;font-size:11px;color:var(--mu);margin-bottom:5px}
+.xpbar{height:6px;background:var(--bg3);border-radius:3px;overflow:hidden}
+.xpfill{height:100%;background:var(--pu);border-radius:3px;transition:width .5s}
+.brow{display:flex;gap:8px;padding:4px 16px 14px;overflow-x:auto;scrollbar-width:none}
+.brow::-webkit-scrollbar{display:none}
+.bcard{background:var(--card);border:.5px solid var(--b1);border-radius:10px;padding:11px 10px;text-align:center;flex-shrink:0;min-width:68px}
+.bcard.earn{border-color:rgba(167,139,250,.28)}.bcard.lock{opacity:.3}
+.bcard i{font-size:22px;color:var(--pu)}.bname{font-size:10px;color:var(--mu);margin-top:4px}
+/* QUICK MENU */
+.qmitem{display:flex;align-items:center;gap:11px;padding:13px 14px;border-bottom:.5px solid var(--b1);cursor:pointer;background:var(--card);transition:background .1s}
+.qmitem:hover{background:var(--card2)}.qmitem:last-child{border-bottom:none}
+.qmico{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+/* DISCOVER */
+.srchwrap{padding:10px 14px 6px;position:relative}
+.srchinp{width:100%;padding:10px 40px 10px 14px;border-radius:var(--r);background:var(--card);border:.5px solid var(--b2);color:var(--tx);font-size:13px;font-family:'Vazirmatn',sans-serif;outline:none;transition:border-color .15s}
+.srchinp:focus{border-color:rgba(167,139,250,.4)}.srchinp::placeholder{color:var(--mu)}
+.tgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:4px 14px 12px}
+.tcard{border-radius:var(--r2);border:.5px solid var(--b1);padding:13px;cursor:pointer;transition:border-color .12s,transform .1s;position:relative;overflow:hidden}
+.tcard:hover{border-color:var(--b2)}.tcard:active{transform:scale(.97)}
+.trank{font-size:34px;font-weight:900;opacity:.07;position:absolute;top:2px;right:8px;line-height:1}
+.ggrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:4px 14px 14px}
+.gcard{border-radius:var(--r);padding:12px 8px;text-align:center;cursor:pointer;border:.5px solid var(--b1);transition:all .13s}
+.gcard:hover{border-color:var(--b2);transform:scale(.98)}
+.gcard i{font-size:22px;display:block;margin-bottom:5px}
+.gname{font-size:12px;font-weight:500}.gcnt{font-size:10px;color:var(--mu);margin-top:2px}
+.achips{display:flex;gap:12px;padding:4px 14px 12px;overflow-x:auto;scrollbar-width:none}
+.achips::-webkit-scrollbar{display:none}
+.achip{display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;flex-shrink:0}
+.achipava{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;border:1.5px solid var(--b2);transition:border-color .13s}
+.achipava.f{border-color:var(--pu)}
+.achipname{font-size:11px;color:var(--mu);transition:color .13s}.achipname.f{color:var(--pu)}
+.srid{display:flex;align-items:center;gap:11px;padding:11px 14px;border-bottom:.5px solid var(--b1);cursor:pointer;transition:background .1s}
+.srid:hover{background:var(--card)}.srid:last-child{border-bottom:none}
+.srbdg{font-size:10px;padding:2px 7px;border-radius:8px;flex-shrink:0}
+.srbdg.t{background:rgba(167,139,250,.12);color:var(--pu)}.srbdg.a{background:rgba(52,211,153,.12);color:var(--gr)}
+/* ARTIST */
+.apcover{height:160px;position:relative;overflow:hidden}
+.apcoverbg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:80px;opacity:.12}
+.aprow{padding:14px 14px 10px;display:flex;align-items:flex-start;gap:12px}
+.apava{width:68px;height:68px;border-radius:50%;border:2.5px solid var(--bg);display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;margin-top:-34px}
+.apmeta{flex:1}
+.apname{font-size:18px;font-weight:700}.aphdl{font-size:12px;color:var(--mu);margin-top:2px}
+.apvtag{display:inline-flex;align-items:center;gap:4px;background:rgba(52,211,153,.1);border:.5px solid rgba(52,211,153,.25);border-radius:20px;padding:3px 10px;font-size:10px;color:var(--gr);margin-top:6px}
+.apstats{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin:4px 14px 14px;background:var(--card);border:.5px solid var(--b1);border-radius:var(--r2);overflow:hidden}
+.apstat{padding:12px 8px;text-align:center;border-left:.5px solid var(--b1)}
+.apstat:last-child{border-left:none}
+.apstatv{font-size:18px;font-weight:700;color:var(--pu)}.apstatl{font-size:10px;color:var(--mu);margin-top:2px}
+.apfbtn{margin:0 14px 14px;padding:12px;border-radius:var(--r2);width:calc(100% - 28px);border:none;font-size:14px;font-weight:600;cursor:pointer;font-family:'Vazirmatn',sans-serif;transition:all .15s}
+.apfbtn.f{background:var(--pu2);color:#fff}.apfbtn.uf{background:var(--bg3);color:var(--mu);border:.5px solid var(--b2)}
+.aplinkrow{display:flex;gap:9px;padding:4px 14px 14px;overflow-x:auto;scrollbar-width:none}
+.aplinkrow::-webkit-scrollbar{display:none}
+.aplinkchip{display:flex;align-items:center;gap:6px;padding:7px 12px;border-radius:20px;border:.5px solid var(--b2);background:var(--card);font-size:12px;cursor:pointer;white-space:nowrap;flex-shrink:0;transition:border-color .12s}
+.aplinkchip:hover{border-color:var(--b3)}
+/* PLAYLIST */
+.plcard{margin:0 14px 10px;border-radius:var(--r2);background:var(--card);border:.5px solid var(--b1);overflow:hidden;cursor:pointer;transition:border-color .12s}
+.plcard:hover{border-color:var(--b2)}
+.pltop{height:100px;position:relative;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}
+.plcell{display:flex;align-items:center;justify-content:center;font-size:22px}
+.ploverlay{position:absolute;inset:0;background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center}
+.plplay{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px}
+.plbody{padding:11px 13px}
+.plname{font-size:14px;font-weight:500}.plmeta{font-size:11px;color:var(--mu);margin-top:3px}
+.pltk{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:.5px solid var(--b1);cursor:pointer;transition:background .1s}
+.pltk:hover{background:var(--bg3)}.pltk:last-child{border-bottom:none}
+.plnum{width:20px;text-align:center;font-size:12px;color:var(--mu);flex-shrink:0}
+/* NOTIFICATIONS */
+.nitem{display:flex;align-items:flex-start;gap:11px;padding:13px 14px;border-bottom:.5px solid var(--b1);cursor:pointer;transition:background .1s;position:relative}
+.nitem:hover{background:rgba(255,255,255,.02)}.nitem.unr{background:rgba(167,139,250,.04)}
+.nudot{position:absolute;top:16px;left:14px;width:7px;height:7px;background:var(--pu);border-radius:50%}
+.nico{width:40px;height:40px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:18px}
+.nbody{flex:1;min-width:0}
+.ntitle{font-size:13px;font-weight:500;line-height:1.4}
+.nsub{font-size:11px;color:var(--mu);margin-top:3px}
+.ntime{font-size:10px;color:var(--mu);margin-top:4px}
+.nact{padding:4px 12px;border-radius:8px;border:none;font-size:11px;cursor:pointer;font-family:'Vazirmatn',sans-serif;margin-top:6px;display:inline-block;background:rgba(167,139,250,.13);color:var(--pu)}
+/* SETTINGS */
+.stitem{display:flex;align-items:center;gap:12px;padding:13px 14px;background:var(--card);border-bottom:.5px solid var(--b1);cursor:pointer;transition:background .1s}
+.stitem:hover{background:var(--card2)}.stitem:last-child{border-bottom:none}
+.stico{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.stlbl{flex:1}.sttitle{font-size:13px;font-weight:500}.stsub{font-size:11px;color:var(--mu);margin-top:2px}
+/* LEADERBOARD */
+.lbpodium{display:flex;align-items:flex-end;justify-content:center;gap:8px;padding:20px 14px 16px}
+.lbpod{display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;max-width:100px}
+.lbpava{border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;border:2px solid var(--b2)}
+.lbpod.f .lbpava{width:64px;height:64px;border-color:var(--am)}
+.lbpod.s .lbpava{width:52px;height:52px;border-color:var(--mu2)}
+.lbpod.t .lbpava{width:48px;height:48px;border-color:rgba(205,127,50,.6)}
+.lbpname{font-size:11px;font-weight:500;text-align:center}.lbpcoin{font-size:11px;color:var(--am)}
+.lbpbar{width:100%;border-radius:6px 6px 0 0}
+.lbpod.f .lbpbar{height:60px;background:rgba(251,191,36,.2)}
+.lbpod.s .lbpbar{height:44px;background:rgba(144,144,184,.15)}
+.lbpod.t .lbpbar{height:34px;background:rgba(205,127,50,.12)}
+.lbitem{display:flex;align-items:center;gap:11px;padding:11px 14px;border-bottom:.5px solid var(--b1);transition:background .1s}
+.lbitem:hover{background:rgba(255,255,255,.02)}.lbitem.me{background:rgba(167,139,250,.06)}
+.lbrank{width:28px;text-align:center;font-size:14px;font-weight:700;flex-shrink:0}
+.lbava{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;background:var(--bg3)}
+.lbinf{flex:1}.lbname{font-size:13px;font-weight:500}.lblvl{font-size:10px;color:var(--mu);margin-top:2px}
+.lbcoin{font-size:13px;font-weight:600;color:var(--am);flex-shrink:0}
+.lbtabs{display:flex;gap:0;margin:6px 14px;border-radius:var(--r);overflow:hidden;border:.5px solid var(--b2)}
+.lbtab{flex:1;padding:8px;background:var(--bg3);color:var(--mu);border:none;cursor:pointer;font-family:'Vazirmatn',sans-serif;font-size:12px;font-weight:500;transition:all .13s}
+.lbtab.on{background:var(--pu2);color:#fff}
+/* QUEUE */
+.qnow{margin:12px 14px;border-radius:var(--r2);background:linear-gradient(135deg,var(--pu3),#0a0a1f);border:.5px solid rgba(167,139,250,.3);padding:16px;display:flex;align-items:center;gap:12px}
+.qncov{width:52px;height:52px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;overflow:hidden;position:relative}
+.qncov img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.qnlbl{font-size:10px;color:var(--pu);letter-spacing:.5px;margin-bottom:3px}
+.qntitle{font-size:15px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.qnartist{font-size:12px;color:var(--mu)}
+.qitem{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:.5px solid var(--b1);cursor:pointer;transition:background .1s}
+.qitem:hover{background:rgba(255,255,255,.02)}
+/* MINI PLAYER */
+.mini{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;z-index:40;background:var(--bg2);border-top:.5px solid var(--b2);transition:transform .3s}
+.mini.hide{transform:translateX(-50%) translateY(100%)}
+.mprog{height:3px;background:var(--bg3);cursor:pointer}
+.mpfill{height:100%;background:var(--pu);width:0%;transition:width .3s}
+.mpfill.loc{background:var(--am)}
+.mbody{display:flex;align-items:center;gap:10px;padding:9px 14px 6px}
+.mcov{width:40px;height:40px;border-radius:9px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:19px;overflow:hidden;background:var(--bg3);position:relative}
+.mcov img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;border-radius:9px}
+.minf{flex:1;min-width:0}
+.mt4{font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ma4{font-size:11px;color:var(--mu);margin-top:1px}
+.mbdg{font-size:9px;padding:1px 7px;border-radius:6px;margin-top:2px;display:inline-block}
+.mbdg.online{background:rgba(167,139,250,.14);color:var(--pu)}.mbdg.local{background:rgba(251,191,36,.14);color:var(--am)}.mbdg.cached{background:rgba(52,211,153,.14);color:var(--gr)}
+.mctrl{display:flex;align-items:center;gap:6px}
+.mcbtn{background:none;border:none;cursor:pointer;color:var(--mu);font-size:22px;padding:2px;transition:color .1s}
+.mcbtn:hover{color:var(--tx)}
+.mplay{width:34px;height:34px;background:var(--pu2);border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;transition:background .12s}
+.mplay.loc{background:#78350f}
+.mextra{display:flex;align-items:center;gap:4px;padding:0 12px 10px}
+.mxbtn{background:none;border:none;cursor:pointer;color:var(--mu);font-size:12px;font-family:'Vazirmatn',sans-serif;padding:4px 8px;border-radius:7px;display:flex;align-items:center;gap:4px;transition:all .12s}
+.mxbtn:hover{background:var(--bg3);color:var(--tx)}.mxbtn.on{color:var(--pu)}
+.mxbtn i{font-size:13px}
+/* OVERLAY */
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:50;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s}
+.ov.on{opacity:1;pointer-events:all}
+.sheet{width:100%;max-width:430px;background:var(--bg2);border-radius:20px 20px 0 0;border-top:.5px solid var(--b2);padding:20px 20px 44px;transform:translateY(40px);transition:transform .25s ease}
+.ov.on .sheet{transform:translateY(0)}
+.shh{width:38px;height:4px;background:var(--b2);border-radius:2px;margin:0 auto 16px}
+.sht{font-size:16px;font-weight:600;margin-bottom:14px}
+.shf{margin-bottom:13px}.shl{font-size:11px;color:var(--mu);margin-bottom:6px}
+.shi{width:100%;padding:11px 13px;border-radius:var(--r);border:.5px solid var(--b2);background:var(--bg3);color:var(--tx);font-size:14px;font-family:'Vazirmatn',sans-serif;outline:none;transition:border-color .13s}
+.shi:focus{border-color:rgba(167,139,250,.4)}
+.shbtn{width:100%;padding:13px;border-radius:var(--r2);border:none;background:var(--pu2);color:#fff;font-size:14px;font-weight:600;cursor:pointer;font-family:'Vazirmatn',sans-serif}
+/* CONFIRM */
+.cf{position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:60;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s}
+.cf.on{opacity:1;pointer-events:all}
+.cfbox{background:var(--bg2);border-radius:var(--r2);border:.5px solid var(--b2);padding:24px;max-width:300px;width:calc(100% - 40px);text-align:center}
+.cft{font-size:15px;font-weight:600;margin-bottom:8px}.cfm{font-size:13px;color:var(--mu);line-height:1.6;margin-bottom:18px}
+.cfbtns{display:flex;gap:10px}
+.cfbtn{flex:1;padding:11px;border-radius:var(--r);border:none;font-size:13px;cursor:pointer;font-family:'Vazirmatn',sans-serif;font-weight:500}
+.cfbtn.no{background:var(--bg3);color:var(--mu)}.cfbtn.ok{background:var(--pu2);color:#fff}.cfbtn.red{background:rgba(248,113,113,.15);color:var(--re)}
+/* TOAST */
+.twrap{position:fixed;top:60px;left:0;right:0;display:flex;justify-content:center;z-index:100;pointer-events:none}
+.toast{background:var(--card2);border:.5px solid rgba(167,139,250,.3);border-radius:20px;padding:7px 18px;font-size:12px;color:var(--pu);max-width:90%;animation:tIn .2s ease,tOut .2s ease 1.7s forwards}
+@keyframes tIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes tOut{to{opacity:0}}
+/* SPIN */
+.spin{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.2);border-top-color:#fff;border-radius:50%;animation:sp .7s linear infinite;vertical-align:middle}
+@keyframes sp{to{transform:rotate(360deg)}}
+/* LOADING */
+#loading-screen{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;transition:opacity .4s}
+#loading-screen.hide{opacity:0;pointer-events:none}
+.load-logo{font-size:52px;font-weight:900;letter-spacing:-3px;margin-bottom:12px}
+.load-logo em{color:var(--pu);font-style:normal}
+.load-bar{width:120px;height:3px;background:var(--bg3);border-radius:2px;overflow:hidden;margin-top:24px}
+.load-fill{height:100%;background:var(--pu);border-radius:2px;animation:lf 1.5s ease-in-out forwards}
+@keyframes lf{from{width:0}to{width:100%}}
+</style>
+</head>
+<body>
+
+<!-- Loading Screen -->
+<div id="loading-screen">
+  <div class="load-logo">vi<em>be</em></div>
+  <div style="font-size:13px;color:var(--mu)">گوش بده — Earn کن</div>
+  <div class="load-bar"><div class="load-fill"></div></div>
+</div>
+
+<div class="app">
+  <div class="offbar" id="offbar"><i class="ti ti-wifi-off" style="font-size:14px"></i><span>آفلاین — موزیک Local در دسترسه</span></div>
+  <div class="hdr">
+    <div class="logo">vi<em>be</em></div>
+    <div class="hdr-r">
+      <div class="pill xp"><i class="ti ti-bolt" style="font-size:12px"></i><span id="hxp">0</span></div>
+      <div class="pill co"><i class="ti ti-coin" style="font-size:12px"></i><span id="hco">0</span></div>
+      <button class="hbtn" onclick="navPage('notifs')"><i class="ti ti-bell"></i><div class="ndot" id="notif-ndot"></div></button>
+    </div>
+  </div>
+  <div class="content">
+
+    <!-- FEED -->
+    <div class="page on" id="pg-feed">
+      <div class="chips">
+        <div class="chip on" onclick="chip(this,'all')">همه</div>
+        <div class="chip" onclick="chip(this,'Rap')">🎤 Rap</div>
+        <div class="chip" onclick="chip(this,'Trap')">🔥 Trap</div>
+        <div class="chip" onclick="chip(this,'R&B')">💜 R&B</div>
+        <div class="chip" onclick="chip(this,'Pop')">🌊 Pop</div>
+        <div class="chip" onclick="chip(this,'Lo-Fi')">🌙 Lo-Fi</div>
+      </div>
+      <div class="afbar"><div class="afdot"></div><span>Anti-Fraud فعاله — Reward واقعی میگیری</span></div>
+      <div id="feed-list"></div>
+      <div id="feed-offline" style="display:none;text-align:center;padding:36px 20px;color:var(--mu)">
+        <i class="ti ti-wifi-off" style="font-size:44px;display:block;margin-bottom:12px;opacity:.25"></i>
+        <p style="font-size:13px;line-height:1.8">آفلاینی<br>برو <b style="color:var(--am)">Local</b> موزیک گوش بده</p>
+        <button onclick="navTo('local',document.querySelectorAll('.nb')[3])" style="margin-top:14px;padding:9px 20px;border-radius:var(--r2);background:var(--pu2);border:none;color:#fff;font-size:13px;cursor:pointer;font-family:'Vazirmatn',sans-serif">رفتن به Local Music</button>
+      </div>
+      <div class="bsp"></div>
+    </div>
+
+    <!-- VIDEO -->
+    <div class="page" id="pg-video">
+      <div style="padding:12px 14px 6px;display:flex;align-items:center;justify-content:space-between">
+        <div><div style="font-size:18px;font-weight:700">🎬 موزیک ویدیو</div><div style="font-size:11px;color:var(--mu);margin-top:3px">ویدیو ببین — Coin بیشتر بگیر</div></div>
+        <div class="pill" style="background:rgba(248,113,113,.1);border-color:rgba(248,113,113,.2);color:var(--re)"><i class="ti ti-brand-youtube" style="font-size:12px"></i><span id="vcount">0 ویدیو</span></div>
+      </div>
+      <div class="afbar" style="background:rgba(248,113,113,.06);border-color:rgba(248,113,113,.18)"><div class="afdot" style="background:var(--re)"></div><span style="color:var(--re)">تماشای کامل + صدا روشن = Reward</span></div>
+      <div id="video-list"></div>
+      <div id="video-offline" style="display:none;text-align:center;padding:36px 20px;color:var(--mu)">
+        <i class="ti ti-wifi-off" style="font-size:44px;display:block;margin-bottom:12px;opacity:.25"></i>
+        <p style="font-size:13px">آفلاینی — برای ویدیو اینترنت لازمه</p>
+      </div>
+      <div class="bsp"></div>
+    </div>
+
+    <!-- DISCOVER -->
+    <div class="page" id="pg-discover">
+      <div class="srchwrap">
+        <input class="srchinp" id="srch-inp" type="text" placeholder="جستجو: ترک، آرتیست..." oninput="onSearch(this.value)">
+        <i class="ti ti-search" style="position:absolute;left:26px;top:50%;transform:translateY(-50%);color:var(--mu);font-size:16px;pointer-events:none"></i>
+      </div>
+      <div id="srch-results" style="display:none"><div id="srch-list" style="background:var(--card);border:.5px solid var(--b1);border-radius:var(--r2);margin:4px 14px;overflow:hidden"></div><div class="bsp"></div></div>
+      <div id="disc-default">
+        <div class="sec">آرتیست‌ها</div>
+        <div class="achips" id="disc-artists"></div>
+        <div class="sec">ترندهای این هفته</div>
+        <div class="tgrid" id="disc-trending"></div>
+        <div class="sec">ژانرها</div>
+        <div class="ggrid">
+          <div class="gcard" style="background:rgba(124,58,237,.07);border-color:rgba(124,58,237,.2)" onclick="chip(document.querySelector('.chips .chip'),null);navTo('feed',document.querySelectorAll('.nb')[0])"><i class="ti ti-microphone-2" style="color:var(--pu)"></i><div class="gname" style="color:var(--pu)">Rap</div></div>
+          <div class="gcard" style="background:rgba(248,113,113,.06);border-color:rgba(248,113,113,.18)" onclick="navTo('feed',document.querySelectorAll('.nb')[0])"><i class="ti ti-flame" style="color:var(--re)"></i><div class="gname" style="color:var(--re)">Trap</div></div>
+          <div class="gcard" style="background:rgba(244,114,182,.06);border-color:rgba(244,114,182,.18)" onclick="navTo('feed',document.querySelectorAll('.nb')[0])"><i class="ti ti-heart" style="color:var(--pk)"></i><div class="gname" style="color:var(--pk)">R&B</div></div>
+          <div class="gcard" style="background:rgba(96,165,250,.06);border-color:rgba(96,165,250,.18)" onclick="navTo('feed',document.querySelectorAll('.nb')[0])"><i class="ti ti-star" style="color:var(--bl)"></i><div class="gname" style="color:var(--bl)">Pop</div></div>
+          <div class="gcard" style="background:rgba(52,211,153,.06);border-color:rgba(52,211,153,.18)" onclick="navTo('feed',document.querySelectorAll('.nb')[0])"><i class="ti ti-moon" style="color:var(--gr)"></i><div class="gname" style="color:var(--gr)">Lo-Fi</div></div>
+          <div class="gcard" style="background:rgba(251,191,36,.06);border-color:rgba(251,191,36,.18)" onclick="navTo('feed',document.querySelectorAll('.nb')[0])"><i class="ti ti-activity" style="color:var(--am)"></i><div class="gname" style="color:var(--am)">Electronic</div></div>
+        </div>
+        <div class="bsp"></div>
+      </div>
+    </div>
+
+    <!-- ARTIST PROFILE -->
+    <div class="page" id="pg-artist">
+      <div style="padding:10px 14px 0;display:flex;align-items:center;gap:10px">
+        <button onclick="navPage('discover')" style="background:none;border:none;cursor:pointer;color:var(--mu);font-size:20px"><i class="ti ti-arrow-right"></i></button>
+        <span style="font-size:14px;font-weight:600">پروفایل آرتیست</span>
+      </div>
+      <div class="apcover" id="apcover" style="background:linear-gradient(135deg,#1a0a3d,#000);margin-top:6px"><div class="apcoverbg" id="apemoji">🎤</div></div>
+      <div class="aprow">
+        <div class="apava" id="apava" style="background:radial-gradient(circle,#1a0a3d,#000)">🎤</div>
+        <div class="apmeta"><div class="apname" id="apname">—</div><div class="aphdl" id="aphdl">—</div><div class="apvtag"><i class="ti ti-check" style="font-size:11px"></i> تایید شده</div></div>
+      </div>
+      <div class="apstats"><div class="apstat"><div class="apstatv" id="apstr">—</div><div class="apstatl">استریم</div></div><div class="apstat"><div class="apstatv" id="apfol">—</div><div class="apstatl">فالوور</div></div><div class="apstat"><div class="apstatv" id="aptrs">—</div><div class="apstatl">ترک</div></div></div>
+      <button class="apfbtn f" id="apfbtn" onclick="toggleFollow()">+ دنبال کن</button>
+      <div class="sec">لینک‌ها</div>
+      <div class="aplinkrow" id="aplinkrow"></div>
+      <div class="sec">ترک‌ها</div>
+      <div id="aptracks"></div>
+      <div class="bsp"></div>
+    </div>
+
+    <!-- LOCAL -->
+    <div class="page" id="pg-local">
+      <div class="dropzone" id="dz" onclick="document.getElementById('finp').click()">
+        <i class="ti ti-music-plus"></i>
+        <p>فایل موزیک بکش اینجا یا کلیک کن<br><b>MP3, WAV, FLAC, OGG, M4A</b></p>
+        <input type="file" id="finp" accept="audio/*" multiple onchange="handleFiles(this.files)">
+      </div>
+      <div class="lsrch"><input class="lsinp" id="lsinp" type="text" placeholder="جستجو در کتابخانه..." oninput="filterLib(this.value)"><i class="ti ti-search" style="position:absolute;left:26px;top:50%;transform:translateY(-50%);color:var(--mu);font-size:16px;pointer-events:none"></i></div>
+      <div class="ltabs"><button class="ltab on" id="tab-local-btn" onclick="switchTab('local')"><i class="ti ti-music" style="vertical-align:-2px;font-size:14px"></i> Local (<span id="lcount">۰</span>)</button><button class="ltab" id="tab-cached-btn" onclick="switchTab('cached')"><i class="ti ti-cloud-download" style="vertical-align:-2px;font-size:14px"></i> Cached (<span id="ccount">۰</span>)</button></div>
+      <div id="tab-local-content">
+        <div class="lhdr"><div class="lhlbl" id="lib-count">۰ ترک</div><div style="display:flex;gap:8px"><button class="lhtool" onclick="shufflePlay()"><i class="ti ti-arrows-shuffle"></i>Shuffle</button><button class="lhtool" onclick="playAll()"><i class="ti ti-player-play"></i>پلی همه</button></div></div>
+        <div id="local-list"><div class="empty"><i class="ti ti-music"></i><p>هنوز موزیکی نداری<br>فایل بکش اینجا</p></div></div>
+      </div>
+      <div id="tab-cached-content" style="display:none">
+        <div class="lhdr"><div class="lhlbl">ذخیره برای آفلاین</div><div style="display:flex;gap:8px"><button class="lhtool" onclick="clearCache()"><i class="ti ti-trash"></i>پاک کردن</button></div></div>
+        <div id="cached-list"><div class="empty"><i class="ti ti-cloud-download"></i><p>هنوز ترکی ذخیره نکردی<br>از فید دکمه ⬇ بزن</p></div></div>
+      </div>
+      <div class="bsp"></div>
+    </div>
+
+    <!-- PLAYLIST -->
+    <div class="page" id="pg-playlist">
+      <div style="padding:14px 14px 8px;display:flex;align-items:center;justify-content:space-between">
+        <div style="font-size:18px;font-weight:700">پلی‌لیست‌ها</div>
+        <button onclick="createPlaylist()" style="background:rgba(167,139,250,.13);border:.5px solid rgba(167,139,250,.25);color:var(--pu);padding:6px 14px;border-radius:20px;font-size:12px;cursor:pointer;font-family:'Vazirmatn',sans-serif"><i class="ti ti-plus" style="vertical-align:-2px"></i> جدید</button>
+      </div>
+      <div id="pl-list"></div>
+      <div id="pl-detail" style="display:none">
+        <div style="padding:10px 14px;display:flex;align-items:center;gap:10px">
+          <button onclick="closePLDetail()" style="background:none;border:none;cursor:pointer;color:var(--mu);font-size:20px"><i class="ti ti-arrow-right"></i></button>
+          <div style="font-size:16px;font-weight:600;flex:1" id="pl-detail-name">—</div>
+          <button onclick="playPlaylist()" style="background:var(--pu2);border:none;border-radius:20px;color:#fff;padding:6px 16px;font-size:12px;cursor:pointer;font-family:'Vazirmatn',sans-serif"><i class="ti ti-player-play" style="vertical-align:-2px"></i> پلی همه</button>
+        </div>
+        <div id="pl-tracks" style="background:var(--card);border:.5px solid var(--b1);border-radius:var(--r2);margin:0 14px;overflow:hidden"></div>
+      </div>
+      <div class="bsp"></div>
+    </div>
+
+    <!-- LIKED -->
+    <div class="page" id="pg-liked">
+      <div style="padding:14px 14px 8px;display:flex;align-items:center;justify-content:space-between">
+        <div style="font-size:18px;font-weight:700">❤️ لایک‌شده‌ها</div>
+        <span id="liked-count" style="font-size:12px;color:var(--mu)">0 ترک</span>
+      </div>
+      <div id="liked-list"></div>
+      <div class="bsp"></div>
+    </div>
+
+    <!-- QUEUE -->
+    <div class="page" id="pg-queue">
+      <div style="padding:14px 14px 8px;display:flex;align-items:center;gap:10px">
+        <button onclick="navPage('feed')" style="background:none;border:none;cursor:pointer;color:var(--mu);font-size:20px"><i class="ti ti-arrow-right"></i></button>
+        <div style="font-size:18px;font-weight:700">📋 صف پخش</div>
+      </div>
+      <div class="qnow"><div class="qncov" id="qncov">🎵</div><div style="flex:1;min-width:0"><div class="qnlbl">در حال پخش</div><div class="qntitle" id="qntitle">چیزی پخش نمیشه</div><div class="qnartist" id="qnartist">—</div></div></div>
+      <div class="sec">بعدی در صف</div>
+      <div id="queue-list" style="background:var(--card);border:.5px solid var(--b1);border-radius:var(--r2);margin:0 14px;overflow:hidden"></div>
+      <div class="bsp"></div>
+    </div>
+
+    <!-- NOTIFICATIONS -->
+    <div class="page" id="pg-notifs">
+      <div style="padding:12px 14px 6px;display:flex;align-items:center;justify-content:space-between">
+        <div style="font-size:18px;font-weight:700">اعلان‌ها</div>
+        <button onclick="markAllRead()" style="background:none;border:none;cursor:pointer;color:var(--mu);font-size:12px;font-family:'Vazirmatn',sans-serif">همه خوانده شد</button>
+      </div>
+      <div id="notif-list" style="background:var(--card);border:.5px solid var(--b1);border-radius:var(--r2);margin:6px 14px 0;overflow:hidden"></div>
+      <div class="bsp"></div>
+    </div>
+
+    <!-- MISSIONS -->
+    <div class="page" id="pg-missions">
+      <div class="sec">ماموریت‌های امروز</div>
+      <div class="mcard" id="mc0"><div class="mico"><i class="ti ti-headphones"></i></div><div class="mbod"><div class="mt3">۵ ترک کامل گوش بده</div><div class="ms2" id="ms0">۰ از ۵</div><div class="prog"><div class="pf" id="mf0" style="width:0%;background:var(--pu)"></div></div></div><div class="mrew">+50 🪙</div></div>
+      <div class="mcard" id="mc1"><div class="mico p"><i class="ti ti-heart"></i></div><div class="mbod"><div class="mt3">۳ ترک لایک کن</div><div class="ms2" id="ms1">۰ از ۳</div><div class="prog"><div class="pf" id="mf1" style="width:0%;background:var(--pk)"></div></div></div><div class="mrew">+30 🪙</div></div>
+      <div class="mcard" id="mc2"><div class="mico g"><i class="ti ti-share"></i></div><div class="mbod"><div class="mt3">یه ترک Share کن</div><div class="ms2" id="ms2">۰ از ۱</div><div class="prog"><div class="pf" id="mf2" style="width:0%;background:var(--gr)"></div></div></div><div class="mrew">+20 🪙</div></div>
+      <div class="mcard" id="mc3"><div class="mico a"><i class="ti ti-cloud-download"></i></div><div class="mbod"><div class="mt3">یه ترک برای آفلاین ذخیره کن</div><div class="ms2" id="ms3">۰ از ۱</div><div class="prog"><div class="pf" id="mf3" style="width:0%;background:var(--am)"></div></div></div><div class="mrew">+25 🪙</div></div>
+      <div class="sec" style="margin-top:4px">هفتگی</div>
+      <div class="mcard"><div class="mico a"><i class="ti ti-trophy"></i></div><div class="mbod"><div class="mt3">۲۰ ساعت موزیک گوش بده</div><div class="ms2" id="ms-wk">۰ از ۲۰ ساعت</div><div class="prog"><div class="pf" id="mf-wk" style="width:0%;background:var(--am)"></div></div></div><div class="mrew" style="color:var(--am)">+500 🪙</div></div>
+      <div class="mcard"><div class="mico g"><i class="ti ti-music"></i></div><div class="mbod"><div class="mt3">۱۰ ترک Local اضافه کن</div><div class="ms2" id="ms-loc">۰ از ۱۰</div><div class="prog"><div class="pf" id="mf-loc" style="width:0%;background:var(--gr)"></div></div></div><div class="mrew" style="color:var(--gr)">+100 🪙</div></div>
+      <div class="mcard"><div class="mico p"><i class="ti ti-friends"></i></div><div class="mbod"><div class="mt3">۲ دوست دعوت کن</div><div class="ms2">کد: <b id="rcode">—</b></div><div class="prog"><div class="pf" style="width:0%;background:var(--pk)"></div></div></div><div class="mrew" style="color:var(--pk)">+300 🪙</div></div>
+      <div class="bsp"></div>
+    </div>
+
+    <!-- LEADERBOARD -->
+    <div class="page" id="pg-leaderboard">
+      <div style="padding:14px 14px 6px;display:flex;align-items:center;justify-content:space-between">
+        <div style="font-size:18px;font-weight:700">🏆 Leaderboard</div>
+        <div class="pill xp" style="font-size:11px">رتبه من: <b id="my-rank" style="margin-right:4px">—</b></div>
+      </div>
+      <div class="lbtabs"><button class="lbtab on" onclick="switchLB('coins',this)">بیشترین Coin</button><button class="lbtab" onclick="switchLB('listens',this)">گوش دادن</button><button class="lbtab" onclick="switchLB('level',this)">Level</button></div>
+      <div class="lbpodium" id="lbpodium"></div>
+      <div style="background:var(--card);border:.5px solid var(--b1);border-radius:var(--r2);margin:0 14px;overflow:hidden"><div id="lb-list"></div></div>
+      <div class="bsp"></div>
+    </div>
+
+    <!-- WALLET -->
+    <div class="page" id="pg-wallet">
+      <div class="whero">
+        <div style="font-size:10px;color:var(--mu);letter-spacing:.5px">موجودی</div>
+        <div style="font-size:36px;font-weight:700;margin:5px 0 2px" id="wamt">0 🪙</div>
+        <div style="font-size:11px;color:var(--mu)" id="wsub">≈ ۰ تومان</div>
+        <div class="wbtns"><button class="wbtn sol" onclick="openOv('ov-wd')">برداشت</button><button class="wbtn" onclick="toast('🛒 به زودی')">خرج کردن</button></div>
+      </div>
+      <div class="sgrid">
+        <div class="sbox"><div class="slbl">این هفته</div><div class="sval" style="color:var(--pu)" id="w-wk">+0 🪙</div></div>
+        <div class="sbox"><div class="slbl">ساعت گوش داده</div><div class="sval" style="color:var(--gr)" id="w-hr">0h</div></div>
+        <div class="sbox"><div class="slbl">Cached</div><div class="sval" style="color:var(--am)" id="w-ca">0</div></div>
+        <div class="sbox"><div class="slbl">Local</div><div class="sval" style="color:var(--pk)" id="w-lo">0</div></div>
+      </div>
+      <div class="sec">تراکنش‌ها</div>
+      <div class="txlist" id="txlist"><div style="padding:20px;text-align:center;color:var(--mu);font-size:13px">هنوز تراکنشی نداری</div></div>
+      <div class="bsp"></div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div class="page" id="pg-settings">
+      <div style="padding:16px 14px 10px;font-size:18px;font-weight:700">⚙️ تنظیمات</div>
+      <div style="font-size:10px;font-weight:600;color:var(--mu);letter-spacing:1px;text-transform:uppercase;padding:0 14px 8px">حساب</div>
+      <div style="margin:0 14px;border-radius:var(--r2);overflow:hidden;border:.5px solid var(--b1)">
+        <div class="stitem" onclick="openOv('ov-ep')"><div class="stico" style="background:rgba(167,139,250,.12)"><i class="ti ti-user-edit" style="color:var(--pu)"></i></div><div class="stlbl"><div class="sttitle">ویرایش پروفایل</div></div><i class="ti ti-chevron-left" style="color:var(--mu);font-size:16px"></i></div>
+        <div class="stitem" onclick="copyRef()"><div class="stico" style="background:rgba(52,211,153,.12)"><i class="ti ti-link" style="color:var(--gr)"></i></div><div class="stlbl"><div class="sttitle">لینک دعوت</div><div class="stsub" id="st-ref">—</div></div><i class="ti ti-copy" style="color:var(--mu);font-size:16px"></i></div>
+      </div>
+      <div style="font-size:10px;font-weight:600;color:var(--mu);letter-spacing:1px;text-transform:uppercase;padding:14px 14px 8px">پخش</div>
+      <div style="margin:0 14px;border-radius:var(--r2);overflow:hidden;border:.5px solid var(--b1)">
+        <div class="stitem"><div class="stico" style="background:rgba(96,165,250,.12)"><i class="ti ti-wifi" style="color:var(--bl)"></i></div><div class="stlbl"><div class="sttitle">کیفیت</div></div><select id="st-quality" style="background:var(--bg3);border:.5px solid var(--b2);color:var(--mu2);font-size:12px;border-radius:8px;padding:4px 8px;outline:none;font-family:'Vazirmatn',sans-serif" onchange="saveST('quality',this.value)"><option value="low">کم</option><option value="medium" selected>متوسط</option><option value="high">بالا</option></select></div>
+        <div class="stitem"><div class="stico" style="background:rgba(251,191,36,.12)"><i class="ti ti-repeat" style="color:var(--am)"></i></div><div class="stlbl"><div class="sttitle">پخش خودکار</div></div><label class="stgl"><input type="checkbox" id="st-autoplay" checked onchange="saveST('autoplay',this.checked)"><span class="stgl-s"></span></label></div>
+        <div class="stitem"><div class="stico" style="background:rgba(244,114,182,.12)"><i class="ti ti-arrows-shuffle" style="color:var(--pk)"></i></div><div class="stlbl"><div class="sttitle">Shuffle</div></div><label class="stgl"><input type="checkbox" id="st-shuffle" onchange="saveST('shuffle',this.checked)"><span class="stgl-s"></span></label></div>
+      </div>
+      <div style="font-size:10px;font-weight:600;color:var(--mu);letter-spacing:1px;text-transform:uppercase;padding:14px 14px 8px">اعلان‌ها</div>
+      <div style="margin:0 14px;border-radius:var(--r2);overflow:hidden;border:.5px solid var(--b1)">
+        <div class="stitem"><div class="stico" style="background:rgba(52,211,153,.12)"><i class="ti ti-coin" style="color:var(--gr)"></i></div><div class="stlbl"><div class="sttitle">اعلان Coin</div></div><label class="stgl"><input type="checkbox" id="st-nc" checked onchange="saveST('notifCoin',this.checked)"><span class="stgl-s"></span></label></div>
+        <div class="stitem"><div class="stico" style="background:rgba(124,58,237,.12)"><i class="ti ti-target" style="color:var(--pu)"></i></div><div class="stlbl"><div class="sttitle">اعلان ماموریت</div></div><label class="stgl"><input type="checkbox" id="st-nm" checked onchange="saveST('notifMission',this.checked)"><span class="stgl-s"></span></label></div>
+      </div>
+      <div style="font-size:10px;font-weight:600;color:var(--mu);letter-spacing:1px;text-transform:uppercase;padding:14px 14px 8px">داده‌ها</div>
+      <div style="margin:0 14px;border-radius:var(--r2);overflow:hidden;border:.5px solid var(--b1)">
+        <div class="stitem" onclick="clearCacheFromSettings()"><div class="stico" style="background:rgba(251,191,36,.12)"><i class="ti ti-cloud-off" style="color:var(--am)"></i></div><div class="stlbl"><div class="sttitle">پاک کردن Cache</div><div class="stsub" id="st-cache">محاسبه...</div></div><i class="ti ti-trash" style="color:var(--am);font-size:16px"></i></div>
+        <div class="stitem" onclick="openCf('پاک کردن همه داده‌ها','Coin، آمار و تراکنش‌ها پاک میشن.',doReset,'red')"><div class="stico" style="background:rgba(248,113,113,.1)"><i class="ti ti-trash" style="color:var(--re)"></i></div><div class="stlbl"><div class="sttitle" style="color:var(--re)">پاک کردن همه</div></div><i class="ti ti-chevron-left" style="color:var(--mu);font-size:16px"></i></div>
+      </div>
+      <div style="padding:16px;text-align:center;font-size:11px;color:var(--mu)" id="ver-tap" onclick="adminTap()">Vibe v1.0 — ساخته شده با ❤️</div>
+      <div id="ver-tap-hint" style="display:none;text-align:center;font-size:10px;color:var(--pu);margin-top:-10px;padding-bottom:10px"></div>
+      <div class="bsp"></div>
+    </div>
+
+    <!-- PROFILE -->
+    <div class="page" id="pg-profile">
+      <div class="phero"><div class="pava" id="pava-emoji">🎧</div><div class="pname" id="pname">کاربر جدید</div><div class="phdl" id="phdl">@user</div><div class="plvl"><i class="ti ti-star" style="font-size:12px"></i><span id="plvl-t">Level 1 — Newcomer</span></div></div>
+      <div class="xpsec"><div class="xprow"><span id="xp-c">XP: 0</span><span id="xp-n">بعدی: 500</span></div><div class="xpbar"><div class="xpfill" id="xpf" style="width:0%"></div></div><div class="xprow" style="margin-top:4px"><span id="xp-l">Level 1</span><span id="xp-p">0٪</span></div></div>
+      <div class="sec">بج‌ها</div>
+      <div class="brow" id="brow"></div>
+      <div class="sec">آمار</div>
+      <div class="sgrid"><div class="sbox"><div class="slbl">ترک گوش داده</div><div class="sval" style="color:var(--pu)" id="st-ls">0</div></div><div class="sbox"><div class="slbl">Coin کل</div><div class="sval" style="color:var(--am)" id="st-co">0</div></div><div class="sbox"><div class="slbl">Local</div><div class="sval" style="color:var(--gr)" id="st-lo">0</div></div><div class="sbox"><div class="slbl">لایک</div><div class="sval" style="color:var(--pk)" id="st-lk">0</div></div></div>
+      <div class="sec">منو</div>
+      <div style="margin:0 14px;border-radius:var(--r2);overflow:hidden;border:.5px solid var(--b1)">
+        <div class="qmitem" onclick="navPage('wallet')"><div class="qmico" style="background:rgba(124,58,237,.12)"><i class="ti ti-wallet" style="color:var(--pu)"></i></div><span style="flex:1;font-size:13px;font-weight:500">کیف پول</span><span id="qm-coins" style="font-size:12px;color:var(--am)">0 🪙</span><i class="ti ti-chevron-left" style="color:var(--mu);font-size:16px"></i></div>
+        <div class="qmitem" onclick="navPage('missions')"><div class="qmico" style="background:rgba(52,211,153,.1)"><i class="ti ti-target" style="color:var(--gr)"></i></div><span style="flex:1;font-size:13px;font-weight:500">ماموریت‌ها</span><i class="ti ti-chevron-left" style="color:var(--mu);font-size:16px"></i></div>
+        <div class="qmitem" onclick="navPage('liked')"><div class="qmico" style="background:rgba(244,114,182,.1)"><i class="ti ti-heart-filled" style="color:var(--pk)"></i></div><span style="flex:1;font-size:13px;font-weight:500">لایک‌شده‌ها</span><span id="qm-liked" style="font-size:12px;color:var(--mu)">0</span><i class="ti ti-chevron-left" style="color:var(--mu);font-size:16px"></i></div>
+        <div class="qmitem" onclick="navPage('playlist')"><div class="qmico" style="background:rgba(96,165,250,.1)"><i class="ti ti-playlist" style="color:var(--bl)"></i></div><span style="flex:1;font-size:13px;font-weight:500">پلی‌لیست‌ها</span><span id="qm-pl" style="font-size:12px;color:var(--mu)">0</span><i class="ti ti-chevron-left" style="color:var(--mu);font-size:16px"></i></div>
+        <div class="qmitem" onclick="navPage('notifs')"><div class="qmico" style="background:rgba(248,113,113,.1)"><i class="ti ti-bell" style="color:var(--re)"></i></div><span style="flex:1;font-size:13px;font-weight:500">اعلان‌ها</span><span id="qm-notifs" style="font-size:11px;background:var(--re);color:#fff;border-radius:10px;padding:1px 7px;display:none"></span><i class="ti ti-chevron-left" style="color:var(--mu);font-size:16px"></i></div>
+        <div class="qmitem" onclick="navPage('leaderboard')"><div class="qmico" style="background:rgba(251,191,36,.1)"><i class="ti ti-trophy" style="color:var(--am)"></i></div><span style="flex:1;font-size:13px;font-weight:500">Leaderboard</span><i class="ti ti-chevron-left" style="color:var(--mu);font-size:16px"></i></div>
+        <div class="qmitem" onclick="navPage('settings')"><div class="qmico" style="background:rgba(144,144,184,.1)"><i class="ti ti-settings" style="color:var(--mu2)"></i></div><span style="flex:1;font-size:13px;font-weight:500">تنظیمات</span><i class="ti ti-chevron-left" style="color:var(--mu);font-size:16px"></i></div>
+      </div>
+      <div style="padding:10px 14px 14px;display:flex;gap:9px">
+        <button onclick="openOv('ov-ep')" style="flex:1;padding:11px;border-radius:var(--r2);border:.5px solid var(--b2);background:var(--bg3);color:var(--mu);font-size:13px;cursor:pointer;font-family:'Vazirmatn',sans-serif"><i class="ti ti-edit" style="vertical-align:-2px"></i> ویرایش</button>
+        <button onclick="copyRef()" style="flex:1;padding:11px;border-radius:var(--r2);border:.5px solid var(--b2);background:var(--bg3);color:var(--mu);font-size:13px;cursor:pointer;font-family:'Vazirmatn',sans-serif"><i class="ti ti-link" style="vertical-align:-2px"></i> دعوت</button>
+      </div>
+      <div class="bsp"></div>
+    </div>
+
+  </div>
+  <!-- NAV -->
+  <div class="nav">
+    <button class="nb on" onclick="navTo('feed',this)"><i class="ti ti-headphones"></i><s>موزیک</s></button>
+    <button class="nb" onclick="navTo('video',this)"><i class="ti ti-brand-youtube"></i><s>ویدیو</s></button>
+    <button class="nb" onclick="navTo('discover',this)"><i class="ti ti-compass"></i><s>Discover</s></button>
+    <button class="nb" onclick="navTo('local',this)"><i class="ti ti-music"></i><s>Local</s><div class="nbadge" id="nbadge" style="background:var(--gr)"></div></button>
+    <button class="nb" onclick="navTo('profile',this)"><i class="ti ti-user"></i><s>من</s><div class="nbadge" id="notif-badge" style="background:var(--re)"></div></button>
+  </div>
+</div>
+
+<!-- MINI PLAYER -->
+<div class="mini hide" id="mini">
+  <div class="mprog" id="mpwrap" onclick="seekMini(event)"><div class="mpfill" id="mpfill"></div></div>
+  <div class="mbody">
+    <div class="mcov" id="mcov">🎵</div>
+    <div class="minf"><div class="mt4" id="mtitle">—</div><div class="ma4" id="msub">—</div><span class="mbdg online" id="mbdg">online</span></div>
+    <div class="mctrl">
+      <button class="mcbtn" onclick="prevTr()"><i class="ti ti-player-skip-back"></i></button>
+      <button class="mplay" id="mplaybtn" onclick="togglePlay()"><i class="ti ti-player-pause"></i></button>
+      <button class="mcbtn" onclick="nextTr()"><i class="ti ti-player-skip-forward"></i></button>
+    </div>
+  </div>
+  <div class="mextra">
+    <button class="mxbtn" id="shfl-btn" onclick="toggleShuffle(this)"><i class="ti ti-arrows-shuffle"></i>Shuffle</button>
+    <button class="mxbtn" id="rpt-btn" onclick="toggleRepeat(this)"><i class="ti ti-repeat"></i>Repeat</button>
+    <button class="mxbtn" onclick="navPage('queue')"><i class="ti ti-list"></i>Queue</button>
+    <button class="mxbtn" id="sleep-btn" onclick="openOv('ov-sleep')"><i class="ti ti-clock"></i><span id="sleep-label">Sleep</span></button>
+  </div>
+</div>
+
+<!-- VIDEO PLAYER -->
+<div class="vov" id="vov">
+  <div class="vhdr"><button class="vback" onclick="closeVideo()"><i class="ti ti-arrow-left"></i></button><div class="vtitle" id="vtitle">—</div><div class="vcbdg" id="vcbdg">+0 🪙</div></div>
+  <div class="vscreen" id="vscreen" onclick="toggleVidPlay()">
+    <video id="vid-el" playsinline></video>
+    <canvas id="viz-canvas"></canvas>
+    <div class="vpov hide" id="vpov"><div class="vpicobox"><i class="ti ti-player-play" style="font-size:24px"></i></div></div>
+  </div>
+  <div class="vbottom">
+    <div class="vpbar" id="vpbar" onclick="seekVid(event)"><div class="vpfill" id="vpfill"></div></div>
+    <div class="vctrl">
+      <button class="vcbtn" onclick="vidSkip(-10)"><i class="ti ti-rewind-10"></i></button>
+      <button class="vcbtn main" id="vcplaybtn" onclick="toggleVidPlay()"><i class="ti ti-player-pause"></i></button>
+      <button class="vcbtn" onclick="vidSkip(10)"><i class="ti ti-forward-10"></i></button>
+      <div class="vtime" id="vtime">0:00 / 0:00</div>
+      <button class="vcbtn" id="vmute-btn" onclick="toggleVidMute()"><i class="ti ti-volume"></i></button>
+    </div>
+    <div class="verow"><i class="ti ti-coin" style="font-size:14px;color:var(--am)"></i><span id="vearn-txt">کامل ببین Coin بگیر</span></div>
+  </div>
+</div>
+
+<!-- OVERLAYS -->
+<div class="ov" id="ov-wd" onclick="closeOv('ov-wd')"><div class="sheet" onclick="event.stopPropagation()"><div class="shh"></div><div class="sht">برداشت Coin</div><div style="background:rgba(251,191,36,.07);border:.5px solid rgba(251,191,36,.18);border-radius:10px;padding:12px;margin-bottom:14px"><div style="font-size:10px;color:var(--mu)">موجودی</div><div style="font-size:26px;font-weight:700;color:var(--am);margin:4px 0" id="ov-bal">0 🪙</div><div style="font-size:11px;color:var(--mu)" id="ov-toman">≈ ۰ تومان</div></div><div class="shf"><div class="shl">مقدار (حداقل ۱۰۰)</div><input class="shi" id="wd-a" type="number" placeholder="500"></div><div class="shf"><div class="shl">شماره کارت</div><input class="shi" id="wd-c" type="text" dir="ltr" placeholder="6037-XXXX-XXXX-XXXX"></div><div style="font-size:11px;color:var(--mu);margin-bottom:14px">کارمزد ۵٪ · پرداخت تا ۲۴ ساعت</div><button class="shbtn" onclick="doWithdraw()">ثبت درخواست</button></div></div>
+<div class="ov" id="ov-ep" onclick="closeOv('ov-ep')"><div class="sheet" onclick="event.stopPropagation()"><div class="shh"></div><div class="sht">ویرایش پروفایل</div><div class="shf"><div class="shl">نام</div><input class="shi" id="ep-n" type="text"></div><div class="shf"><div class="shl">یوزرنیم</div><input class="shi" id="ep-h" type="text" dir="ltr"></div><button class="shbtn" onclick="saveProfile()">ذخیره</button></div></div>
+<div class="ov" id="ov-sleep" onclick="closeOv('ov-sleep')"><div class="sheet" onclick="event.stopPropagation()"><div class="shh"></div><div class="sht">⏰ Sleep Timer</div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-bottom:14px"><button onclick="setSleep(15)" style="padding:11px;border-radius:var(--r);background:var(--bg3);border:.5px solid var(--b2);color:var(--tx);font-size:14px;cursor:pointer;font-family:'Vazirmatn',sans-serif">۱۵ دق</button><button onclick="setSleep(30)" style="padding:11px;border-radius:var(--r);background:var(--bg3);border:.5px solid var(--b2);color:var(--tx);font-size:14px;cursor:pointer;font-family:'Vazirmatn',sans-serif">۳۰ دق</button><button onclick="setSleep(45)" style="padding:11px;border-radius:var(--r);background:var(--bg3);border:.5px solid var(--b2);color:var(--tx);font-size:14px;cursor:pointer;font-family:'Vazirmatn',sans-serif">۴۵ دق</button><button onclick="setSleep(60)" style="padding:11px;border-radius:var(--r);background:var(--bg3);border:.5px solid var(--b2);color:var(--tx);font-size:14px;cursor:pointer;font-family:'Vazirmatn',sans-serif">۱ ساعت</button><button onclick="setSleep(90)" style="padding:11px;border-radius:var(--r);background:var(--bg3);border:.5px solid var(--b2);color:var(--tx);font-size:14px;cursor:pointer;font-family:'Vazirmatn',sans-serif">۹۰ دق</button><button onclick="setSleep(0)" style="padding:11px;border-radius:var(--r);background:rgba(248,113,113,.13);border:.5px solid rgba(248,113,113,.2);color:var(--re);font-size:14px;cursor:pointer;font-family:'Vazirmatn',sans-serif">لغو</button></div><div id="sleep-status" style="text-align:center;font-size:13px;color:var(--mu)">Timer فعال نیست</div></div></div>
+<div class="cf" id="cf" onclick="if(event.target===this)closeCf()"><div class="cfbox"><div class="cft" id="cft">مطمئنی؟</div><div class="cfm" id="cfm">این عمل قابل برگشت نیست.</div><div class="cfbtns"><button class="cfbtn no" onclick="closeCf()">انصراف</button><button class="cfbtn ok" id="cfok">تایید</button></div></div></div>
+<div class="twrap" id="twrap"></div>
+<audio id="aud" preload="auto"></audio>
+
+<script>
+'use strict';
+// ═══════════════════════════════════════════════════
+//  VIBE — Complete App
+// ═══════════════════════════════════════════════════
+
+const SK='vibe_v1', LVLS=['Newcomer','Bronze','Silver','Gold','Platinum','Diamond','Legend'];
+const WH=[40,70,50,85,35,65,55,80,45,75,40,60,90,30,70,55,65,45,80,50,35,75,60,40,85,55,70,45,65,30,80,55,60,40,75,50];
+
+// ─── State ──────────────────────────────────────────
+const DEF={coins:0,xp:0,level:1,totalEarned:0,username:'کاربر جدید',handle:'@user',
+  txs:[],listenC:0,likeC:0,shareC:0,dlC:0,weekHours:0,completedM:[],
+  ref:'VIBE'+Math.random().toString(36).slice(2,6).toUpperCase()};
+let S=(()=>{try{return{...DEF,...JSON.parse(localStorage.getItem(SK)||'{}')};}catch{return{...DEF};}})();
+const save=()=>{try{localStorage.setItem(SK,JSON.stringify(S));}catch{}};
+
+let LIKED=(()=>{try{return JSON.parse(localStorage.getItem('vibe_liked')||'[]');}catch{return[];}})();
+let PLAYLISTS=(()=>{try{return JSON.parse(localStorage.getItem('vibe_pl')||'[]');}catch{return[];}})();
+let FOLLOWED=new Set((()=>{try{return JSON.parse(localStorage.getItem('vibe_fol')||'[]');}catch{return[];}})());
+let NOTIFS=(()=>{try{return JSON.parse(localStorage.getItem('vibe_notifs')||'null')||defNotifs();}catch{return defNotifs();}})();
+let SETTINGS=(()=>{try{return{...{quality:'medium',autoplay:true,shuffle:false,notifCoin:true,notifMission:true},...JSON.parse(localStorage.getItem('vibe_st')||'{}')};}catch{return{quality:'medium',autoplay:true,shuffle:false,notifCoin:true,notifMission:true};}})();
+function defNotifs(){return[
+  {id:'n1',type:'coin',title:'🪙 به Vibe خوش اومدی!',sub:'اولین Coin رو با گوش دادن به دست بیار',time:Date.now()-60000,read:false,action:'feed'},
+  {id:'n2',type:'mission',title:'🎯 ماموریت‌های امروز آماده‌ن',sub:'۵ ترک گوش بده و +50 Coin بگیر',time:Date.now()-600000,read:false,action:'missions'},
+];}
+const saveLiked=()=>{try{localStorage.setItem('vibe_liked',JSON.stringify(LIKED));}catch{}};
+const savePL=()=>{try{localStorage.setItem('vibe_pl',JSON.stringify(PLAYLISTS));}catch{}};
+const saveFollowed=()=>{try{localStorage.setItem('vibe_fol',JSON.stringify([...FOLLOWED]));}catch{}};
+const saveNotifs=()=>{try{localStorage.setItem('vibe_notifs',JSON.stringify(NOTIFS));}catch{}};
+const saveST=(k,v)=>{SETTINGS[k]=v;try{localStorage.setItem('vibe_st',JSON.stringify(SETTINGS));}catch{}toast('✅ ذخیره شد');};
+
+// ─── Online Tracks (loaded from tracks.json) ────────
+let OT=[];
+let REMOTE_CONFIG={};
+
+async function loadRemoteData(){
+  // اول ببین admin از پنل ترک اضافه کرده؟
+  const adminTracks = (() => { try { return JSON.parse(localStorage.getItem('vaTK') || 'null'); } catch { return null; } })();
+  if (adminTracks && adminTracks.length) {
+    OT = adminTracks;
+  } else {
+    // اگه نه، از tracks.json بخون
+    try {
+      const r = await fetch('tracks.json?' + Date.now());
+      if (r.ok) OT = await r.json();
+    } catch {}
+    if (!OT.length) OT = getFallbackTracks();
+  }
+
+  // config: از admin localStorage اول، بعد config.json
+  const adminCfg = (() => { try { return JSON.parse(localStorage.getItem('vaCF') || 'null'); } catch { return null; } })();
+  if (adminCfg && Object.keys(adminCfg).length) {
+    REMOTE_CONFIG = adminCfg;
+  } else {
+    try {
+      const r = await fetch('config.json?' + Date.now());
+      if (r.ok) REMOTE_CONFIG = await r.json();
+    } catch {}
+  }
+  applyRemoteConfig();
+
+  // notifications: از admin localStorage اول
+  const adminNotifs = (() => { try { return JSON.parse(localStorage.getItem('vaNT') || 'null'); } catch { return null; } })();
+  if (adminNotifs && adminNotifs.length) {
+    const seenIds = new Set(NOTIFS.map(n => n.id));
+    const newOnes = adminNotifs.filter(n => !seenIds.has(n.id)).map(n => ({...n, ts: n.time || n.ts || Date.now(), read: false}));
+    if (newOnes.length) { NOTIFS = [...newOnes, ...NOTIFS]; if (NOTIFS.length > 80) NOTIFS = NOTIFS.slice(0, 80); saveNotifs(); }
+  } else {
+    try {
+      const r = await fetch('notifications.json?' + Date.now());
+      if (r.ok) {
+        const rn = await r.json();
+        if (rn && rn.length) {
+          const seenIds = new Set(NOTIFS.map(n => n.id));
+          const newOnes = rn.filter(n => !seenIds.has(n.id)).map(n => ({...n, ts: n.time || n.ts || Date.now(), read: false}));
+          if (newOnes.length) { NOTIFS = [...newOnes, ...NOTIFS]; saveNotifs(); }
+        }
+      }
+    } catch {}
+  }
+  updateNotifBadge();
+}
+
+function applyRemoteConfig(){
+  // coin values رو از config.json بخون
+  if(REMOTE_CONFIG.coinListen)  window._COIN_LISTEN  = REMOTE_CONFIG.coinListen;
+  if(REMOTE_CONFIG.coinVideo)   window._COIN_VIDEO   = REMOTE_CONFIG.coinVideo;
+  if(REMOTE_CONFIG.coinLike)    window._COIN_LIKE    = REMOTE_CONFIG.coinLike;
+  if(REMOTE_CONFIG.coinSave)    window._COIN_SAVE    = REMOTE_CONFIG.coinSave;
+  if(REMOTE_CONFIG.coinShare)   window._COIN_SHARE   = REMOTE_CONFIG.coinShare;
+  if(REMOTE_CONFIG.coinFollow)  window._COIN_FOLLOW  = REMOTE_CONFIG.coinFollow;
+  if(REMOTE_CONFIG.coinToman)   window._COIN_TOMAN   = REMOTE_CONFIG.coinToman;
+  if(REMOTE_CONFIG.minWd)       window._MIN_WD       = REMOTE_CONFIG.minWd;
+}
+
+// دریافت مقدار coin با در نظر گرفتن config admin
+function getCoin(type){
+  const map={listen:window._COIN_LISTEN||10,video:window._COIN_VIDEO||20,like:window._COIN_LIKE||5,save:window._COIN_SAVE||3,share:window._COIN_SHARE||15,follow:window._COIN_FOLLOW||10};
+  return map[type]||10;
+}
+function getCoinToman(){return window._COIN_TOMAN||15;}
+function getFallbackTracks(){
+  return[
+    {id:'t1',title:'نه بدون تو',artist:'Hichkas',artistId:'hichkas',genre:'Rap',emoji:'🎵',color:'#1a0a3d',duration:222,reward:12,videoReward:20,badge:'hot',badgeLabel:'🔥 Trending',earnText:'کامل گوش بده و +12 Coin بگیر',earnType:'normal',hasVideo:true,audioUrl:'',coverUrl:'',links:[{name:'Spotify',icon:'🎵',color:'#1DB954',followers:'2.1M',url:''},{name:'Instagram',icon:'📷',color:'#E1306C',followers:'380K',url:''}]},
+    {id:'t2',title:'ساعت صفر',artist:'Behzad Leito',artistId:'leito',genre:'R&B',emoji:'🌿',color:'#0a2d1a',duration:251,reward:25,videoReward:0,badge:'new',badgeLabel:'✨ Early Discover',earnText:'Early Discover — Viral بشه Coin اضافه',earnType:'early',hasVideo:false,audioUrl:'',coverUrl:'',links:[{name:'Spotify',icon:'🎵',color:'#1DB954',followers:'980K',url:''}]},
+    {id:'t3',title:'آتشفشان',artist:'Sijal',artistId:'sijal',genre:'Trap',emoji:'🔶',color:'#2d1a0a',duration:208,reward:20,videoReward:30,badge:'sp',badgeLabel:'💼 Sponsored',earnText:'Sponsored — تا آخر +20 Coin',earnType:'normal',hasVideo:true,audioUrl:'',coverUrl:'',links:[{name:'Instagram',icon:'📷',color:'#E1306C',followers:'520K',url:''}]},
+    {id:'t4',title:'دریا',artist:'Tataloo',artistId:'tataloo',genre:'Pop',emoji:'🌊',color:'#0a1a2d',duration:302,reward:8,videoReward:15,badge:'hot',badgeLabel:'❤️ Popular',earnText:'گوش بده و +8 Coin بگیر',earnType:'normal',hasVideo:true,audioUrl:'',coverUrl:'',links:[{name:'Instagram',icon:'📷',color:'#E1306C',followers:'2.1M',url:''}]},
+  ];
+}
+
+// ─── Artists (از OT میسازیم) ──────────────────────
+function getArtists(){
+  const map={};
+  OT.forEach(t=>{
+    if(!map[t.artistId]) map[t.artistId]={id:t.artistId,name:t.artist,genre:t.genre,emoji:t.emoji,color:t.color,tracks:[]};
+    map[t.artistId].tracks.push(t);
+  });
+  return Object.values(map);
+}
+
+// ─── Online/Offline ──────────────────────────────
+let ONLINE=navigator.onLine;
+window.addEventListener('online',()=>{ONLINE=true;syncOnline();});
+window.addEventListener('offline',()=>{ONLINE=false;syncOnline();});
+function syncOnline(){
+  document.getElementById('offbar').classList.toggle('on',!ONLINE);
+  if(ONLINE){document.getElementById('feed-list').style.display='';document.getElementById('feed-offline').style.display='none';}
+  else{document.getElementById('feed-list').style.display='none';document.getElementById('feed-offline').style.display='block';}
+}
+
+// ─── IndexedDB ───────────────────────────────────
+let DB=null;
+async function openDB(){
+  return new Promise((res,rej)=>{
+    const r=indexedDB.open('vibe_c',1);
+    r.onupgradeneeded=e=>{if(!e.target.result.objectStoreNames.contains('tr'))e.target.result.createObjectStore('tr',{keyPath:'id'});};
+    r.onsuccess=e=>{DB=e.target.result;res(DB);};
+    r.onerror=e=>rej(e);
+  });
+}
+const dbGet=id=>new Promise(res=>{const t=DB.transaction('tr','readonly');const r=t.objectStore('tr').get(id);r.onsuccess=e=>res(e.target.result||null);r.onerror=()=>res(null);});
+const dbPut=obj=>new Promise(res=>{const t=DB.transaction('tr','readwrite');t.objectStore('tr').put(obj);t.oncomplete=()=>res(true);t.onerror=()=>res(false);});
+const dbDel=id=>new Promise(res=>{const t=DB.transaction('tr','readwrite');t.objectStore('tr').delete(id);t.oncomplete=()=>res(true);t.onerror=()=>res(false);});
+const dbAll=()=>new Promise(res=>{const t=DB.transaction('tr','readonly');const r=t.objectStore('tr').getAll();r.onsuccess=e=>res(e.target.result||[]);r.onerror=()=>res([]);});
+
+// ─── Local Library ───────────────────────────────
+let LIB=[],FILTERED=[];
+const aud=document.getElementById('aud');
+function handleFiles(files){
+  const arr=Array.from(files).filter(f=>f.type.startsWith('audio/')||/\.(mp3|wav|flac|ogg|m4a|aac)$/i.test(f.name));
+  if(!arr.length){toast('⚠️ فایل‌های صوتی انتخاب کن');return;}
+  arr.forEach(f=>{
+    const url=URL.createObjectURL(f),id='l'+Date.now()+Math.random().toString(36).slice(2,4);
+    const raw=f.name.replace(/\.[^/.]+$/,'');
+    let title=raw,artist='نامشخص';
+    const sep=[' - ',' – ','_-_'].find(s=>raw.includes(s));
+    if(sep){const p=raw.split(sep);artist=p[0].trim();title=p.slice(1).join(sep).trim();}
+    const t={id,title,artist,url,dur:0,size:f.size};
+    const tmp=new Audio(url);tmp.addEventListener('loadedmetadata',()=>{t.dur=tmp.duration;renderLib();});
+    LIB.push(t);
+  });
+  FILTERED=[...LIB];S.localC=LIB.length;save();
+  updateMissions();renderLib();updateBadge();updateStats();
+  toast('✅ '+arr.length+' ترک اضافه شد');
+}
+const dz=document.getElementById('dz');
+dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('dov');});
+dz.addEventListener('dragleave',()=>dz.classList.remove('dov'));
+dz.addEventListener('drop',e=>{e.preventDefault();dz.classList.remove('dov');handleFiles(e.dataTransfer.files);});
+function filterLib(q){FILTERED=q.trim()?LIB.filter(t=>t.title.toLowerCase().includes(q.toLowerCase())||t.artist.toLowerCase().includes(q.toLowerCase())):[...LIB];renderLib();}
+function renderLib(){
+  document.getElementById('lcount').textContent=LIB.length;
+  document.getElementById('lib-count').textContent=FILTERED.length+' ترک';
+  const list=document.getElementById('local-list');
+  if(!FILTERED.length){list.innerHTML=`<div class="empty"><i class="ti ti-music"></i><p>${LIB.length?'نتیجه‌ای پیدا نشد':'هنوز موزیکی نداری<br>فایل بکش اینجا'}</p></div>`;return;}
+  list.innerHTML=FILTERED.map(t=>{
+    const pl=CUR.id===t.id&&CUR.isLocal;
+    return`<div class="ltc${pl?' pl':''}" onclick="playLocal('${t.id}')">
+      <div class="lcov">🎵</div>
+      <div class="linf"><div class="lt2">${esc(t.title)}</div><div class="la2">${esc(t.artist)}</div></div>
+      <div class="ldur">${fmtT(t.dur)}</div>
+      <button class="lpbtn${pl&&CUR.playing?' on':''}" onclick="event.stopPropagation();playLocal('${t.id}')"><i class="ti ti-${pl&&CUR.playing?'player-pause':'player-play'}"></i></button>
+    </div>`;
+  }).join('');
+}
+async function renderCached(){
+  const list=document.getElementById('cached-list'),cached=await dbAll();
+  document.getElementById('ccount').textContent=cached.length;document.getElementById('w-ca').textContent=cached.length;
+  if(!cached.length){list.innerHTML=`<div class="empty"><i class="ti ti-cloud-download"></i><p>هنوز ترکی ذخیره نکردی</p></div>`;return;}
+  list.innerHTML=cached.map(t=>`<div class="cachecard" onclick="playCached('${t.id}')">
+    <div class="lcov" style="background:${t.color||'var(--bg3)'}">${t.emoji||'🎵'}</div>
+    <div class="linf"><div class="lt2">${esc(t.title)}</div><div class="la2" style="color:var(--gr)">${esc(t.artist)} · ✓ ذخیره</div></div>
+    <button onclick="event.stopPropagation();dbDel('${t.id}').then(()=>renderCached())" style="background:none;border:none;cursor:pointer;color:var(--mu);font-size:18px;padding:4px"><i class="ti ti-trash"></i></button>
+  </div>`).join('');
+}
+function switchTab(tab){
+  document.getElementById('tab-local-content').style.display=tab==='local'?'':'none';
+  document.getElementById('tab-cached-content').style.display=tab==='cached'?'':'none';
+  document.getElementById('tab-local-btn').classList.toggle('on',tab==='local');
+  document.getElementById('tab-cached-btn').classList.toggle('on',tab==='cached');
+  if(tab==='cached')renderCached();
+}
+function shufflePlay(){if(!LIB.length){toast('ابتدا موزیک اضافه کن');return;}playLocal(LIB[Math.floor(Math.random()*LIB.length)].id);toast('🔀 Shuffle');}
+function playAll(){if(!LIB.length){toast('ابتدا موزیک اضافه کن');return;}playLocal(LIB[0].id);}
+async function clearCache(){const all=await dbAll();for(const t of all)await dbDel(t.id);renderCached();toast('🗑️ Cache پاک شد');}
+function updateBadge(){const b=document.getElementById('nbadge'),n=LIB.length;b.textContent=n>99?'99+':n;b.classList.toggle('on',n>0);}
+
+// ─── Player ───────────────────────────────────────
+const CUR={id:null,title:'',artist:'',emoji:'🎵',color:'#1a1a2e',isLocal:false,isCached:false,playing:false,progress:0,dur:0};
+let progT=null,earnT=null,isShuffle=false,isRepeat=false,QUEUE=[];
+let sleepTimer=null,sleepEndsAt=0,sleepCountdown=null;
+
+function mkWave(id){
+  const el=document.getElementById('wv-'+id);if(!el)return;
+  const seed=id.split('').reduce((a,c)=>a+c.charCodeAt(0),0);
+  el.innerHTML=Array.from({length:36},(_,j)=>`<div class="wvb" style="height:${WH[(seed+j)%WH.length]}%"></div>`).join('');
+}
+function updWave(id,pct){
+  const el=document.getElementById('wv-'+id);if(!el)return;
+  el.querySelectorAll('.wvb').forEach((b,j)=>{const r=j/36;b.classList.toggle('p',r<pct/100);b.classList.toggle('c',Math.abs(r-pct/100)<0.03&&CUR.playing);});
+}
+function setMini(emoji,color,title,artist,type){
+  document.getElementById('mini').classList.remove('hide');
+  const cov=document.getElementById('mcov');
+  cov.style.background=color;cov.textContent=emoji;
+  // cover image
+  const coverImg=OT.find(t=>t.id===CUR.id)?.coverUrl;
+  cov.innerHTML=coverImg?`<img src="${coverImg}" onerror="this.style.display='none'">${emoji}`:emoji;
+  document.getElementById('mtitle').textContent=title;
+  document.getElementById('msub').textContent=artist;
+  const bdg=document.getElementById('mbdg');bdg.className='mbdg '+type;
+  bdg.textContent=type==='local'?'📁 Local':type==='cached'?'💾 Cached':'🌐 Online';
+  document.getElementById('mpfill').className='mpfill'+(type!=='online'?' loc':'');
+  document.getElementById('mplaybtn').innerHTML='<i class="ti ti-player-pause"></i>';
+  document.getElementById('mplaybtn').className=type!=='online'?'mplay loc':'mplay';
+  document.getElementById('mpfill').style.width='0%';
+  // queue now playing
+  const qnc=document.getElementById('qncov');if(qnc){qnc.style.background=color;qnc.textContent=emoji;}
+  const qnt=document.getElementById('qntitle');if(qnt)qnt.textContent=title;
+  const qna=document.getElementById('qnartist');if(qna)qna.textContent=artist;
+}
+function stopAll(){clearInterval(progT);clearInterval(earnT);}
+
+function playOnline(idx){
+  if(!ONLINE){toast('آفلاینی 📡');return;}
+  stopAll();aud.pause();
+  const t=OT[idx];
+  Object.assign(CUR,{id:t.id,title:t.title,artist:t.artist,emoji:t.emoji,color:t.color,isLocal:false,isCached:false,playing:true,progress:0,dur:t.duration});
+  setMini(t.emoji,t.color,t.title,t.artist,'online');
+  // highlight buttons
+  document.querySelectorAll('.pbtn').forEach((b,i)=>{b.classList.toggle('on',i===idx);b.innerHTML=i===idx?'<i class="ti ti-player-pause"></i>':'<i class="ti ti-player-play"></i>';});
+  QUEUE=OT.map((x,i)=>({idx:i,...x})).slice(idx+1).concat(OT.map((x,i)=>({idx:i,...x})).slice(0,idx));
+  // real audio اگه URL داره
+  if(t.audioUrl){
+    aud.src=t.audioUrl;
+    aud.play().then(()=>{startRealProg();}).catch(()=>{startSynthProg(t.duration);});
+  } else {
+    startSynthProg(t.duration);
+  }
+  startEarnTick();
+}
+function playLocal(id){
+  const t=LIB.find(x=>x.id===id);if(!t)return;
+  stopAll();aud.pause();aud.src=t.url;
+  aud.play().catch(e=>toast('خطا: '+e.message));
+  Object.assign(CUR,{id:t.id,title:t.title,artist:t.artist,emoji:'🎵',color:'#1a1a2e',isLocal:true,isCached:false,playing:true,progress:0});
+  setMini('🎵','#1a1a2e',t.title,t.artist,'local');
+  renderLib();
+}
+async function playCached(id){
+  const t=await dbGet(id);if(!t){toast('❌ پیدا نشد');return;}
+  stopAll();aud.pause();
+  const url=URL.createObjectURL(new Blob([t.data]));
+  aud.src=url;aud.play().catch(e=>toast('خطا: '+e.message));
+  Object.assign(CUR,{id:t.id,title:t.title,artist:t.artist,emoji:t.emoji||'🎵',color:t.color||'#1a1a2e',isLocal:false,isCached:true,playing:true,progress:0});
+  setMini(t.emoji||'🎵',t.color||'#1a1a2e',t.title,t.artist,'cached');
+}
+
+aud.addEventListener('timeupdate',()=>{
+  const d=aud.duration||1,c=aud.currentTime;
+  CUR.progress=(c/d)*100;
+  document.getElementById('mpfill').style.width=CUR.progress+'%';
+  if(CUR.id)updWave(CUR.id,CUR.progress);
+  S.weekHours=(S.weekHours||0)+0.25/3600;
+});
+aud.addEventListener('ended',()=>{
+  if(isRepeat&&!CUR.isLocal){const i=OT.findIndex(t=>t.id===CUR.id);if(i>=0){CUR.progress=0;startSynthProg(OT[i].duration);return;}}
+  if(CUR.isLocal){const i=LIB.findIndex(t=>t.id===CUR.id);if(LIB.length>1)playLocal(LIB[isShuffle?Math.floor(Math.random()*LIB.length):(i+1)%LIB.length].id);}
+  else if(!CUR.isCached){onOnlineComplete();}
+});
+aud.addEventListener('error',()=>{
+  // اگه audio خطا داد، برو synthetic
+  if(!CUR.isLocal&&!CUR.isCached)startSynthProg(CUR.dur||180);
+});
+
+function startRealProg(){clearInterval(progT);progT=setInterval(()=>{if(!CUR.playing)return;},500);}
+function startSynthProg(dur){
+  const step=100/(dur/0.3);clearInterval(progT);
+  progT=setInterval(()=>{
+    if(!CUR.playing)return;
+    CUR.progress=Math.min(100,CUR.progress+step);
+    document.getElementById('mpfill').style.width=CUR.progress+'%';
+    if(CUR.id)updWave(CUR.id,CUR.progress);
+    S.weekHours=(S.weekHours||0)+0.3/3600;
+    if(CUR.progress>=100){clearInterval(progT);onOnlineComplete();}
+  },300);
+}
+function startEarnTick(){clearInterval(earnT);earnT=setInterval(()=>{if(CUR.playing)CUR.progress;},3000);}
+
+function onOnlineComplete(){
+  const t=OT.find(x=>x.id===CUR.id);if(!t)return;
+  addCoins(t.reward,'🎵 Listen — '+t.title,'earn');
+  addXP(20);S.listenC++;updateMissions();updateStats();save();
+  toast('✅ +'+t.reward+' Coin!');
+  if(isRepeat){CUR.progress=0;startSynthProg(t.duration);return;}
+  const next=isShuffle?Math.floor(Math.random()*OT.length):(OT.findIndex(x=>x.id===CUR.id)+1)%OT.length;
+  if(SETTINGS.autoplay)setTimeout(()=>playOnline(next),1400);
+}
+function togglePlay(){
+  if(!CUR.id)return;CUR.playing=!CUR.playing;
+  document.getElementById('mplaybtn').innerHTML=CUR.playing?'<i class="ti ti-player-pause"></i>':'<i class="ti ti-player-play"></i>';
+  if(CUR.isLocal||CUR.isCached){CUR.playing?aud.play():aud.pause();}
+  else{if(CUR.playing)startSynthProg(CUR.dur);else clearInterval(progT);}
+  renderLib();
+}
+function prevTr(){
+  if(CUR.isLocal){const i=LIB.findIndex(t=>t.id===CUR.id);playLocal(LIB[i<=0?LIB.length-1:i-1].id);}
+  else if(!CUR.isCached){playOnline((OT.findIndex(t=>t.id===CUR.id)-1+OT.length)%OT.length);}
+}
+function nextTr(){
+  if(CUR.isLocal){const i=LIB.findIndex(t=>t.id===CUR.id);playLocal(LIB[isShuffle?Math.floor(Math.random()*LIB.length):(i+1)%LIB.length].id);}
+  else if(!CUR.isCached){playOnline(isShuffle?Math.floor(Math.random()*OT.length):(OT.findIndex(t=>t.id===CUR.id)+1)%OT.length);}
+}
+function seekMini(e){
+  const r=document.getElementById('mpwrap').getBoundingClientRect(),p=(e.clientX-r.left)/r.width;
+  if(CUR.isLocal||CUR.isCached)aud.currentTime=p*(aud.duration||0);
+  else{CUR.progress=p*100;document.getElementById('mpfill').style.width=CUR.progress+'%';}
+}
+function seekWave(id,e){
+  if(CUR.id!==id)return;
+  const el=document.getElementById('wv-'+id),r=el.getBoundingClientRect(),p=((e.clientX-r.left)/r.width)*100;
+  if(CUR.isLocal||CUR.isCached)aud.currentTime=(p/100)*(aud.duration||0);
+  else{CUR.progress=p;document.getElementById('mpfill').style.width=p+'%';updWave(id,p);}
+}
+function toggleShuffle(btn){isShuffle=!isShuffle;btn.classList.toggle('on',isShuffle);toast(isShuffle?'🔀 Shuffle روشن':'🔀 خاموش');}
+function toggleRepeat(btn){isRepeat=!isRepeat;btn.classList.toggle('on',isRepeat);toast(isRepeat?'🔁 Repeat روشن':'🔁 خاموش');}
+
+// Sleep Timer
+function setSleep(min){
+  clearTimeout(sleepTimer);clearInterval(sleepCountdown);
+  if(!min){sleepEndsAt=0;document.getElementById('sleep-label').textContent='Sleep';document.getElementById('sleep-btn').classList.remove('on');document.getElementById('sleep-status').textContent='Timer فعال نیست';closeOv('ov-sleep');toast('⏰ Timer لغو شد');return;}
+  sleepEndsAt=Date.now()+min*60000;document.getElementById('sleep-btn').classList.add('on');
+  sleepTimer=setTimeout(()=>{aud.pause();CUR.playing=false;document.getElementById('mplaybtn').innerHTML='<i class="ti ti-player-play"></i>';document.getElementById('sleep-label').textContent='Sleep';document.getElementById('sleep-btn').classList.remove('on');clearInterval(sleepCountdown);toast('😴 موزیک متوقف شد');},min*60000);
+  sleepCountdown=setInterval(()=>{const rem=Math.max(0,sleepEndsAt-Date.now());if(!rem){clearInterval(sleepCountdown);return;}const m=Math.floor(rem/60000),s=Math.floor((rem%60000)/1000);document.getElementById('sleep-label').textContent=m+':'+String(s).padStart(2,'0');document.getElementById('sleep-status').textContent='فعاله — '+m+' دق '+s+' ث';},1000);
+  closeOv('ov-sleep');toast('⏰ Sleep Timer: '+min+' دقیقه');
+}
+
+// Download
+async function downloadTrack(id){
+  const t=OT.find(x=>x.id===id);if(!t)return;
+  const btn=document.getElementById('dlbtn-'+id);
+  if(btn){btn.innerHTML='<span class="spin"></span>';btn.disabled=true;}
+  toast('⬇ در حال ذخیره...');
+  await new Promise(r=>setTimeout(r,1200));
+  await dbPut({id:t.id,title:t.title,artist:t.artist,emoji:t.emoji,color:t.color,data:new ArrayBuffer(0),ts:Date.now()});
+  if(btn){btn.innerHTML='<i class="ti ti-check"></i>';btn.classList.add('cached');btn.disabled=false;}
+  S.dlC++;updateMissions();updateStats();save();
+  addCoins(5,'💾 ذخیره آفلاین','bonus');
+  renderCached();document.getElementById('ccount').textContent=S.dlC;document.getElementById('w-ca').textContent=S.dlC;
+  toast('✅ ذخیره شد');
+}
+
+// ─── Economy ────────────────────────────────────
+function addCoins(n,desc,type){
+  S.coins+=n;if(n>0)S.totalEarned=(S.totalEarned||0)+n;
+  if(!S.txs)S.txs=[];
+  S.txs.unshift({n,desc,type,ts:Date.now()});
+  if(S.txs.length>60)S.txs=S.txs.slice(0,60);
+  updHdr();updWallet();
+  if(n>=25&&SETTINGS.notifCoin)pushNotif('🪙 +'+n+' Coin!',desc,'coin');
+  updProfMenu();
+}
+function addXP(n){S.xp+=n;S.level=Math.max(1,Math.floor(S.xp/500)+1);updProfile();}
+function updHdr(){document.getElementById('hco').textContent=S.coins.toLocaleString();document.getElementById('hxp').textContent=S.xp.toLocaleString();}
+
+// ─── Missions ────────────────────────────────────
+const MDEFS=[
+  {id:'m0',get:()=>S.listenC,max:5,rew:50,xp:50},
+  {id:'m1',get:()=>S.likeC,max:3,rew:30,xp:30},
+  {id:'m2',get:()=>S.shareC,max:1,rew:20,xp:20},
+  {id:'m3',get:()=>S.dlC,max:1,rew:25,xp:25},
+];
+function updateMissions(){
+  MDEFS.forEach((m,i)=>{
+    const cur=m.get(),pct=Math.min(100,(cur/m.max)*100);
+    const f=document.getElementById('mf'+i),s=document.getElementById('ms'+i);
+    if(f)f.style.width=pct+'%';if(s)s.textContent=Math.min(cur,m.max)+' از '+m.max;
+    if(cur>=m.max&&!S.completedM.includes(m.id)){
+      S.completedM.push(m.id);const card=document.getElementById('mc'+i);if(card)card.classList.add('done');
+      addCoins(m.rew,'🎯 Mission!','bonus');addXP(m.xp);save();
+      toast('🎯 ماموریت تموم شد! +'+m.rew+' Coin');
+      if(SETTINGS.notifMission)pushNotif('🎯 ماموریت!','جایزه‌ات رو بگیر','mission','missions');
+    }
+  });
+  const wh=S.weekHours||0;
+  const wf=document.getElementById('mf-wk'),ws=document.getElementById('ms-wk');
+  if(wf)wf.style.width=Math.min(100,(wh/20)*100)+'%';if(ws)ws.textContent=wh.toFixed(1)+' از ۲۰ ساعت';
+  const lc=LIB.length;
+  const lf=document.getElementById('mf-loc'),ls=document.getElementById('ms-loc');
+  if(lf)lf.style.width=Math.min(100,(lc/10)*100)+'%';if(ls)ls.textContent=lc+' از ۱۰';
+  const rc=document.getElementById('rcode');if(rc)rc.textContent=S.ref||'---';
+}
+
+// ─── Wallet ──────────────────────────────────────
+function updWallet(){
+  const t=getCoinToman();
+  const wa=document.getElementById('wamt');if(wa)wa.textContent=S.coins.toLocaleString()+' 🪙';
+  const ws=document.getElementById('wsub');if(ws)ws.textContent='≈ '+(S.coins*t).toLocaleString()+' تومان · نرخ '+t+' تومان/Coin';
+  const wh=document.getElementById('w-hr');if(wh)wh.textContent=(S.weekHours||0).toFixed(1)+'h';
+  const wl=document.getElementById('w-lo');if(wl)wl.textContent=LIB.length;
+  buildTx();
+}
+function buildTx(){
+  const list=document.getElementById('txlist');if(!list)return;
+  const txs=(S.txs||[]).slice(0,20);
+  if(!txs.length){list.innerHTML='<div style="padding:20px;text-align:center;color:var(--mu);font-size:13px">هنوز تراکنشی نداری</div>';return;}
+  list.innerHTML=txs.map(tx=>`<div class="txi"><div class="txic ${tx.type==='earn'?'e':tx.type==='bonus'?'b':'sp'}"><i class="ti ti-${tx.type==='earn'?'coin':tx.type==='bonus'?'trending-up':'shopping-cart'}"></i></div><div style="flex:1"><div style="font-size:13px">${esc(tx.desc)}</div><div class="txd">${ago(tx.ts)}</div></div><div class="txa ${tx.n>=0?'pos':'neg'}">${tx.n>=0?'+':''}${tx.n} 🪙</div></div>`).join('');
+}
+function doWithdraw(){
+  const a=parseInt(document.getElementById('wd-a').value),c=document.getElementById('wd-c').value.trim();
+  if(!a||a<100){toast('⚠️ حداقل ۱۰۰ Coin');return;}if(a>S.coins){toast('⚠️ موجودی کافی نیست');return;}if(!c){toast('⚠️ شماره کارت وارد کن');return;}
+  addCoins(-a,'💸 برداشت ****'+c.slice(-4),'sp');save();updWallet();updHdr();closeOv('ov-wd');toast('✅ ثبت شد — ۲۴ ساعت دیگه');
+}
+
+// ─── Profile ─────────────────────────────────────
+function updProfile(){
+  const lvl=S.level||1,lbl=LVLS[Math.min(lvl-1,LVLS.length-1)];
+  document.getElementById('pname').textContent=S.username;
+  document.getElementById('phdl').textContent=S.handle;
+  document.getElementById('plvl-t').textContent='Level '+lvl+' — '+lbl;
+  document.getElementById('xp-l').textContent='Level '+lvl;
+  document.getElementById('xp-c').textContent='XP: '+(S.xp||0).toLocaleString();
+  document.getElementById('xp-n').textContent='بعدی: '+(lvl*500).toLocaleString();
+  const pct=Math.min(100,((S.xp%500)/500)*100);
+  document.getElementById('xpf').style.width=pct+'%';document.getElementById('xp-p').textContent=pct.toFixed(0)+'٪';
+  const brow=document.getElementById('brow');if(!brow)return;
+  const bs=[
+    {n:'Early Bird',i:'ti-bolt',c:S.listenC>=1},
+    {n:'Coin Earner',i:'ti-coin',c:(S.totalEarned||0)>=50,col:'color:var(--am)'},
+    {n:'Loyal Fan',i:'ti-heart-filled',c:S.likeC>=10,col:'color:var(--pk)'},
+    {n:'DJ Local',i:'ti-music',c:LIB.length>=5,col:'color:var(--am)'},
+    {n:'Cacher',i:'ti-cloud-download',c:S.dlC>=3,col:'color:var(--gr)'},
+    {n:'Social Star',i:'ti-share',c:S.shareC>=5,col:'color:var(--bl)'},
+  ];
+  brow.innerHTML=bs.map(b=>`<div class="bcard${b.c?' earn':' lock'}"><i class="ti ${b.i}"${b.col?' style="'+b.col+'"':''}></i><div class="bname">${b.n}</div></div>`).join('');
+}
+function updateStats(){
+  document.getElementById('st-ls').textContent=S.listenC||0;document.getElementById('st-co').textContent=S.totalEarned||0;
+  document.getElementById('st-lo').textContent=LIB.length;document.getElementById('st-lk').textContent=S.likeC||0;
+}
+function updProfMenu(){
+  const qc=document.getElementById('qm-coins');if(qc)qc.textContent=(S.coins||0).toLocaleString()+' 🪙';
+  const ql=document.getElementById('qm-liked');if(ql)ql.textContent=LIKED.length;
+  const qp=document.getElementById('qm-pl');if(qp)qp.textContent=PLAYLISTS.length;
+  const qn=document.getElementById('qm-notifs');if(qn){const uc=NOTIFS.filter(n=>!n.read).length;qn.textContent=uc;qn.style.display=uc>0?'':'none';}
+}
+function saveProfile(){
+  const n=document.getElementById('ep-n').value.trim(),h=document.getElementById('ep-h').value.trim();
+  if(n)S.username=n;if(h)S.handle=h.startsWith('@')?h:'@'+h;
+  save();updProfile();closeOv('ov-ep');toast('✅ ذخیره شد');
+}
+function copyRef(){navigator.clipboard?.writeText('https://nutsmusic.github.io/vibe-app?ref='+(S.ref||'')).catch(()=>{});toast('🔗 لینک دعوت کپی شد!');}
+function doReset(){
+  const ref=S.ref;S={...DEF,ref};LIKED=[];saveLiked();
+  aud.pause();aud.src='';CUR.id=null;CUR.playing=false;
+  document.getElementById('mini').classList.add('hide');
+  save();buildFeed();renderLib();updateMissions();updWallet();updProfile();updateStats();updateBadge();updHdr();
+  toast('🗑️ همه داده‌ها پاک شدن');
+}
+
+// ─── Feed ────────────────────────────────────────
+let currentGenre='all';
+function buildFeed(genre){
+  if(genre!==undefined)currentGenre=genre;
+  const list=document.getElementById('feed-list');
+  const tracks=currentGenre==='all'?OT:OT.filter(t=>t.genre===currentGenre);
+  if(!tracks.length){list.innerHTML=`<div class="empty"><i class="ti ti-music"></i><p>ترکی در این ژانر نیست</p></div>`;return;}
+  list.innerHTML=tracks.map((t,i)=>`
+    <div class="tc" id="tc-${t.id}">
+      <div class="tctop">
+        <div class="tccov" style="background:${t.color}">${t.coverUrl?`<img src="${t.coverUrl}" onerror="this.style.display='none'">`:t.emoji}${!t.coverUrl?'':''}</div>
+        <div class="tcinfo">
+          <div class="tct">${esc(t.title)}</div>
+          <div class="tca" onclick="openArtistPage('${t.artistId}')">${esc(t.artist)} <i class="ti ti-external-link" style="font-size:10px"></i></div>
+          <div class="tcm">
+            <span class="bdg b${t.badge}">${t.badgeLabel}</span>
+            ${t.hasVideo?`<span class="bdg bmv" onclick="openVideo('${t.id}')">🎬 MV</span>`:''}
+            <span style="font-size:10px;color:var(--mu)">${fmtT(t.duration)}</span>
+          </div>
+        </div>
+      </div>
+      <div class="wvwrap" id="wv-${t.id}" onclick="seekWave('${t.id}',event)"></div>
+      <div class="tprog" onclick="seekWave('${t.id}',event)"><div class="tpfill" id="tp-${t.id}" style="width:0%"></div></div>
+      <div class="tcacts">
+        <button class="abtn" id="lb-${t.id}" onclick="doLike(this,'${t.id}')"><i class="ti ti-heart"></i></button>
+        <button class="abtn" id="sb-${t.id}" onclick="doSave(this,'${t.id}')"><i class="ti ti-bookmark"></i></button>
+        <button class="abtn" onclick="doShare('${esc(t.title)}')"><i class="ti ti-share"></i></button>
+        <button class="abtn" id="dlbtn-${t.id}" onclick="downloadTrack('${t.id}')"><i class="ti ti-cloud-download"></i></button>
+        <button class="abtn" onclick="addToPlaylist(${OT.indexOf(t)})"><i class="ti ti-playlist-add"></i></button>
+        <button class="pbtn" id="opb-${OT.indexOf(t)}" onclick="playOnline(${OT.indexOf(t)})"><i class="ti ti-player-play"></i></button>
+      </div>
+      <div class="erow${t.earnType==='early'?' early':''}">
+        <i class="ti ti-coin" style="font-size:15px;color:${t.earnType==='early'?'var(--gr)':'var(--am)'}"></i>
+        <span>${t.earnText}</span>
+      </div>
+    </div>`).join('');
+  tracks.forEach(t=>mkWave(t.id));
+}
+function chip(el,genre){
+  el.closest('.chips').querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));
+  el.classList.add('on');buildFeed(genre);
+}
+
+// ─── Video Feed ──────────────────────────────────
+function buildVideoFeed(){
+  const list=document.getElementById('video-list'),vt=OT.filter(t=>t.hasVideo);
+  document.getElementById('vcount').textContent=vt.length+' ویدیو';
+  if(!vt.length){list.innerHTML=`<div class="empty"><i class="ti ti-brand-youtube"></i><p>هنوز ویدیویی نیست</p></div>`;return;}
+  list.innerHTML=vt.map(t=>`<div class="vc" onclick="openVideo('${t.id}')">
+    <div class="vthumb" style="background:linear-gradient(145deg,${t.color},#000)">
+      ${t.coverUrl?`<img src="${t.coverUrl}" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;opacity:.6" onerror="this.style.display='none'">`:''}
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:64px;opacity:.13">${t.emoji}</div>
+      <div class="vtcenter"><div class="vtpbtn"><i class="ti ti-player-play" style="font-size:20px"></i></div></div>
+      <div style="position:absolute;top:8px;right:10px"><span class="bdg b${t.badge}">${t.badgeLabel}</span></div>
+      <div style="position:absolute;top:8px;left:10px;background:rgba(248,113,113,.85);border-radius:6px;font-size:9px;padding:2px 7px;color:#fff;font-weight:600">MV</div>
+      <div style="position:absolute;bottom:8px;right:10px;background:rgba(0,0,0,.7);border-radius:4px;font-size:10px;padding:2px 7px;color:#fff">${fmtT(t.duration)}</div>
+      <div style="position:absolute;bottom:8px;left:10px;background:rgba(251,191,36,.85);border-radius:6px;font-size:9px;padding:2px 7px;color:#000;font-weight:600">+${t.videoReward} 🪙</div>
+    </div>
+    <div class="vcinfo"><div class="vct">${esc(t.title)}</div><div class="vca">${esc(t.artist)}</div><div class="vcmeta"><span style="color:var(--am);font-size:11px">+${t.videoReward} Coin برای تماشا</span></div></div>
+  </div>`).join('');
+}
+
+// ─── Video Player ────────────────────────────────
+const VCUR={id:null,playing:false,progress:0,dur:0,muted:false};
+let vProgT=null,vizAnim=null;
+const vidEl=document.getElementById('vid-el'),vizCvs=document.getElementById('viz-canvas'),vizCtx=vizCvs.getContext('2d');
+
+function openVideo(id){
+  const t=OT.find(x=>x.id===id);if(!t||!t.hasVideo)return;
+  VCUR.id=id;VCUR.playing=true;VCUR.progress=0;VCUR.dur=t.duration;VCUR.muted=false;
+  document.getElementById('vtitle').textContent=t.title+' — '+t.artist;
+  document.getElementById('vcbdg').textContent='+'+t.videoReward+' Coin';
+  document.getElementById('vearn-txt').textContent='کامل ببین +'+t.videoReward+' Coin';
+  document.getElementById('vpfill').style.width='0%';
+  document.getElementById('vtime').textContent='0:00 / '+fmtT(t.duration);
+  document.getElementById('vcplaybtn').innerHTML='<i class="ti ti-player-pause"></i>';
+  document.getElementById('vpov').classList.add('hide');
+  document.getElementById('vmute-btn').innerHTML='<i class="ti ti-volume"></i>';
+  vidEl.style.display='none';vizCvs.style.display='block';
+  resizeViz();startVisualizer(t);
+  document.getElementById('vov').classList.add('on');
+  document.body.style.overflow='hidden';
+  startVidProg(t.duration,t.videoReward);
+}
+function closeVideo(){
+  clearInterval(vProgT);cancelAnimationFrame(vizAnim);
+  vidEl.pause();vidEl.src='';
+  document.getElementById('vov').classList.remove('on');
+  document.body.style.overflow='hidden';VCUR.playing=false;
+}
+function toggleVidPlay(){
+  VCUR.playing=!VCUR.playing;
+  document.getElementById('vcplaybtn').innerHTML=VCUR.playing?'<i class="ti ti-player-pause"></i>':'<i class="ti ti-player-play"></i>';
+  document.getElementById('vpov').classList.toggle('hide',VCUR.playing);
+}
+function vidSkip(s){VCUR.progress=Math.max(0,Math.min(100,VCUR.progress+(s/VCUR.dur)*100));document.getElementById('vpfill').style.width=VCUR.progress+'%';}
+function seekVid(e){const r=document.getElementById('vpbar').getBoundingClientRect();VCUR.progress=((e.clientX-r.left)/r.width)*100;document.getElementById('vpfill').style.width=VCUR.progress+'%';}
+function toggleVidMute(){VCUR.muted=!VCUR.muted;vidEl.muted=VCUR.muted;document.getElementById('vmute-btn').innerHTML=VCUR.muted?'<i class="ti ti-volume-off"></i>':'<i class="ti ti-volume"></i>';}
+function startVidProg(dur,reward){
+  clearInterval(vProgT);
+  const step=100/(dur/0.5);
+  vProgT=setInterval(()=>{
+    if(!VCUR.playing)return;
+    VCUR.progress=Math.min(100,VCUR.progress+step);
+    document.getElementById('vpfill').style.width=VCUR.progress+'%';
+    document.getElementById('vtime').textContent=fmtT(VCUR.progress/100*dur)+' / '+fmtT(dur);
+    if(VCUR.progress>=100){clearInterval(vProgT);onVidComplete(reward);}
+  },500);
+}
+function onVidComplete(reward){
+  if(VCUR.muted){toast('🚫 صدا خاموش بود — بدون Reward');setTimeout(closeVideo,1500);return;}
+  const t=OT.find(x=>x.id===VCUR.id);
+  addCoins(reward,'🎬 Video — '+(t?t.title:''),'bonus');addXP(30);S.listenC++;updateMissions();updateStats();save();
+  toast('🎬 +'+reward+' Coin!');setTimeout(closeVideo,1800);
+}
+function resizeViz(){const s=document.getElementById('vscreen');vizCvs.width=s.offsetWidth||380;vizCvs.height=s.offsetHeight||300;}
+window.addEventListener('resize',()=>{if(document.getElementById('vov').classList.contains('on'))resizeViz();});
+function startVisualizer(track){
+  cancelAnimationFrame(vizAnim);
+  const W=vizCvs.width,H=vizCvs.height,bars=56,bw=(W/bars)*0.7;let frame=0;
+  function draw(){
+    if(!document.getElementById('vov').classList.contains('on')){cancelAnimationFrame(vizAnim);return;}
+    vizCtx.clearRect(0,0,W,H);
+    const g=vizCtx.createLinearGradient(0,0,0,H);g.addColorStop(0,track.color+'cc');g.addColorStop(1,'#000');
+    vizCtx.fillStyle=g;vizCtx.fillRect(0,0,W,H);
+    vizCtx.globalAlpha=.08;vizCtx.font=`${H*.38}px serif`;vizCtx.textAlign='center';vizCtx.fillStyle='#fff';
+    vizCtx.fillText(track.emoji,W/2,H/2+H*.1);vizCtx.globalAlpha=1;
+    const cy=H*.65;
+    for(let i=0;i<bars;i++){
+      const x=i*(W/bars),amp=VCUR.playing?Math.sin(frame*.09+i*.35)*.35+.5+Math.sin(frame*.14+i*.7)*.15:Math.sin(i*.5)*.12+.08;
+      const h=amp*H*.42;
+      vizCtx.globalAlpha=.5+amp*.5;vizCtx.fillStyle='rgba(167,139,250,.8)';
+      vizCtx.beginPath();if(vizCtx.roundRect)vizCtx.roundRect(x+(W/bars-bw)/2,cy-h,bw,h,3);else vizCtx.rect(x+(W/bars-bw)/2,cy-h,bw,h);vizCtx.fill();
+      vizCtx.globalAlpha=(.5+amp*.5)*.35;vizCtx.fillStyle='rgba(167,139,250,.5)';
+      vizCtx.beginPath();if(vizCtx.roundRect)vizCtx.roundRect(x+(W/bars-bw)/2,cy,bw,h*.35,3);else vizCtx.rect(x+(W/bars-bw)/2,cy,bw,h*.35);vizCtx.fill();
+    }
+    vizCtx.globalAlpha=1;
+    vizCtx.fillStyle='rgba(235,235,245,.9)';vizCtx.font=`bold ${Math.min(22,W*.05)}px Vazirmatn,sans-serif`;vizCtx.textAlign='center';
+    vizCtx.fillText(track.title,W/2,H*.11);
+    vizCtx.font=`${Math.min(14,W*.033)}px Vazirmatn,sans-serif`;vizCtx.fillStyle='rgba(167,139,250,.9)';
+    vizCtx.fillText(track.artist,W/2,H*.11+Math.min(22,W*.05)*1.4);
+    const pr=VCUR.progress/100,cx=W/2,cy2=H*.83,rad=20;
+    vizCtx.strokeStyle='rgba(255,255,255,.15)';vizCtx.lineWidth=3;vizCtx.beginPath();vizCtx.arc(cx,cy2,rad,0,Math.PI*2);vizCtx.stroke();
+    vizCtx.strokeStyle='#f87171';vizCtx.beginPath();vizCtx.arc(cx,cy2,rad,-Math.PI/2,-Math.PI/2+pr*Math.PI*2);vizCtx.stroke();
+    vizCtx.fillStyle='rgba(235,235,245,.8)';vizCtx.font='10px sans-serif';vizCtx.fillText(Math.round(VCUR.progress)+'%',cx,cy2+3.5);
+    frame++;vizAnim=requestAnimationFrame(draw);
+  }
+  draw();
+}
+
+// ─── Actions ────────────────────────────────────
+function doLike(btn,id){
+  btn.classList.toggle('liked');const ic=btn.querySelector('i');
+  if(btn.classList.contains('liked')){
+    ic.className='ti ti-heart-filled';
+    const c=getCoin('like');
+    addCoins(c,'❤️ Like','earn');addXP(10);S.likeC++;
+    const t=OT.find(x=>x.id===id),idx=OT.indexOf(t);
+    if(t&&!LIKED.find(l=>l.idx===idx))LIKED.push({idx,title:t.title,artist:t.artist,emoji:t.emoji,color:t.color,dur:t.duration});
+    saveLiked();updateMissions();updateStats();save();toast('❤️ +'+c+' Coin');
+  }else{ic.className='ti ti-heart';const t=OT.find(x=>x.id===id),idx=OT.indexOf(t);LIKED=LIKED.filter(l=>l.idx!==idx);saveLiked();}
+  updProfMenu();
+}
+function doSave(btn,id){
+  btn.classList.toggle('saved');const ic=btn.querySelector('i');
+  if(btn.classList.contains('saved')){ic.className='ti ti-bookmark-filled';const c=getCoin('save');addCoins(c,'🔖 Save','earn');toast('🔖 +'+c+' Coin');}
+  else ic.className='ti ti-bookmark';save();
+}
+function doShare(title){const c=getCoin('share');addCoins(c,'📤 Share — '+title,'earn');addXP(15);S.shareC++;updateMissions();updateStats();save();toast('📤 +'+c+' Coin');}
+
+// ─── Liked ───────────────────────────────────────
+function renderLiked(){
+  const list=document.getElementById('liked-list'),cnt=document.getElementById('liked-count');
+  if(cnt)cnt.textContent=LIKED.length+' ترک';
+  if(!list)return;
+  if(!LIKED.length){list.innerHTML=`<div class="empty"><i class="ti ti-heart"></i><p>هنوز ترکی لایک نکردی</p></div>`;return;}
+  list.innerHTML=LIKED.map(t=>`<div class="ltc" onclick="playOnline(${t.idx})">
+    <div class="lcov" style="background:${t.color}">${t.emoji}</div>
+    <div class="linf"><div class="lt2">${esc(t.title)}</div><div class="la2">${esc(t.artist)}</div></div>
+    <div class="ldur">${fmtT(t.dur)}</div>
+    <button class="lpbtn" onclick="event.stopPropagation();playOnline(${t.idx})"><i class="ti ti-player-play"></i></button>
+  </div>`).join('');
+}
+
+// ─── Queue ───────────────────────────────────────
+function renderQueue(){
+  const qnc=document.getElementById('qncov');if(qnc){qnc.style.background=CUR.color;qnc.textContent=CUR.emoji;}
+  const qnt=document.getElementById('qntitle');if(qnt)qnt.textContent=CUR.id?CUR.title:'چیزی پخش نمیشه';
+  const qna=document.getElementById('qnartist');if(qna)qna.textContent=CUR.artist||'—';
+  const list=document.getElementById('queue-list');if(!list)return;
+  const next=QUEUE.slice(0,7);
+  if(!next.length){list.innerHTML='<div style="padding:20px;text-align:center;color:var(--mu);font-size:13px">صف خالیه</div>';return;}
+  list.innerHTML=next.map((t,i)=>`<div class="qitem" onclick="playOnline(${t.idx})">
+    <div style="width:22px;text-align:center;font-size:11px;color:var(--mu)">${i+1}</div>
+    <div class="lcov" style="background:${t.color};width:38px;height:38px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:17px">${t.emoji}</div>
+    <div class="linf"><div class="lt2" style="font-size:13px">${esc(t.title)}</div><div class="la2">${esc(t.artist)}</div></div>
+    <div style="font-size:10px;color:var(--mu)">${fmtT(t.duration)}</div>
+  </div>`).join('');
+}
+
+// ─── Discover ────────────────────────────────────
+let srchT;
+function onSearch(q){
+  clearTimeout(srchT);
+  if(!q.trim()){document.getElementById('srch-results').style.display='none';document.getElementById('disc-default').style.display='';return;}
+  srchT=setTimeout(()=>{
+    const res=[
+      ...OT.filter(t=>t.title.toLowerCase().includes(q.toLowerCase())||t.artist.toLowerCase().includes(q.toLowerCase())).map(t=>({type:'track',title:t.title,sub:t.artist+' · '+t.genre,emoji:t.emoji,color:t.color,idx:OT.indexOf(t)})),
+      ...getArtists().filter(a=>a.name.toLowerCase().includes(q.toLowerCase())).map(a=>({type:'artist',title:a.name,sub:a.genre,emoji:a.emoji,color:a.color,id:a.id})),
+    ];
+    document.getElementById('srch-list').innerHTML=res.length
+      ?res.map(r=>`<div class="srid" onclick="${r.type==='track'?'playOnline('+r.idx+')':('openArtistPage(\''+r.id+'\')')}">
+        <div class="lcov" style="background:${r.color};width:42px;height:42px;border-radius:9px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px">${r.emoji}</div>
+        <div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(r.title)}</div><div style="font-size:11px;color:var(--mu)">${esc(r.sub)}</div></div>
+        <span class="srbdg ${r.type==='track'?'t':'a'}">${r.type==='track'?'ترک':'آرتیست'}</span>
+      </div>`).join('')
+      :'<div style="padding:20px;text-align:center;color:var(--mu);font-size:13px">نتیجه‌ای پیدا نشد</div>';
+    document.getElementById('srch-results').style.display='';document.getElementById('disc-default').style.display='none';
+  },220);
+}
+function buildDiscover(){
+  const artists=getArtists();
+  document.getElementById('disc-artists').innerHTML=artists.map(a=>`<div class="achip" onclick="openArtistPage('${a.id}')">
+    <div class="achipava${FOLLOWED.has(a.id)?' f':''}" style="background:${a.color}">${a.emoji}</div>
+    <span class="achipname${FOLLOWED.has(a.id)?' f':''}">${a.name}</span>
+  </div>`).join('');
+  document.getElementById('disc-trending').innerHTML=OT.slice().sort((a,b)=>b.reward-a.reward).slice(0,4).map((t,i)=>`<div class="tcard" style="background:${t.color}22;border-color:${t.color}33" onclick="playOnline(${OT.indexOf(t)})">
+    <div class="trank">${i+1}</div>
+    <div style="font-size:24px;margin-bottom:7px">${t.emoji}</div>
+    <div style="font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(t.title)}</div>
+    <div style="font-size:11px;color:var(--mu);margin-top:2px">${esc(t.artist)}</div>
+    <div style="font-size:10px;color:var(--gr);margin-top:6px;display:flex;align-items:center;gap:3px"><i class="ti ti-trending-up" style="font-size:11px"></i>+${t.reward} Coin</div>
+  </div>`).join('');
+}
+
+// ─── Artist Profile ───────────────────────────────
+let curArtistId=null;
+function openArtistPage(id){
+  const artists=getArtists(),a=artists.find(x=>x.id===id);if(!a)return;
+  curArtistId=id;
+  document.getElementById('apcover').style.background=`linear-gradient(135deg,${a.color},#000)`;
+  document.getElementById('apemoji').textContent=a.emoji;
+  document.getElementById('apava').textContent=a.emoji;document.getElementById('apava').style.background=`radial-gradient(circle,${a.color},#000)`;
+  document.getElementById('apname').textContent=a.name;document.getElementById('aphdl').textContent='@'+id+' · '+a.genre;
+  document.getElementById('apstr').textContent=(a.tracks.reduce((s,t)=>s+t.reward*100,0)).toLocaleString();
+  document.getElementById('apfol').textContent=FOLLOWED.has(id)?'دنبال شده':'—';
+  document.getElementById('aptrs').textContent=a.tracks.length;
+  const isF=FOLLOWED.has(id);const fb=document.getElementById('apfbtn');
+  fb.textContent=isF?'✓ دنبال شده':'+ دنبال کن';fb.className='apfbtn '+(isF?'uf':'f');
+  const links=a.tracks[0]?.links||[];
+  document.getElementById('aplinkrow').innerHTML=links.map(l=>`<div class="aplinkchip" onclick="${l.url?'window.open(\''+l.url+'\',\'_blank\')':''}toast('🔗 '+esc('${l.name}')+' — '+esc('${l.followers}'))">
+    <span style="font-size:16px">${l.icon}</span><span style="font-size:12px;font-weight:500">${esc(l.name)}</span><span style="font-size:10px;color:var(--mu)">${esc(l.followers)}</span>
+  </div>`).join('');
+  document.getElementById('aptracks').innerHTML=a.tracks.map(t=>`<div class="tc" style="margin:0 14px 10px" onclick="playOnline(${OT.indexOf(t)})">
+    <div class="tctop"><div class="tccov" style="background:${t.color}">${t.emoji}</div><div class="tcinfo"><div class="tct">${esc(t.title)}</div><div class="tca">${esc(t.artist)}</div><div class="tcm"><span class="bdg b${t.badge}">${t.badgeLabel}</span><span style="font-size:10px;color:var(--mu)">${fmtT(t.duration)}</span></div></div>
+    <button class="pbtn" onclick="event.stopPropagation();playOnline(${OT.indexOf(t)})"><i class="ti ti-player-play"></i></button></div>
+  </div>`).join('');
+  navPage('artist');
+}
+function toggleFollow(){
+  if(!curArtistId)return;const fb=document.getElementById('apfbtn');
+  if(FOLLOWED.has(curArtistId)){FOLLOWED.delete(curArtistId);fb.textContent='+ دنبال کن';fb.className='apfbtn f';toast('➖ آنفالو شد');}
+  else{FOLLOWED.add(curArtistId);fb.textContent='✓ دنبال شده';fb.className='apfbtn uf';addCoins(10,'👤 Follow','earn');addXP(20);save();toast('✅ +10 Coin');}
+  saveFollowed();
+}
+
+// ─── Playlists ────────────────────────────────────
+function createPlaylist(){
+  const n=prompt('اسم پلی‌لیست:');if(!n?.trim())return;
+  PLAYLISTS.unshift({id:'pl'+Date.now(),name:n.trim(),tracks:[],ts:Date.now()});
+  savePL();renderPlaylists();updProfMenu();toast('✅ "'+n+'" ساخته شد');
+}
+function renderPlaylists(){
+  const list=document.getElementById('pl-list'),det=document.getElementById('pl-detail');
+  if(!list)return;det.style.display='none';
+  if(!PLAYLISTS.length){list.innerHTML=`<div class="empty"><i class="ti ti-playlist"></i><p>هنوز پلی‌لیستی نداری</p></div>`;return;}
+  const COLS=['#1a0a3d','#0a2d1a','#2d1a0a','#0a1a2d'],EMS=['🎵','🌿','🔶','🌊'];
+  list.innerHTML=PLAYLISTS.map(pl=>`<div class="plcard" onclick="openPL('${pl.id}')">
+    <div class="pltop">${COLS.map((c,i)=>`<div class="plcell" style="background:${c}">${EMS[i]}</div>`).join('')}<div class="ploverlay"><div class="plplay"><i class="ti ti-player-play"></i></div></div></div>
+    <div class="plbody"><div class="plname">${esc(pl.name)}</div><div class="plmeta">${pl.tracks.length} ترک</div></div>
+  </div>`).join('');updProfMenu();
+}
+let activePL=null;
+function openPL(id){
+  activePL=PLAYLISTS.find(p=>p.id===id);if(!activePL)return;
+  document.getElementById('pl-list').style.display='none';document.getElementById('pl-detail').style.display='';
+  document.getElementById('pl-detail-name').textContent=activePL.name;
+  const tlist=document.getElementById('pl-tracks');
+  if(!activePL.tracks.length){tlist.innerHTML=`<div style="padding:24px;text-align:center;color:var(--mu);font-size:13px">پلی‌لیست خالیه<br>از فید ➕ بزن</div>`;return;}
+  tlist.innerHTML=activePL.tracks.map((t,i)=>`<div class="pltk" onclick="playOnline(${t.idx})">
+    <div class="plnum">${i+1}</div><div class="lcov" style="background:${t.color};width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:17px">${t.emoji}</div>
+    <div class="linf"><div class="lt2">${esc(t.title)}</div><div class="la2">${esc(t.artist)}</div></div>
+    <div class="ldur">${fmtT(t.dur)}</div>
+  </div>`).join('');
+}
+function closePLDetail(){document.getElementById('pl-list').style.display='';document.getElementById('pl-detail').style.display='none';activePL=null;}
+function playPlaylist(){if(!activePL?.tracks.length)return;playOnline(activePL.tracks[0].idx);toast('▶ '+activePL.name);}
+function addToPlaylist(idx){
+  const t=OT[idx];if(!t)return;
+  if(!PLAYLISTS.length){createPlaylist();return;}
+  const pl=PLAYLISTS[0];
+  if(pl.tracks.find(x=>x.idx===idx)){toast('قبلاً اضافه شده');return;}
+  pl.tracks.push({idx,title:t.title,artist:t.artist,emoji:t.emoji,color:t.color,dur:t.duration});
+  savePL();toast('➕ به "'+pl.name+'" اضافه شد');
+}
+
+// ─── Notifications ────────────────────────────────
+function pushNotif(title,sub,type='system',action=null){
+  NOTIFS.unshift({id:'n'+Date.now(),type,title,sub,time:Date.now(),read:false,action});
+  if(NOTIFS.length>50)NOTIFS=NOTIFS.slice(0,50);
+  saveNotifs();updateNotifBadge();
+}
+function updateNotifBadge(){
+  const c=NOTIFS.filter(n=>!n.read).length;
+  const nd=document.getElementById('notif-ndot');if(nd)nd.classList.toggle('on',c>0);
+  const nb=document.getElementById('notif-badge');if(nb){nb.textContent=c;nb.classList.toggle('on',c>0);}
+  const qn=document.getElementById('qm-notifs');if(qn){qn.textContent=c;qn.style.display=c>0?'':'none';}
+}
+function renderNotifs(){
+  updateNotifBadge();const list=document.getElementById('notif-list');if(!list)return;
+  const icons={coin:'🪙',mission:'🎯',artist:'🎵',system:'⚙️'};
+  const bgc={coin:'rgba(251,191,36,.13)',mission:'rgba(124,58,237,.12)',artist:'rgba(52,211,153,.1)',system:'rgba(144,144,184,.1)'};
+  list.innerHTML=NOTIFS.map(n=>`<div class="nitem${n.read?'':' unr'}" onclick="readNotif('${n.id}')">
+    ${!n.read?'<div class="nudot"></div>':''}
+    <div class="nico" style="background:${bgc[n.type]||'var(--bg3)'}">${icons[n.type]||'🔔'}</div>
+    <div class="nbody"><div class="ntitle">${esc(n.title)}</div><div class="nsub">${esc(n.sub)}</div><div class="ntime">${ago(n.time)}</div>
+    ${n.action?`<button class="nact" onclick="event.stopPropagation();readNotif('${n.id}');navPage('${n.action}')">مشاهده</button>`:''}
+    </div>
+  </div>`).join('');
+}
+function readNotif(id){const n=NOTIFS.find(x=>x.id===id);if(n){n.read=true;saveNotifs();renderNotifs();}}
+function markAllRead(){NOTIFS.forEach(n=>n.read=true);saveNotifs();renderNotifs();toast('✅ همه خوانده شد');}
+
+// ─── Leaderboard ─────────────────────────────────
+const LBD={
+  coins:[{n:'Cobra2024',e:'🎧',l:'Gold',v:12840},{n:'MusicLover',e:'🎵',l:'Platinum',v:9420},{n:'DeepBeats',e:'🔥',l:'Silver',v:7200},{n:'You',e:'🎤',l:'',v:0,me:true},{n:'TrackHunter',e:'🌿',l:'Bronze',v:5100},{n:'SoundWave',e:'🌊',l:'Bronze',v:4800}],
+  listens:[{n:'AudioFreak',e:'🎧',l:'Platinum',v:847},{n:'VibeKing',e:'🎵',l:'Gold',v:721},{n:'You',e:'🎤',l:'',v:0,me:true},{n:'ListenPro',e:'🔥',l:'Silver',v:610}],
+  level:[{n:'DiamondEar',e:'💎',l:'Diamond',v:18},{n:'LegendSound',e:'🏆',l:'Legend',v:16},{n:'You',e:'🎤',l:'',v:0,me:true},{n:'SilverBeat',e:'🎵',l:'Silver',v:9}],
+};
+function buildLeaderboard(type){
+  let data=[...LBD[type]];const mi=data.findIndex(d=>d.me);
+  if(mi>=0){data[mi].n=S.username||'تو';data[mi].l=LVLS[Math.min((S.level||1)-1,LVLS.length-1)];data[mi].v=type==='coins'?(S.coins||0):type==='listens'?(S.listenC||0):(S.level||1);}
+  data.sort((a,b)=>b.v-a.v);
+  const myR=data.findIndex(d=>d.me)+1;document.getElementById('my-rank').textContent=myR?'#'+myR:'—';
+  const suf=type==='coins'?' 🪙':type==='listens'?' ترک':' Lv';
+  const[f,s,t2]=data;
+  document.getElementById('lbpodium').innerHTML=`
+    <div class="lbpod s"><div class="lbpava" style="background:var(--bg3)">${s?.e||'—'}</div><div class="lbpname">${esc(s?.n||'—')}</div><div class="lbpcoin">${(s?.v||0).toLocaleString()}${suf}</div><div style="font-size:16px">🥈</div><div class="lbpbar"></div></div>
+    <div class="lbpod f"><div style="font-size:16px">👑</div><div class="lbpava" style="background:var(--bg3)">${f?.e||'—'}</div><div class="lbpname" style="font-weight:700">${esc(f?.n||'—')}</div><div class="lbpcoin" style="color:var(--am)">${(f?.v||0).toLocaleString()}${suf}</div><div class="lbpbar"></div></div>
+    <div class="lbpod t"><div class="lbpava" style="background:var(--bg3)">${t2?.e||'—'}</div><div class="lbpname">${esc(t2?.n||'—')}</div><div class="lbpcoin">${(t2?.v||0).toLocaleString()}${suf}</div><div style="font-size:16px">🥉</div><div class="lbpbar"></div></div>`;
+  document.getElementById('lb-list').innerHTML=data.slice(3).map((d,i)=>`<div class="lbitem${d.me?' me':''}">
+    <div class="lbrank" style="color:${d.me?'var(--pu)':'var(--mu)'}">#${i+4}</div>
+    <div class="lbava">${d.e}</div>
+    <div class="lbinf"><div class="lbname" style="${d.me?'color:var(--pu);font-weight:600':''}">${esc(d.n)}${d.me?' (تو)':''}</div><div class="lblvl">${d.l}</div></div>
+    <div class="lbcoin">${(d.v||0).toLocaleString()}${suf}</div>
+  </div>`).join('');
+}
+function switchLB(type,btn){document.querySelectorAll('.lbtab').forEach(b=>b.classList.remove('on'));btn.classList.add('on');buildLeaderboard(type);}
+
+// ─── Settings ─────────────────────────────────────
+function buildSettings(){
+  const q=document.getElementById('st-quality');if(q)q.value=SETTINGS.quality||'medium';
+  const ap=document.getElementById('st-autoplay');if(ap)ap.checked=!!SETTINGS.autoplay;
+  const sh=document.getElementById('st-shuffle');if(sh)sh.checked=!!SETTINGS.shuffle;
+  const nc=document.getElementById('st-nc');if(nc)nc.checked=!!SETTINGS.notifCoin;
+  const nm=document.getElementById('st-nm');if(nm)nm.checked=!!SETTINGS.notifMission;
+  const sr=document.getElementById('st-ref');if(sr)sr.textContent=S.ref||'—';
+  calcCacheSize();
+}
+async function calcCacheSize(){const el=document.getElementById('st-cache');if(!el)return;const c=await dbAll();el.textContent=c.length+' ترک ذخیره شده';}
+async function clearCacheFromSettings(){await clearCache();calcCacheSize();}
+
+// ─── Nav ─────────────────────────────────────────
+function navTo(id,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));
+  const pg=document.getElementById('pg-'+id);if(pg)pg.classList.add('on');
+  if(btn)btn.classList.add('on');
+  runInit(id);
+}
+function navPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));
+  const pg=document.getElementById('pg-'+id);if(pg)pg.classList.add('on');
+  runInit(id);
+}
+function runInit(id){
+  if(id==='wallet')updWallet();
+  if(id==='profile'){updProfile();updateStats();updateNotifBadge();updProfMenu();}
+  if(id==='local'){renderLib();updateBadge();}
+  if(id==='discover')buildDiscover();
+  if(id==='playlist')renderPlaylists();
+  if(id==='liked')renderLiked();
+  if(id==='queue')renderQueue();
+  if(id==='notifs')renderNotifs();
+  if(id==='leaderboard')buildLeaderboard('coins');
+  if(id==='settings')buildSettings();
+  if(id==='missions')updateMissions();
+  if(id==='video'){
+    if(!ONLINE){document.getElementById('video-list').style.display='none';document.getElementById('video-offline').style.display='block';}
+    else{document.getElementById('video-list').style.display='';document.getElementById('video-offline').style.display='none';buildVideoFeed();}
+  }
+}
+
+// ─── Overlays ────────────────────────────────────
+function openOv(id){
+  if(id==='ov-wd'){document.getElementById('ov-bal').textContent=S.coins.toLocaleString()+' 🪙';document.getElementById('ov-toman').textContent='≈ '+(S.coins*15).toLocaleString()+' تومان';document.getElementById('wd-a').value='';document.getElementById('wd-c').value='';}
+  if(id==='ov-ep'){document.getElementById('ep-n').value=S.username;document.getElementById('ep-h').value=S.handle;}
+  document.getElementById(id).classList.add('on');
+}
+function closeOv(id){document.getElementById(id).classList.remove('on');}
+let cfcb=null;
+function openCf(t,m,cb,type='ok'){document.getElementById('cft').textContent=t;document.getElementById('cfm').textContent=m;const ok=document.getElementById('cfok');ok.className='cfbtn '+(type==='red'?'red':'ok');ok.textContent=type==='red'?'پاک کن':'تایید';cfcb=cb;document.getElementById('cf').classList.add('on');}
+function closeCf(){document.getElementById('cf').classList.remove('on');cfcb=null;}
+document.getElementById('cfok').onclick=()=>{if(cfcb)cfcb();closeCf();};
+
+// ─── Utils ───────────────────────────────────────
+function toast(msg){const w=document.getElementById('twrap'),t=document.createElement('div');t.className='toast';t.textContent=msg;w.innerHTML='';w.appendChild(t);setTimeout(()=>t.remove(),2200);}
+function fmtT(s){if(!s||isNaN(s))return '--:--';return Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0');}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function ago(ts){const d=(Date.now()-ts)/1000;if(d<60)return 'همین الان';if(d<3600)return Math.floor(d/60)+' دقیقه پیش';if(d<86400)return Math.floor(d/3600)+' ساعت پیش';return Math.floor(d/86400)+' روز پیش';}
+
+// ─── Admin Access ─────────────────────────────────
+let _tapCount=0,_tapTimer=null;
+const ADMIN_HASH_KEY='vibe_adm_h';
+// default password hash: "vibe1403" - کاربر میتونه از پنل ادمین عوض کنه
+function _simpleHash(s){let h=0;for(let i=0;i<s.length;i++){h=((h<<5)-h)+s.charCodeAt(i);h|=0;}return h.toString(36);}
+function getAdminHash(){return localStorage.getItem(ADMIN_HASH_KEY)||_simpleHash('vibe1403');}
+
+function adminTap(){
+  clearTimeout(_tapTimer);
+  _tapCount++;
+  const hint=document.getElementById('ver-tap-hint');
+  if(_tapCount>=2&&_tapCount<5){if(hint){hint.style.display='block';hint.textContent=`${5-_tapCount} بار دیگه...`;}}
+  if(_tapCount>=5){_tapCount=0;if(hint)hint.style.display='none';showAdminLogin();}
+  _tapTimer=setTimeout(()=>{_tapCount=0;const h=document.getElementById('ver-tap-hint');if(h)h.style.display='none';},2000);
+}
+function showAdminLogin(){
+  const ov=document.getElementById('ov-admin-login');
+  if(!ov)return;
+  const inp=document.getElementById('adm-pass-inp');
+  if(inp)inp.value='';
+  const err=document.getElementById('adm-login-err');
+  if(err)err.style.display='none';
+  ov.classList.add('on');
+  setTimeout(()=>{const i=document.getElementById('adm-pass-inp');if(i)i.focus();},300);
+}
+function doAdminLogin(){
+  const inp=document.getElementById('adm-pass-inp');if(!inp)return;
+  const p=inp.value;
+  if(_simpleHash(p)===getAdminHash()){
+    closeOv('ov-admin-login');
+    openAdminPanel();
+  }else{
+    const e=document.getElementById('adm-login-err');
+    if(e){e.textContent='رمز اشتباهه ❌';e.style.display='block';}
+    inp.value='';inp.focus();
+  }
+}
+// Enter key - با setTimeout تا مطمئن بشیم DOM لود شده
+setTimeout(()=>{
+  const inp=document.getElementById('adm-pass-inp');
+  if(inp)inp.addEventListener('keydown',e=>{if(e.key==='Enter')doAdminLogin();});
+},500);
+
+// ─── Admin Panel ──────────────────────────────────
+let _adminDirty=false;
+let _ATK=()=>{try{return JSON.parse(localStorage.getItem('vaTK')||'[]');}catch{return[];}};
+let _ANT=()=>{try{return JSON.parse(localStorage.getItem('vaNT')||'[]');}catch{return[];}};
+let _ACF=()=>{const D={coinListen:10,coinVideo:20,coinEarly:25,coinLike:5,coinSave:3,coinShare:15,coinFollow:10,coinDl:5,coinRef:100,coinToman:15,minWd:100,maxDaily:50000,minPct:85,maxPerDay:3,likeOn:true,saveOn:true,shareOn:true,followOn:true,dlOn:true,refOn:true,revArtist:70,revPlatform:20,revListener:10,feeUser:5,feeArtist:3,feeCamp:10,afMute:true,afBg:true,afSpeed:true,afVpn:false,afDev:50,afIp:200};return{...D,...(JSON.parse(localStorage.getItem('vaCF')||'{}'))};}
+let ATK=[],ANT=[],ACF={};
+
+function openAdminPanel(){
+  ATK=_ATK();ANT=_ANT();ACF=_ACF();
+  const p=document.getElementById('adm-panel');
+  p.style.display='flex';
+  p.style.flexDirection='column';
+  document.body.style.overflow='hidden';
+  admShowPage('adm-dashboard');
+  admUpdDS();admRenDTK();admRenDN();
+}
+function closeAdminPanel(){
+  if(_adminDirty&&!confirm('تغییرات ذخیره نشده پاک میشن. ادامه؟'))return;
+  document.getElementById('adm-panel').style.display='none';
+  document.body.style.overflow='hidden';
+  _adminDirty=false;
+}
+function admSaveAll(){
+  admColCF();
+  localStorage.setItem('vaTK',JSON.stringify(ATK));
+  localStorage.setItem('vaNT',JSON.stringify(ANT));
+  localStorage.setItem('vaCF',JSON.stringify(ACF));
+  _adminDirty=false;
+  document.getElementById('adm-udot').classList.remove('on');
+  document.getElementById('adm-save-st').textContent='';
+  // sync به اپ
+  OT=[...ATK];if(!OT.length)OT=getFallbackTracks();
+  REMOTE_CONFIG=ACF;applyRemoteConfig();
+  if(ONLINE)buildFeed();
+  admUpdDS();
+  admToast('✅ ذخیره شد','s');
+  document.getElementById('adm-last-save').textContent=new Date().toLocaleTimeString('fa-IR');
+}
+function admMD(){_adminDirty=true;document.getElementById('adm-udot').classList.add('on');document.getElementById('adm-save-st').textContent='● ذخیره نشده';}
+
+function admShowPage(id){
+  document.querySelectorAll('.adm-page').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.adm-sb-item').forEach(i=>i.classList.remove('on'));
+  document.getElementById(id)?.classList.add('on');
+  document.querySelector(`.adm-sb-item[data-page="${id}"]`)?.classList.add('on');
+  const titles={
+    'adm-dashboard':'داشبورد','adm-tracks':'ترک‌ها','adm-add-track':'افزودن ترک',
+    'adm-artists':'آرتیست‌ها','adm-notifications':'اعلان‌ها','adm-coins':'Coin',
+    'adm-revenue':'درآمد','adm-withdrawals':'برداشت‌ها','adm-anticheat':'Anti-Fraud','adm-export':'خروجی'
+  };
+  document.getElementById('adm-tt').textContent=titles[id]||'';
+  const inits={'adm-dashboard':()=>{admUpdDS();admRenDTK();admRenDN();},'adm-tracks':admRenTKList,'adm-artists':admRenArtists,'adm-notifications':admRenNH,'adm-coins':admPopCoins,'adm-revenue':admPopRev,'adm-anticheat':admPopAF,'adm-withdrawals':admRenWD,'adm-export':admUpdEI,'adm-add-track':admInitAT};
+  inits[id]?.();
+}
+
+// Dashboard
+function admUpdDS(){const el1=document.getElementById('adm-d-tracks'),el2=document.getElementById('adm-d-coin'),el3=document.getElementById('adm-d-artist'),el4=document.getElementById('adm-d-notifs');if(el1)el1.textContent=ATK.length;if(el2)el2.textContent=ACF.coinListen||10;if(el3)el3.textContent=(ACF.revArtist||70)+'%';if(el4)el4.textContent=ANT.length;}
+function admRenDTK(){const el=document.getElementById('adm-d-tk-list');if(!el)return;if(!ATK.length){el.innerHTML='<div style="color:var(--mu);font-size:13px;padding:10px;text-align:center">ترکی نداری</div>';return;}el.innerHTML=`<table style="width:100%;border-collapse:collapse">${ATK.map(t=>`<tr style="border-bottom:.5px solid var(--b1)"><td style="padding:9px 10px"><b>${esc(t.title)}</b></td><td style="padding:9px 10px;color:var(--mu2)">${esc(t.artist)}</td><td style="padding:9px 10px;color:var(--am)">+${t.reward}🪙</td><td style="padding:9px 10px">${t.hasVideo?'<span style="background:rgba(52,211,153,.13);color:var(--gr);font-size:10px;padding:2px 7px;border-radius:8px">MV</span>':'—'}</td><td style="padding:9px 10px"><div style="display:flex;gap:5px"><button onclick="admEditTK('${t.id}')" style="background:var(--bg3);border:.5px solid var(--b2);border-radius:7px;padding:4px 9px;cursor:pointer;color:var(--mu2);font-size:12px;font-family:inherit"><i class="ti ti-edit"></i></button><button onclick="admDelTK('${t.id}')" style="background:rgba(248,113,113,.13);border:.5px solid rgba(248,113,113,.2);border-radius:7px;padding:4px 9px;cursor:pointer;color:var(--re);font-size:12px;font-family:inherit"><i class="ti ti-trash"></i></button></div></td></tr>`).join('')}</table>`;}
+function admRenDN(){const el=document.getElementById('adm-d-notif-list');if(!el)return;if(!ANT.length){el.innerHTML='<div style="color:var(--mu);font-size:13px;padding:10px;text-align:center">اعلانی نیست</div>';return;}const ic={coin:'🪙',mission:'🎯',artist:'🎵',system:'⚙️',promo:'📣'};el.innerHTML=ANT.slice(0,5).map(n=>`<div style="display:flex;align-items:flex-start;gap:10px;padding:11px;border-bottom:.5px solid var(--b1)"><div style="width:34px;height:34px;border-radius:50%;background:rgba(167,139,250,.12);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0">${ic[n.type]||'🔔'}</div><div style="flex:1"><div style="font-size:13px;font-weight:500">${esc(n.title)}</div><div style="font-size:11px;color:var(--mu2)">${esc(n.sub)}</div><div style="font-size:10px;color:var(--mu);margin-top:3px">${admAgo(n.ts)}</div></div></div>`).join('');}
+
+// Tracks list
+function admRenTKList(){const el=document.getElementById('adm-tks-list');if(!el)return;const c=document.getElementById('adm-tk-count');if(c)c.textContent=ATK.length+' ترک';if(!ATK.length){el.innerHTML='<div style="color:var(--mu);font-size:13px;text-align:center;padding:40px">ترکی نداری</div>';return;}el.innerHTML=ATK.map(t=>`<div style="border:.5px solid var(--b1);border-radius:var(--r2);background:var(--bg3);padding:13px;margin-bottom:10px"><div style="display:flex;align-items:center;gap:11px;margin-bottom:10px"><div style="width:44px;height:44px;border-radius:9px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px;background:${t.color};overflow:hidden;position:relative">${t.coverUrl?`<img src="${t.coverUrl}" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;border-radius:9px" onerror="this.style.display='none'">${t.emoji}`:t.emoji}</div><div style="flex:1"><div style="font-size:14px;font-weight:600">${esc(t.title)}</div><div style="font-size:12px;color:var(--mu2)">${esc(t.artist)} · ${esc(t.genre)}</div><div style="display:flex;gap:5px;margin-top:5px;flex-wrap:wrap"><span style="font-size:10px;background:rgba(251,191,36,.13);color:var(--am);padding:2px 7px;border-radius:8px">+${t.reward}🪙</span>${t.hasVideo?'<span style="font-size:10px;background:rgba(52,211,153,.13);color:var(--gr);padding:2px 7px;border-radius:8px">🎬 MV</span>':''}<span style="font-size:10px;background:rgba(167,139,250,.13);color:var(--pu);padding:2px 7px;border-radius:8px">${esc(t.badgeLabel)}</span>${t.audioUrl?'<span style="font-size:10px;background:rgba(52,211,153,.13);color:var(--gr);padding:2px 7px;border-radius:8px">✓ Audio</span>':'<span style="font-size:10px;background:rgba(251,191,36,.13);color:var(--am);padding:2px 7px;border-radius:8px">⚡ Sim</span>'}</div></div></div>${t.audioUrl?`<div style="font-size:10px;color:var(--mu2);margin-bottom:8px;word-break:break-all">${esc(t.audioUrl.slice(0,60))}...</div>`:''}<div style="display:flex;gap:7px;flex-wrap:wrap"><button onclick="admEditTK('${t.id}')" style="background:var(--bg3);border:.5px solid var(--b2);border-radius:8px;padding:6px 13px;cursor:pointer;color:var(--mu2);font-size:12px;font-family:inherit;display:inline-flex;align-items:center;gap:5px"><i class="ti ti-edit"></i> ویرایش</button><button onclick="admTestAud('${esc(t.audioUrl||'')}') " style="background:rgba(96,165,250,.13);border:.5px solid rgba(96,165,250,.2);border-radius:8px;padding:6px 13px;cursor:pointer;color:var(--bl);font-size:12px;font-family:inherit;display:inline-flex;align-items:center;gap:5px"><i class="ti ti-player-play"></i> تست</button><button onclick="admDelTK('${t.id}')" style="background:rgba(248,113,113,.13);border:.5px solid rgba(248,113,113,.2);border-radius:8px;padding:6px 13px;cursor:pointer;color:var(--re);font-size:12px;font-family:inherit;display:inline-flex;align-items:center;gap:5px"><i class="ti ti-trash"></i> حذف</button></div></div>`).join('');}
+
+// Add/Edit track
+let _admEditId=null;
+function admInitAT(){if(!_admEditId)admResetAT();}
+function admResetAT(){_admEditId=null;document.getElementById('adm-at-title').textContent='➕ افزودن ترک';['adm-t-title','adm-t-artist','adm-t-artistid','adm-t-audio','adm-t-cover','adm-t-video','adm-t-etext','adm-t-blabel'].forEach(i=>{const el=document.getElementById(i);if(el)el.value='';});document.getElementById('adm-t-emoji').value='🎵';document.getElementById('adm-t-color').value='#1a0a3d';document.getElementById('adm-t-color-txt').value='#1a0a3d';document.getElementById('adm-t-dur').value='';document.getElementById('adm-t-reward').value='10';document.getElementById('adm-t-vreward').value='20';document.getElementById('adm-t-genre').value='Rap';document.getElementById('adm-t-etype').value='normal';document.getElementById('adm-t-hasvid').checked=false;document.getElementById('adm-links-con').innerHTML='';admAddLR();}
+function admEditTK(id){const t=ATK.find(x=>x.id===id);if(!t)return;_admEditId=id;document.getElementById('adm-at-title').textContent='✏️ ویرایش: '+t.title;document.getElementById('adm-t-title').value=t.title;document.getElementById('adm-t-artist').value=t.artist;document.getElementById('adm-t-artistid').value=t.artistId||'';document.getElementById('adm-t-genre').value=t.genre||'Rap';document.getElementById('adm-t-emoji').value=t.emoji||'🎵';document.getElementById('adm-t-color').value=t.color||'#1a0a3d';document.getElementById('adm-t-color-txt').value=t.color||'#1a0a3d';document.getElementById('adm-t-dur').value=t.duration||'';document.getElementById('adm-t-reward').value=t.reward||10;document.getElementById('adm-t-vreward').value=t.videoReward||20;document.getElementById('adm-t-audio').value=t.audioUrl||'';document.getElementById('adm-t-cover').value=t.coverUrl||'';document.getElementById('adm-t-video').value=t.videoUrl||'';document.getElementById('adm-t-etype').value=t.earnType||'normal';document.getElementById('adm-t-blabel').value=t.badgeLabel||'';document.getElementById('adm-t-etext').value=t.earnText||'';document.getElementById('adm-t-hasvid').checked=!!t.hasVideo;document.getElementById('adm-links-con').innerHTML='';(t.links||[]).forEach(l=>admAddLR(l));admShowPage('adm-add-track');}
+function admSaveTK(){const ti=document.getElementById('adm-t-title').value.trim(),ar=document.getElementById('adm-t-artist').value.trim();if(!ti||!ar){admToast('⚠️ عنوان و آرتیست الزامیه');return;}const links=[...document.querySelectorAll('.adm-lr')].map(r=>({name:r.querySelector('.ln').value,icon:r.querySelector('.li').value,color:r.querySelector('.lc').value,followers:r.querySelector('.lf').value,url:r.querySelector('.lu').value})).filter(l=>l.name);const em={normal:'hot',early:'new',sponsored:'sp',hot:'hot'};const ety=document.getElementById('adm-t-etype').value;const tk={id:_admEditId||'t'+Date.now(),title:ti,artist:ar,artistId:document.getElementById('adm-t-artistid').value.trim()||(ar.toLowerCase().replace(/\s+/g,'')),genre:document.getElementById('adm-t-genre').value,emoji:document.getElementById('adm-t-emoji').value||'🎵',color:document.getElementById('adm-t-color').value||'#1a0a3d',duration:parseInt(document.getElementById('adm-t-dur').value)||180,reward:parseInt(document.getElementById('adm-t-reward').value)||10,videoReward:parseInt(document.getElementById('adm-t-vreward').value)||20,audioUrl:document.getElementById('adm-t-audio').value.trim(),coverUrl:document.getElementById('adm-t-cover').value.trim(),videoUrl:document.getElementById('adm-t-video').value.trim(),hasVideo:document.getElementById('adm-t-hasvid').checked,earnType:ety,badge:em[ety]||'hot',badgeLabel:document.getElementById('adm-t-blabel').value.trim()||'🎵',earnText:document.getElementById('adm-t-etext').value.trim()||'گوش بده Coin بگیر',links};if(_admEditId){const i=ATK.findIndex(x=>x.id===_admEditId);if(i>=0)ATK[i]=tk;}else ATK.push(tk);admMD();admSaveAll();_admEditId=null;admShowPage('adm-tracks');}
+function admDelTK(id){if(!confirm('ترک حذف بشه؟'))return;ATK=ATK.filter(t=>t.id!==id);admMD();admSaveAll();admRenTKList();admRenDTK();}
+function admCancelEdit(){_admEditId=null;admShowPage('adm-tracks');}
+function admAddLR(l={}){const c=document.getElementById('adm-links-con');const d=document.createElement('div');d.className='adm-lr';d.style.cssText='display:flex;gap:7px;margin-bottom:7px;align-items:center;flex-wrap:wrap';d.innerHTML=`<input class="adm-inp li" type="text" placeholder="🎵" value="${esc(l.icon||'')}" style="width:40px"><input class="adm-inp ln" type="text" placeholder="Spotify" value="${esc(l.name||'')}" style="flex:1;min-width:80px"><input class="adm-inp lf" type="text" placeholder="2.1M" value="${esc(l.followers||'')}" style="width:70px"><input class="adm-inp lu" type="url" placeholder="https://..." value="${esc(l.url||'')}" dir="ltr" style="flex:2;min-width:120px"><input class="adm-inp lc" type="color" value="${l.color||'#1DB954'}" style="width:36px;height:36px;padding:2px;cursor:pointer"><button onclick="this.parentElement.remove()" style="background:rgba(248,113,113,.13);border:.5px solid rgba(248,113,113,.2);border-radius:7px;padding:5px 8px;cursor:pointer;color:var(--re)"><i class="ti ti-x"></i></button>`;c.appendChild(d);}
+function admAutoFill(){const t=document.getElementById('adm-t-etype').value;const m={normal:['🎵 ترک','گوش بده Coin بگیر'],early:['✨ Early Discover','Viral بشه Coin اضافه'],sponsored:['💼 Sponsored','تا آخر گوش بده'],hot:['🔥 Trending','الان ترندینگه']};const[lb,et]=m[t]||['🎵',''];document.getElementById('adm-t-blabel').value=lb;document.getElementById('adm-t-etext').value=et;}
+function admTestAud(url){if(!url){admToast('⚠️ Audio URL نداره');return;}const a=new Audio(url);a.play().then(()=>{admToast('▶ پخش شد');setTimeout(()=>a.pause(),5000);}).catch(e=>admToast('❌ '+e.message));}
+
+// Artists
+function admRenArtists(){const map={};ATK.forEach(t=>{if(!map[t.artistId])map[t.artistId]={id:t.artistId,name:t.artist,genre:t.genre,emoji:t.emoji,color:t.color,tks:0};map[t.artistId].tks++;});const ar=Object.values(map);const el=document.getElementById('adm-artists-list');if(!el)return;if(!ar.length){el.innerHTML='<div style="color:var(--mu);text-align:center;padding:40px;font-size:13px">ترک اضافه کن</div>';return;}el.innerHTML=ar.map(a=>`<div style="display:flex;align-items:center;gap:12px;padding:13px;background:var(--card);border:.5px solid var(--b1);border-radius:var(--r2);margin-bottom:10px"><div style="width:46px;height:46px;border-radius:50%;background:${a.color};display:flex;align-items:center;justify-content:center;font-size:20px">${a.emoji}</div><div style="flex:1"><div style="font-size:14px;font-weight:600">${esc(a.name)}</div><div style="font-size:11px;color:var(--mu2)">${esc(a.genre)} · ${a.tks} ترک</div></div><span style="font-size:10px;background:rgba(167,139,250,.13);color:var(--pu);padding:2px 8px;border-radius:8px">ID: ${esc(a.id)}</span></div>`).join('');}
+
+// Notifications
+function admAddNotif(){const ti=document.getElementById('adm-n-title').value.trim(),su=document.getElementById('adm-n-sub').value.trim();if(!ti){admToast('⚠️ عنوان الزامیه');return;}ANT.unshift({id:'n'+Date.now(),title:ti,sub:su,type:document.getElementById('adm-n-type').value,action:document.getElementById('adm-n-action').value||null,ts:Date.now(),read:false});if(ANT.length>100)ANT=ANT.slice(0,100);admMD();admSaveAll();admRenNH();admRenDN();document.getElementById('adm-n-title').value='';document.getElementById('adm-n-sub').value='';admToast('✅ ارسال شد','s');}
+function admRenNH(){const el=document.getElementById('adm-n-history');if(!el)return;if(!ANT.length){el.innerHTML='<div style="color:var(--mu);text-align:center;padding:20px;font-size:13px">اعلانی نیست</div>';return;}const ic={coin:'🪙',mission:'🎯',artist:'🎵',system:'⚙️',promo:'📣'};el.innerHTML=ANT.map(n=>`<div style="display:flex;align-items:flex-start;gap:10px;padding:12px;border-bottom:.5px solid var(--b1)"><div style="width:36px;height:36px;border-radius:50%;background:rgba(167,139,250,.12);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0">${ic[n.type]||'🔔'}</div><div style="flex:1"><div style="font-size:13px;font-weight:500">${esc(n.title)}</div><div style="font-size:11px;color:var(--mu2)">${esc(n.sub)}</div><div style="font-size:10px;color:var(--mu);margin-top:3px">${admAgo(n.ts)}</div></div><button onclick="admDelN('${n.id}')" style="background:rgba(248,113,113,.13);border:.5px solid rgba(248,113,113,.2);border-radius:7px;padding:4px 8px;cursor:pointer;color:var(--re);flex-shrink:0"><i class="ti ti-trash"></i></button></div>`).join('');}
+function admDelN(id){ANT=ANT.filter(n=>n.id!==id);admMD();admSaveAll();admRenNH();admRenDN();}
+function admClearN(){if(!confirm('پاک بشه؟'))return;ANT=[];admMD();admSaveAll();admRenNH();admRenDN();}
+
+// Coins
+function admPopCoins(){const nm=[['adm-c-listen',ACF.coinListen||10],['adm-c-video',ACF.coinVideo||20],['adm-c-early',ACF.coinEarly||25],['adm-c-like',ACF.coinLike||5],['adm-c-save',ACF.coinSave||3],['adm-c-share',ACF.coinShare||15],['adm-c-follow',ACF.coinFollow||10],['adm-c-dl',ACF.coinDl||5],['adm-c-ref',ACF.coinRef||100],['adm-c-toman',ACF.coinToman||15],['adm-c-minwd',ACF.minWd||100],['adm-c-maxd',ACF.maxDaily||50000]];nm.forEach(([id,v])=>{const el=document.getElementById(id);if(el)el.value=v;});const cm=[['adm-c-like-on',ACF.likeOn!==false],['adm-c-save-on',ACF.saveOn!==false],['adm-c-share-on',ACF.shareOn!==false],['adm-c-follow-on',ACF.followOn!==false],['adm-c-dl-on',ACF.dlOn!==false],['adm-c-ref-on',ACF.refOn!==false]];cm.forEach(([id,v])=>{const el=document.getElementById(id);if(el)el.checked=v;});[['adm-c-minpct','adm-c-minpct-v','%',ACF.minPct||85],['adm-c-dlim','adm-c-dlim-v','× در روز',ACF.maxPerDay||3]].forEach(([rid,vid,s,v])=>{const r=document.getElementById(rid),vl=document.getElementById(vid);if(r&&vl){r.value=v;vl.textContent=v+s;}});admUpdCP();}
+function admColCF(){const nm=[['adm-c-listen','coinListen'],['adm-c-video','coinVideo'],['adm-c-early','coinEarly'],['adm-c-like','coinLike'],['adm-c-save','coinSave'],['adm-c-share','coinShare'],['adm-c-follow','coinFollow'],['adm-c-dl','coinDl'],['adm-c-ref','coinRef'],['adm-c-toman','coinToman'],['adm-c-minwd','minWd'],['adm-c-maxd','maxDaily']];nm.forEach(([id,k])=>{const el=document.getElementById(id);if(el&&el.value)ACF[k]=+el.value;});const cm=[['adm-c-like-on','likeOn'],['adm-c-save-on','saveOn'],['adm-c-share-on','shareOn'],['adm-c-follow-on','followOn'],['adm-c-dl-on','dlOn'],['adm-c-ref-on','refOn']];cm.forEach(([id,k])=>{const el=document.getElementById(id);if(el)ACF[k]=el.checked;});[['adm-c-minpct','minPct'],['adm-c-dlim','maxPerDay']].forEach(([id,k])=>{const el=document.getElementById(id);if(el)ACF[k]=+el.value;});const rv=[['adm-r-artist','revArtist'],['adm-r-platform','revPlatform'],['adm-r-listener','revListener'],['adm-f-user','feeUser'],['adm-f-artist','feeArtist'],['adm-f-camp','feeCamp']];rv.forEach(([id,k])=>{const el=document.getElementById(id);if(el)ACF[k]=+el.value;});const af=[['adm-af-mute','afMute'],['adm-af-bg','afBg'],['adm-af-speed','afSpeed'],['adm-af-vpn','afVpn']];af.forEach(([id,k])=>{const el=document.getElementById(id);if(el)ACF[k]=el.checked;});[['adm-af-dev','afDev'],['adm-af-ip','afIp']].forEach(([id,k])=>{const el=document.getElementById(id);if(el&&el.value)ACF[k]=+el.value;});}
+function admUpdCP(){const t=+(document.getElementById('adm-c-toman')?.value||ACF.coinToman||15),m=+(document.getElementById('adm-c-minwd')?.value||ACF.minWd||100);const el=document.getElementById('adm-c-preview');if(el)el.innerHTML=`۱ Coin = <b style="color:var(--am)">${t.toLocaleString()} تومان</b> · حداقل برداشت ${m} = <b style="color:var(--gr)">${(m*t).toLocaleString()} تومان</b>`;}
+
+// Revenue
+function admPopRev(){[['adm-r-artist','adm-r-artist-v','%',ACF.revArtist||70],['adm-r-platform','adm-r-platform-v','%',ACF.revPlatform||20],['adm-r-listener','adm-r-listener-v','%',ACF.revListener||10],['adm-f-user','adm-f-user-v','%',ACF.feeUser||5],['adm-f-artist','adm-f-artist-v','%',ACF.feeArtist||3],['adm-f-camp','adm-f-camp-v','%',ACF.feeCamp||10]].forEach(([rid,vid,s,v])=>{const r=document.getElementById(rid),vl=document.getElementById(vid);if(r&&vl){r.value=v;vl.textContent=v+s;}});admSyncRev(null);}
+function admSyncRev(ch){const a=document.getElementById('adm-r-artist'),p=document.getElementById('adm-r-platform'),l=document.getElementById('adm-r-listener');if(!a||!p||!l)return;let av=+a.value,pv=+p.value,lv=+l.value;if(ch==='a'){const r=100-av;pv=Math.round(r*pv/Math.max(pv+lv,1));lv=100-av-pv;}else if(ch==='p'){const r=100-pv;av=Math.round(r*av/Math.max(av+lv,1));lv=100-pv-av;}else if(ch==='l'){const r=100-lv;av=Math.round(r*av/Math.max(av+pv,1));pv=100-lv-av;}const d=100-av-pv-lv;av+=d;a.value=av;p.value=pv;l.value=lv;document.getElementById('adm-r-artist-v').textContent=av+'%';document.getElementById('adm-r-platform-v').textContent=pv+'%';document.getElementById('adm-r-listener-v').textContent=lv+'%';const bx=document.getElementById('adm-r-preview');if(bx)bx.innerHTML=av+pv+lv===100?`<span style="color:var(--gr)">✅ ${av}٪ آرتیست · ${pv}٪ Vibe · ${lv}٪ شنونده</span>`:`<span style="color:var(--re)">❌ مجموع ${av+pv+lv}٪</span>`;}
+function admUR(rid,vid,s){const r=document.getElementById(rid),v=document.getElementById(vid);if(r&&v)v.textContent=r.value+s;}
+
+// Anticheat
+function admPopAF(){[['adm-af-mute','afMute'],['adm-af-bg','afBg'],['adm-af-speed','afSpeed'],['adm-af-vpn','afVpn']].forEach(([id,k])=>{const el=document.getElementById(id);if(el)el.checked=ACF[k]!==false;});[['adm-af-dev',ACF.afDev||50],['adm-af-ip',ACF.afIp||200]].forEach(([id,v])=>{const el=document.getElementById(id);if(el)el.value=v;});}
+
+// Withdrawals
+function admRenWD(){const WD=JSON.parse(localStorage.getItem('vaWD')||'[]');const pend=WD.filter(w=>w.status==='pending'),done=WD.filter(w=>w.status!=='pending');const c=document.getElementById('adm-wd-cnt');if(c)c.textContent=pend.length;const pe=document.getElementById('adm-wd-pending');if(pe){if(!pend.length)pe.innerHTML='<div style="color:var(--mu);text-align:center;padding:20px;font-size:13px">درخواستی نیست</div>';else pe.innerHTML=pend.map(w=>`<div style="display:flex;align-items:center;gap:11px;padding:12px;background:var(--bg3);border:.5px solid var(--b1);border-radius:var(--r);margin-bottom:8px"><div style="flex:1"><div style="font-size:13px;font-weight:500">${esc(w.user||'کاربر')}</div><div style="font-size:11px;color:var(--mu2)">${w.amount} Coin = ${(w.amount*(ACF.coinToman||15)).toLocaleString()} تومان</div></div><button onclick="admAppWD('${w.id}')" style="background:rgba(52,211,153,.15);border:.5px solid rgba(52,211,153,.25);border-radius:8px;padding:5px 12px;cursor:pointer;color:var(--gr);font-size:12px;font-family:inherit"><i class="ti ti-check"></i> تأیید</button><button onclick="admRejWD('${w.id}')" style="background:rgba(248,113,113,.13);border:.5px solid rgba(248,113,113,.2);border-radius:8px;padding:5px 12px;cursor:pointer;color:var(--re);font-size:12px;font-family:inherit"><i class="ti ti-x"></i> رد</button></div>`).join('');}}
+function admAppWD(id){const WD=JSON.parse(localStorage.getItem('vaWD')||'[]');const w=WD.find(x=>x.id===id);if(w){w.status='approved';}localStorage.setItem('vaWD',JSON.stringify(WD));admRenWD();admToast('✅ تأیید','s');}
+function admRejWD(id){const WD=JSON.parse(localStorage.getItem('vaWD')||'[]');const w=WD.find(x=>x.id===id);if(w)w.status='rejected';localStorage.setItem('vaWD',JSON.stringify(WD));admRenWD();}
+
+// Export
+function admUpdEI(){const t=document.getElementById('adm-ex-tinfo'),n=document.getElementById('adm-ex-ninfo');if(t)t.textContent=ATK.length+' ترک';if(n)n.textContent=ANT.length+' اعلان';}
+function admGetTJ(){return ATK.map(t=>({id:t.id,title:t.title,artist:t.artist,artistId:t.artistId,genre:t.genre,emoji:t.emoji,color:t.color,duration:t.duration,reward:t.reward,videoReward:t.videoReward,badge:t.badge,badgeLabel:t.badgeLabel,earnText:t.earnText,earnType:t.earnType,hasVideo:t.hasVideo,audioUrl:t.audioUrl||'',coverUrl:t.coverUrl||'',videoUrl:t.videoUrl||'',links:t.links||[]}));}
+function admGetNJ(){return ANT.map(n=>({id:n.id,type:n.type,title:n.title,sub:n.sub,time:n.ts,read:false,action:n.action||null}));}
+function admGetCJ(){admColCF();return{...ACF};}
+function admDlJSON(type){admColCF();const data=type==='tracks'?admGetTJ():type==='notifications'?admGetNJ():admGetCJ();const a=document.createElement('a');a.href='data:application/json;charset=utf-8,'+encodeURIComponent(JSON.stringify(data,null,2));a.download=type+'.json';a.click();admToast('⬇ '+type+'.json','s');}
+function admDlAll(){['tracks','notifications','config'].forEach((t,i)=>setTimeout(()=>admDlJSON(t),i*300));}
+function admPrevJSON(type){admColCF();const data=type==='tracks'?admGetTJ():type==='notifications'?admGetNJ():admGetCJ();document.getElementById('adm-json-prev').value=JSON.stringify(data,null,2);}
+function admImpJSON(input,type){const file=input.files[0];if(!file)return;const r=new FileReader();r.onload=e=>{try{const d=JSON.parse(e.target.result);if(type==='tracks')ATK=d;else if(type==='notifications')ANT=d.map(n=>({...n,ts:n.time||n.ts||Date.now()}));else ACF={...ACF,...d};admSaveAll();if(type==='tracks')admRenTKList();if(type==='notifications')admRenNH();admToast('✅ import شد','s');}catch{admToast('❌ فایل نامعتبر');}};r.readAsText(file);}
+
+// Change password
+function admChangePass(){const op=document.getElementById('adm-old-pass')?.value,np=document.getElementById('adm-new-pass')?.value;if(!op||!np){admToast('⚠️ هر دو فیلد رو پر کن');return;}if(_simpleHash(op)!==getAdminHash()){admToast('❌ رمز قدیمی اشتباهه');return;}if(np.length<4){admToast('⚠️ حداقل ۴ کاراکتر');return;}localStorage.setItem(ADMIN_HASH_KEY,_simpleHash(np));admToast('✅ رمز تغییر کرد','s');document.getElementById('adm-old-pass').value='';document.getElementById('adm-new-pass').value='';}
+
+// Toast & utils
+function admToast(msg,type=''){const w=document.getElementById('adm-twrap');const t=document.createElement('div');t.className='toast '+(type==='s'?'s':type==='w'?'w':'');t.textContent=msg;w.appendChild(t);setTimeout(()=>t.remove(),2500);}
+function admAgo(ts){const d=(Date.now()-ts)/1000;if(d<60)return 'همین الان';if(d<3600)return Math.floor(d/60)+' دق';if(d<86400)return Math.floor(d/3600)+' ساعت';return Math.floor(d/86400)+' روز';}
+
+// ─── Keyboard ────────────────────────────────────
+document.addEventListener('keydown',e=>{
+  if(['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName))return;
+  if(e.code==='Space'){e.preventDefault();togglePlay();}
+  if(e.code==='ArrowRight')nextTr();if(e.code==='ArrowLeft')prevTr();
+  if(e.code==='KeyM'){aud.muted=!aud.muted;toast(aud.muted?'🔇 بی‌صدا':'🔊 صدا');}
+  if(e.code==='Escape')closeVideo();
+});
+
+// ─── INIT ────────────────────────────────────────
+(async()=>{
+  await openDB();
+  if(!localStorage.getItem('vibe_device'))localStorage.setItem('vibe_device','web_'+Math.random().toString(36).slice(2,10));
+  // load all remote data (tracks + config + notifications)
+  await loadRemoteData();
+  // init UI
+  updHdr();updateMissions();updProfile();updateStats();updateBadge();updateNotifBadge();updProfMenu();
+  if(ONLINE)buildFeed();else syncOnline();
+  setInterval(save,30000);
+  setInterval(()=>{if(CUR.id&&CUR.playing)updWave(CUR.id,CUR.progress);},500);
+  // hide loading screen
+  setTimeout(()=>{const ls=document.getElementById('loading-screen');ls.classList.add('hide');setTimeout(()=>ls.style.display='none',400);},1500);
+})();
+</script>
+<!-- ══ ADMIN LOGIN MODAL ══ -->
+<div class="ov" id="ov-admin-login" onclick="if(event.target===this)closeOv('ov-admin-login')">
+  <div class="sheet" onclick="event.stopPropagation()">
+    <div class="shh"></div>
+    <div style="text-align:center;margin-bottom:16px">
+      <div style="font-size:28px;margin-bottom:8px">🔐</div>
+      <div style="font-size:16px;font-weight:700">پنل مدیریت</div>
+      <div style="font-size:12px;color:var(--mu);margin-top:4px">رمز ادمین رو وارد کن</div>
+    </div>
+    <input id="adm-pass-inp" type="password" dir="ltr" placeholder="رمز عبور" style="width:100%;padding:12px 14px;border-radius:var(--r);border:.5px solid var(--b2);background:var(--bg3);color:var(--tx);font-size:16px;font-family:inherit;outline:none;text-align:center;letter-spacing:4px;margin-bottom:10px">
+    <div id="adm-login-err" style="color:var(--re);font-size:12px;text-align:center;margin-bottom:10px;display:none"></div>
+    <button onclick="doAdminLogin()" style="width:100%;padding:13px;border-radius:var(--r2);border:none;background:var(--pu2);color:#fff;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit">ورود به پنل</button>
+    <div style="text-align:center;margin-top:12px;font-size:11px;color:var(--mu)">رمز پیش‌فرض: <b style="color:var(--pu)">vibe1403</b></div>
+  </div>
+</div>
+
+<!-- ══ ADMIN PANEL ══ -->
+<div id="adm-panel" style="position:fixed;inset:0;background:var(--bg);z-index:90;display:none;flex-direction:column">
+<style>
+.adm-panel.on,.adm-panel{display:flex!important}
+#adm-panel{display:none}
+#adm-panel.on{display:flex}
+.adm-layout{display:flex;flex:1;min-height:0;overflow:hidden}
+.adm-sb{width:200px;background:var(--bg2);border-left:.5px solid var(--b1);display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto}
+.adm-sb-logo{padding:14px;border-bottom:.5px solid var(--b1)}
+.adm-sb-item{display:flex;align-items:center;gap:8px;padding:9px 14px;cursor:pointer;color:var(--mu2);font-size:12px;transition:all .12s;border-right:2px solid transparent}
+.adm-sb-item:hover{background:rgba(167,139,250,.07);color:var(--tx)}
+.adm-sb-item.on{background:rgba(167,139,250,.12);color:var(--pu);border-right-color:var(--pu)}
+.adm-sb-item i{font-size:16px;flex-shrink:0}
+.adm-sb-sec{font-size:9px;font-weight:700;color:var(--mu);letter-spacing:1.5px;text-transform:uppercase;padding:9px 14px 3px}
+.adm-sb-footer{padding:10px 14px;border-top:.5px solid var(--b1);font-size:10px;color:var(--mu);margin-top:auto}
+.adm-topbar{padding:11px 18px;border-bottom:.5px solid var(--b1);background:var(--bg2);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.adm-main{flex:1;overflow-y:auto;padding:18px}
+.adm-page{display:none}.adm-page.on{display:block}
+.adm-card{background:var(--card);border:.5px solid var(--b1);border-radius:var(--r2);margin-bottom:14px;overflow:hidden}
+.adm-card-hdr{padding:11px 14px;border-bottom:.5px solid var(--b1);display:flex;align-items:center;gap:8px}
+.adm-card-body{padding:14px}
+.adm-fg{display:grid;gap:11px}.adm-fg.c2{grid-template-columns:1fr 1fr}.adm-fg.c3{grid-template-columns:1fr 1fr 1fr}
+.adm-field{display:flex;flex-direction:column;gap:4px}
+.adm-lbl{font-size:11px;font-weight:600;color:var(--mu2)}
+.adm-inp{width:100%;padding:9px 11px;border-radius:var(--r);border:.5px solid var(--b2);background:var(--bg3);color:var(--tx);font-size:13px;font-family:inherit;outline:none;transition:border-color .12s}
+.adm-inp:focus{border-color:rgba(167,139,250,.5)}.adm-inp[type=number]{text-align:left;direction:ltr}
+.adm-inprow{display:flex;align-items:center;border:.5px solid var(--b2);border-radius:var(--r);background:var(--bg3);overflow:hidden}
+.adm-inprow:focus-within{border-color:rgba(167,139,250,.5)}
+.adm-inprow .pre{padding:9px 8px;font-size:11px;color:var(--mu2);border-left:.5px solid var(--b2);background:rgba(0,0,0,.15)}
+.adm-inprow .adm-inp{border:none;background:transparent}
+.adm-btn{padding:6px 12px;border-radius:8px;border:none;font-size:12px;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:5px;transition:opacity .12s}
+.adm-btn:hover{opacity:.82}
+.adm-btn.pu{background:var(--pu2);color:#fff}.adm-btn.gr{background:rgba(52,211,153,.15);color:var(--gr);border:.5px solid rgba(52,211,153,.25)}
+.adm-btn.re{background:rgba(248,113,113,.13);color:var(--re);border:.5px solid rgba(248,113,113,.2)}
+.adm-btn.su{background:var(--bg3);color:var(--mu2);border:.5px solid var(--b2)}.adm-btn.am{background:rgba(251,191,36,.13);color:var(--am);border:.5px solid rgba(251,191,36,.2)}
+.adm-btn.bl{background:rgba(96,165,250,.13);color:var(--bl);border:.5px solid rgba(96,165,250,.2)}
+.adm-rrow{display:flex;align-items:center;gap:10px}
+.adm-rng{flex:1;-webkit-appearance:none;height:4px;border-radius:2px;background:var(--bg3);outline:none;cursor:pointer}
+.adm-rng::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--pu2);cursor:pointer;border:2px solid var(--bg)}
+.adm-rnv{min-width:40px;text-align:left;font-size:12px;font-weight:600;color:var(--pu)}
+.adm-tgl{position:relative;display:inline-block;width:36px;height:20px;flex-shrink:0}
+.adm-tgl input{opacity:0;width:0;height:0;position:absolute}
+.adm-tgl-s{position:absolute;inset:0;background:var(--bg3);border-radius:10px;cursor:pointer;transition:background .2s;border:.5px solid var(--b2)}
+.adm-tgl-s:before{content:'';position:absolute;height:14px;width:14px;left:2px;bottom:2px;background:var(--mu);border-radius:50%;transition:all .2s}
+.adm-tgl input:checked+.adm-tgl-s{background:var(--pu2);border-color:var(--pu2)}
+.adm-tgl input:checked+.adm-tgl-s:before{transform:translateX(16px);background:#fff}
+.adm-tgl-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
+.adm-div{height:.5px;background:var(--b1);margin:12px 0}
+.adm-stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+.adm-sbox{background:var(--card);border:.5px solid var(--b1);border-radius:var(--r2);padding:13px}
+.adm-info{background:rgba(96,165,250,.07);border:.5px solid rgba(96,165,250,.2);border-radius:var(--r);padding:10px 12px;font-size:12px;color:var(--bl);line-height:1.7;margin-bottom:12px}
+.adm-warn{background:rgba(251,191,36,.07);border:.5px solid rgba(251,191,36,.2);border-radius:var(--r);padding:10px 12px;font-size:12px;color:var(--am);line-height:1.7;margin-bottom:12px}
+.adm-preview{background:var(--bg3);border:.5px solid var(--b2);border-radius:var(--r);padding:11px;font-size:12px;line-height:2;color:var(--mu2)}
+@media(max-width:600px){.adm-sb{display:none}.adm-fg.c2,.adm-fg.c3{grid-template-columns:1fr}.adm-stat-row{grid-template-columns:1fr 1fr}}
+</style>
+<div class="adm-layout">
+  <!-- Sidebar -->
+  <div class="adm-sb">
+    <div class="adm-sb-logo">
+      <div style="font-size:17px;font-weight:900;letter-spacing:-1px">vi<span style="color:var(--pu)">be</span> <span style="font-size:10px;font-weight:400;color:var(--mu2)">Admin</span></div>
+    </div>
+    <div style="flex:1;padding:6px 0">
+      <div class="adm-sb-sec">داشبورد</div>
+      <div class="adm-sb-item on" data-page="adm-dashboard" onclick="admShowPage('adm-dashboard')"><i class="ti ti-layout-dashboard"></i>خلاصه</div>
+      <div class="adm-sb-sec">محتوا</div>
+      <div class="adm-sb-item" data-page="adm-tracks" onclick="admShowPage('adm-tracks')"><i class="ti ti-music"></i>ترک‌ها</div>
+      <div class="adm-sb-item" data-page="adm-add-track" onclick="admShowPage('adm-add-track')"><i class="ti ti-music-plus"></i>افزودن ترک</div>
+      <div class="adm-sb-item" data-page="adm-artists" onclick="admShowPage('adm-artists')"><i class="ti ti-microphone-2"></i>آرتیست‌ها</div>
+      <div class="adm-sb-item" data-page="adm-notifications" onclick="admShowPage('adm-notifications')"><i class="ti ti-bell"></i>اعلان‌ها</div>
+      <div class="adm-sb-sec">اقتصاد</div>
+      <div class="adm-sb-item" data-page="adm-coins" onclick="admShowPage('adm-coins')"><i class="ti ti-coin"></i>Coin</div>
+      <div class="adm-sb-item" data-page="adm-revenue" onclick="admShowPage('adm-revenue')"><i class="ti ti-chart-pie"></i>درآمد</div>
+      <div class="adm-sb-item" data-page="adm-withdrawals" onclick="admShowPage('adm-withdrawals')"><i class="ti ti-cash"></i>برداشت‌ها</div>
+      <div class="adm-sb-sec">سیستم</div>
+      <div class="adm-sb-item" data-page="adm-anticheat" onclick="admShowPage('adm-anticheat')"><i class="ti ti-shield-check"></i>Anti-Fraud</div>
+      <div class="adm-sb-item" data-page="adm-export" onclick="admShowPage('adm-export')"><i class="ti ti-download"></i>خروجی</div>
+      <div class="adm-sb-item" data-page="adm-security" onclick="admShowPage('adm-security')"><i class="ti ti-lock"></i>رمز ادمین</div>
+    </div>
+    <div class="adm-sb-footer">آخرین ذخیره:<br><span id="adm-last-save">—</span><br><span id="adm-save-st" style="color:var(--am)"></span></div>
+  </div>
+  <!-- Main -->
+  <div style="flex:1;display:flex;flex-direction:column;min-width:0;overflow:hidden">
+    <div class="adm-topbar">
+      <div style="font-size:15px;font-weight:700" id="adm-tt">داشبورد</div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <div id="adm-udot" style="width:7px;height:7px;background:var(--am);border-radius:50%;display:none"></div>
+        <button class="adm-btn pu" onclick="admSaveAll()"><i class="ti ti-device-floppy"></i>ذخیره</button>
+        <button class="adm-btn su" onclick="closeAdminPanel()"><i class="ti ti-x"></i>بستن</button>
+      </div>
+    </div>
+    <div class="adm-main">
+
+      <!-- DASHBOARD -->
+      <div class="adm-page on" id="adm-dashboard">
+        <div class="adm-stat-row">
+          <div class="adm-sbox"><div style="font-size:10px;color:var(--mu2)">ترک‌ها</div><div style="font-size:22px;font-weight:700;color:var(--pu);margin:4px 0" id="adm-d-tracks">0</div></div>
+          <div class="adm-sbox"><div style="font-size:10px;color:var(--mu2)">Coin/Listen</div><div style="font-size:22px;font-weight:700;color:var(--am);margin:4px 0" id="adm-d-coin">10</div></div>
+          <div class="adm-sbox"><div style="font-size:10px;color:var(--mu2)">سهم آرتیست</div><div style="font-size:22px;font-weight:700;color:var(--gr);margin:4px 0" id="adm-d-artist">70%</div></div>
+          <div class="adm-sbox"><div style="font-size:10px;color:var(--mu2)">اعلان‌ها</div><div style="font-size:22px;font-weight:700;color:var(--re);margin:4px 0" id="adm-d-notifs">0</div></div>
+        </div>
+        <div class="adm-info"><i class="ti ti-info-circle"></i> تغییر → <b>ذخیره</b> → <b>خروجی</b> → دانلود JSON → آپلود به GitHub</div>
+        <div class="adm-card"><div class="adm-card-hdr"><i class="ti ti-music" style="color:var(--pu)"></i><b>ترک‌ها</b><button class="adm-btn pu" onclick="admShowPage('adm-add-track')" style="margin-right:auto"><i class="ti ti-plus"></i>جدید</button></div><div class="adm-card-body"><div id="adm-d-tk-list" style="overflow-x:auto"></div></div></div>
+        <div class="adm-card"><div class="adm-card-hdr"><i class="ti ti-bell" style="color:var(--gr)"></i><b>آخرین اعلان‌ها</b><button class="adm-btn gr" onclick="admShowPage('adm-notifications')" style="margin-right:auto">مدیریت</button></div><div class="adm-card-body"><div id="adm-d-notif-list"></div></div></div>
+      </div>
+
+      <!-- TRACKS -->
+      <div class="adm-page" id="adm-tracks">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px"><div><div style="font-size:17px;font-weight:700">🎵 ترک‌ها</div><div style="font-size:12px;color:var(--mu2);margin-top:2px" id="adm-tk-count">0 ترک</div></div><button class="adm-btn pu" onclick="admShowPage('adm-add-track')"><i class="ti ti-plus"></i>جدید</button></div>
+        <div id="adm-tks-list"></div>
+      </div>
+
+      <!-- ADD TRACK -->
+      <div class="adm-page" id="adm-add-track">
+        <div style="font-size:17px;font-weight:700;margin-bottom:14px" id="adm-at-title">➕ افزودن ترک</div>
+        <div class="adm-info"><i class="ti ti-info-circle"></i><b>Audio URL:</b> لینک مستقیم MP3 — از GitHub raw یا هر هاست دیگه.</div>
+        <div class="adm-card"><div class="adm-card-hdr"><i class="ti ti-info-circle" style="color:var(--pu)"></i><b>اطلاعات اصلی</b></div><div class="adm-card-body">
+          <div class="adm-fg c2">
+            <div class="adm-field"><div class="adm-lbl">★ عنوان</div><input class="adm-inp" id="adm-t-title" type="text" placeholder="نه بدون تو" onchange="admMD()"></div>
+            <div class="adm-field"><div class="adm-lbl">★ آرتیست</div><input class="adm-inp" id="adm-t-artist" type="text" placeholder="Hichkas" onchange="admMD()"></div>
+            <div class="adm-field"><div class="adm-lbl">Artist ID</div><input class="adm-inp" id="adm-t-artistid" type="text" dir="ltr" placeholder="hichkas" onchange="admMD()"></div>
+            <div class="adm-field"><div class="adm-lbl">ژانر</div><select class="adm-inp" id="adm-t-genre" onchange="admMD()"><option>Rap</option><option>Trap</option><option>R&B</option><option>Pop</option><option>Lo-Fi</option><option>Electronic</option><option>Hip-Hop</option><option>Other</option></select></div>
+            <div class="adm-field"><div class="adm-lbl">Emoji</div><input class="adm-inp" id="adm-t-emoji" type="text" placeholder="🎵" maxlength="2" onchange="admMD()"></div>
+            <div class="adm-field"><div class="adm-lbl">رنگ</div><div style="display:flex;gap:7px"><input id="adm-t-color" type="color" value="#1a0a3d" style="width:44px;height:36px;padding:2px;border-radius:8px;border:.5px solid var(--b2);cursor:pointer;background:var(--bg3)" oninput="document.getElementById('adm-t-color-txt').value=this.value;admMD()"><input class="adm-inp" id="adm-t-color-txt" type="text" value="#1a0a3d" dir="ltr" oninput="document.getElementById('adm-t-color').value=this.value;admMD()"></div></div>
+            <div class="adm-field"><div class="adm-lbl">مدت (ثانیه)</div><input class="adm-inp" id="adm-t-dur" type="number" placeholder="222" dir="ltr" onchange="admMD()"></div>
+            <div class="adm-field"><div class="adm-lbl">Coin Reward</div><div class="adm-inprow"><span class="pre">🪙</span><input class="adm-inp" id="adm-t-reward" type="number" placeholder="10" onchange="admMD()"></div></div>
+          </div>
+        </div></div>
+        <div class="adm-card"><div class="adm-card-hdr"><i class="ti ti-link" style="color:var(--bl)"></i><b>URLها</b></div><div class="adm-card-body">
+          <div class="adm-fg">
+            <div class="adm-field"><div class="adm-lbl">Audio URL</div><input class="adm-inp" id="adm-t-audio" type="url" dir="ltr" placeholder="https://raw.githubusercontent.com/.../track.mp3" onchange="admMD()"><div style="font-size:10px;color:var(--mu);margin-top:3px">اگه خالی باشه Simulation Mode</div></div>
+            <div class="adm-field"><div class="adm-lbl">Cover URL</div><input class="adm-inp" id="adm-t-cover" type="url" dir="ltr" placeholder="https://.../cover.jpg" onchange="admMD()"></div>
+            <div class="adm-field"><div class="adm-lbl">Video URL (MV)</div><input class="adm-inp" id="adm-t-video" type="url" dir="ltr" placeholder="https://.../mv.mp4" onchange="admMD()"></div>
+          </div>
+          <div class="adm-div"></div>
+          <div class="adm-tgl-row"><div style="font-size:13px">این ترک موزیک ویدیو داره</div><label class="adm-tgl"><input type="checkbox" id="adm-t-hasvid" onchange="admMD()"><span class="adm-tgl-s"></span></label></div>
+        </div></div>
+        <div class="adm-card"><div class="adm-card-hdr"><i class="ti ti-coin" style="color:var(--am)"></i><b>Reward و Badge</b></div><div class="adm-card-body">
+          <div class="adm-fg c2">
+            <div class="adm-field"><div class="adm-lbl">نوع</div><select class="adm-inp" id="adm-t-etype" onchange="admAutoFill();admMD()"><option value="normal">عادی</option><option value="early">✨ Early Discover</option><option value="sponsored">💼 Sponsored</option><option value="hot">🔥 Hot</option></select></div>
+            <div class="adm-field"><div class="adm-lbl">Badge Label</div><input class="adm-inp" id="adm-t-blabel" type="text" placeholder="🔥 Trending" onchange="admMD()"></div>
+            <div class="adm-field"><div class="adm-lbl">Coin ویدیو</div><div class="adm-inprow"><span class="pre">🪙</span><input class="adm-inp" id="adm-t-vreward" type="number" placeholder="20" onchange="admMD()"></div></div>
+            <div class="adm-field"><div class="adm-lbl">متن Earn</div><input class="adm-inp" id="adm-t-etext" type="text" placeholder="گوش بده Coin بگیر" onchange="admMD()"></div>
+          </div>
+        </div></div>
+        <div class="adm-card"><div class="adm-card-hdr"><i class="ti ti-brand-spotify" style="color:var(--gr)"></i><b>لینک‌های آرتیست</b><button class="adm-btn su" onclick="admAddLR()" style="margin-right:auto"><i class="ti ti-plus"></i>لینک</button></div><div class="adm-card-body"><div id="adm-links-con"></div></div></div>
+        <div style="display:flex;gap:9px">
+          <button class="adm-btn pu" onclick="admSaveTK()" style="padding:10px 20px;font-size:13px"><i class="ti ti-check"></i>ذخیره</button>
+          <button class="adm-btn su" onclick="admCancelEdit()" style="padding:10px 14px">انصراف</button>
+        </div>
+      </div>
+
+      <!-- ARTISTS -->
+      <div class="adm-page" id="adm-artists">
+        <div style="font-size:17px;font-weight:700;margin-bottom:14px">🎤 آرتیست‌ها</div>
+        <div class="adm-info"><i class="ti ti-info-circle"></i>آرتیست‌ها از ترک‌ها استخراج میشن.</div>
+        <div id="adm-artists-list"></div>
+      </div>
+
+      <!-- NOTIFICATIONS -->
+      <div class="adm-page" id="adm-notifications">
+        <div style="font-size:17px;font-weight:700;margin-bottom:14px">🔔 اعلان‌ها</div>
+        <div class="adm-card"><div class="adm-card-hdr"><i class="ti ti-send" style="color:var(--pu)"></i><b>ارسال اعلان</b></div><div class="adm-card-body">
+          <div class="adm-fg">
+            <div class="adm-fg c2">
+              <div class="adm-field"><div class="adm-lbl">عنوان</div><input class="adm-inp" id="adm-n-title" type="text" placeholder="ترک جدید! 🎵"></div>
+              <div class="adm-field"><div class="adm-lbl">نوع</div><select class="adm-inp" id="adm-n-type"><option value="system">⚙️ سیستم</option><option value="coin">🪙 Coin</option><option value="mission">🎯 ماموریت</option><option value="artist">🎵 آرتیست</option><option value="promo">📣 پروموشن</option></select></div>
+            </div>
+            <div class="adm-field"><div class="adm-lbl">متن</div><input class="adm-inp" id="adm-n-sub" type="text" placeholder="توضیح..."></div>
+            <div class="adm-fg c2">
+              <div class="adm-field"><div class="adm-lbl">لینک</div><select class="adm-inp" id="adm-n-action"><option value="">— بدون لینک —</option><option value="feed">فید موزیک</option><option value="missions">ماموریت‌ها</option><option value="wallet">کیف پول</option><option value="leaderboard">Leaderboard</option></select></div>
+              <div class="adm-field"><div class="adm-lbl" style="visibility:hidden">_</div><button class="adm-btn pu" onclick="admAddNotif()" style="width:100%;justify-content:center"><i class="ti ti-send"></i>ارسال</button></div>
+            </div>
+          </div>
+        </div></div>
+        <div class="adm-card"><div class="adm-card-hdr"><i class="ti ti-history" style="color:var(--gr)"></i><b>تاریخچه</b><button class="adm-btn re" onclick="admClearN()" style="margin-right:auto"><i class="ti ti-trash"></i>پاک</button></div><div class="adm-card-body"><div id="adm-n-history"></div></div></div>
+      </div>
+
+      <!-- COINS -->
+      <div class="adm-page" id="adm-coins">
+        <div style="font-size:17px;font-weight:700;margin-bottom:14px">🪙 تنظیم Coin</div>
+        <div class="adm-card"><div class="adm-card-hdr"><i class="ti ti-headphones" style="color:var(--am)"></i><b>Coin پخش</b></div><div class="adm-card-body">
+          <div class="adm-fg c3">
+            <div class="adm-field"><div class="adm-lbl">گوش دادن</div><div class="adm-inprow"><span class="pre">🪙</span><input class="adm-inp" type="number" id="adm-c-listen" onchange="admMD();admUpdCP()"></div></div>
+            <div class="adm-field"><div class="adm-lbl">ویدیو</div><div class="adm-inprow"><span class="pre">🪙</span><input class="adm-inp" type="number" id="adm-c-video" onchange="admMD()"></div></div>
+            <div class="adm-field"><div class="adm-lbl">Early Discover</div><div class="adm-inprow"><span class="pre">🪙</span><input class="adm-inp" type="number" id="adm-c-early" onchange="admMD()"></div></div>
+          </div>
+          <div class="adm-div"></div>
+          <div class="adm-field"><div class="adm-lbl">حداقل % تکمیل</div><div class="adm-rrow"><input class="adm-rng" type="range" id="adm-c-minpct" min="50" max="100" step="5" oninput="admUR('adm-c-minpct','adm-c-minpct-v','%');admMD()"><span class="adm-rnv" id="adm-c-minpct-v">85%</span></div></div>
+          <div class="adm-div"></div>
+          <div class="adm-field"><div class="adm-lbl">حداکثر روزانه / ترک</div><div class="adm-rrow"><input class="adm-rng" type="range" id="adm-c-dlim" min="1" max="10" step="1" oninput="admUR('adm-c-dlim','adm-c-dlim-v','× در روز');admMD()"><span class="adm-rnv" id="adm-c-dlim-v">3× در روز</span></div></div>
+        </div></div>
+        <div class="adm-card"><div class="adm-card-hdr"><i class="ti ti-hand-click" style="color:var(--pk)"></i><b>Coin اکشن‌ها</b></div><div class="adm-card-body" style="overflow-x:auto">
+          <table style="width:100%;border-collapse:collapse">
+            <thead><tr><th style="padding:7px 10px;text-align:right;font-size:10px;font-weight:700;color:var(--mu2);border-bottom:.5px solid var(--b1)">اکشن</th><th style="padding:7px 10px;text-align:right;font-size:10px;font-weight:700;color:var(--mu2);border-bottom:.5px solid var(--b1)">Coin</th><th style="padding:7px 10px;text-align:right;font-size:10px;font-weight:700;color:var(--mu2);border-bottom:.5px solid var(--b1)">فعال</th></tr></thead>
+            <tbody>
+              <tr style="border-bottom:.5px solid var(--b1)"><td style="padding:9px 10px">❤️ لایک</td><td style="padding:9px 10px"><div class="adm-inprow" style="width:80px"><span class="pre">🪙</span><input class="adm-inp" type="number" id="adm-c-like" onchange="admMD()"></div></td><td style="padding:9px 10px"><label class="adm-tgl"><input type="checkbox" id="adm-c-like-on" onchange="admMD()"><span class="adm-tgl-s"></span></label></td></tr>
+              <tr style="border-bottom:.5px solid var(--b1)"><td style="padding:9px 10px">🔖 ذخیره</td><td style="padding:9px 10px"><div class="adm-inprow" style="width:80px"><span class="pre">🪙</span><input class="adm-inp" type="number" id="adm-c-save" onchange="admMD()"></div></td><td style="padding:9px 10px"><label class="adm-tgl"><input type="checkbox" id="adm-c-save-on" onchange="admMD()"><span class="adm-tgl-s"></span></label></td></tr>
+              <tr style="border-bottom:.5px solid var(--b1)"><td style="padding:9px 10px">📤 Share</td><td style="padding:9px 10px"><div class="adm-inprow" style="width:80px"><span class="pre">🪙</span><input class="adm-inp" type="number" id="adm-c-share" onchange="admMD()"></div></td><td style="padding:9px 10px"><label class="adm-tgl"><input type="checkbox" id="adm-c-share-on" onchange="admMD()"><span class="adm-tgl-s"></span></label></td></tr>
+              <tr style="border-bottom:.5px solid var(--b1)"><td style="padding:9px 10px">👤 فالو</td><td style="padding:9px 10px"><div class="adm-inprow" style="width:80px"><span class="pre">🪙</span><input class="adm-inp" type="number" id="adm-c-follow" onchange="admMD()"></div></td><td style="padding:9px 10px"><label class="adm-tgl"><input type="checkbox" id="adm-c-follow-on" onchange="admMD()"><span class="adm-tgl-s"></span></label></td></tr>
+              <tr style="border-bottom:.5px solid var(--b1)"><td style="padding:9px 10px">⬇ دانلود</td><td style="padding:9px 10px"><div class="adm-inprow" style="width:80px"><span class="pre">🪙</span><input class="adm-inp" type="number" id="adm-c-dl" onchange="admMD()"></div></td><td style="padding:9px 10px"><label class="adm-tgl"><input type="checkbox" id="adm-c-dl-on" onchange="admMD()"><span class="adm-tgl-s"></span></label></td></tr>
+              <tr><td style="padding:9px 10px">🔗 دعوت</td><td style="padding:9px 10px"><div class="adm-inprow" style="width:80px"><span class="pre">🪙</span><input class="adm-inp" type="number" id="adm-c-ref" onchange="admMD()"></div></td><td style="padding:9px 10px"><label class="adm-tgl"><input type="checkbox" id="adm-c-ref-on" onchange="admMD()"><span class="adm-tgl-s"></span></label></td></tr>
+            </tbody>
+          </table>
+        </div></div>
+        <div class="adm-card"><div class="adm-card-hdr"><i class="ti ti-currency-dollar" style="color:var(--bl)"></i><b>نرخ تبدیل</b></div><div class="adm-card-body">
+          <div class="adm-fg c3">
+            <div class="adm-field"><div class="adm-lbl">تومان/Coin</div><div class="adm-inprow"><span class="pre">T</span><input class="adm-inp" type="number" id="adm-c-toman" onchange="admMD();admUpdCP()"></div></div>
+            <div class="adm-field"><div class="adm-lbl">حداقل برداشت</div><div class="adm-inprow"><span class="pre">🪙</span><input class="adm-inp" type="number" id="adm-c-minwd" onchange="admMD();admUpdCP()"></div></div>
+            <div class="adm-field"><div class="adm-lbl">حداکثر روزانه</div><div class="adm-inprow"><span class="pre">🪙</span><input class="adm-inp" type="number" id="adm-c-maxd" onchange="admMD()"></div></div>
+          </div>
+          <div class="adm-div"></div>
+          <div class="adm-preview" id="adm-c-preview"></div>
+        </div></div>
+      </div>
+
+      <!-- REVENUE -->
+      <div class="adm-page" id="adm-revenue">
+        <div style="font-size:17px;font-weight:700;margin-bottom:14px">📊 تقسیم درآمد</div>
+        <div class="adm-info">مجموع باید ۱۰۰٪ باشه.</div>
+        <div class="adm-card"><div class="adm-card-hdr"><i class="ti ti-chart-pie" style="color:var(--gr)"></i><b>از هر کمپین Sponsored</b></div><div class="adm-card-body">
+          <div class="adm-fg c2">
+            <div class="adm-field"><div class="adm-lbl" style="color:var(--gr)">سهم آرتیست</div><div class="adm-rrow"><input class="adm-rng" type="range" id="adm-r-artist" min="0" max="100" step="5" oninput="admSyncRev('a');admMD()"><span class="adm-rnv" id="adm-r-artist-v" style="color:var(--gr)">70%</span></div></div>
+            <div class="adm-field"><div class="adm-lbl" style="color:var(--pu)">سهم Vibe</div><div class="adm-rrow"><input class="adm-rng" type="range" id="adm-r-platform" min="0" max="100" step="5" oninput="admSyncRev('p');admMD()"><span class="adm-rnv" id="adm-r-platform-v" style="color:var(--pu)">20%</span></div></div>
+            <div class="adm-field"><div class="adm-lbl" style="color:var(--am)">سهم شنونده</div><div class="adm-rrow"><input class="adm-rng" type="range" id="adm-r-listener" min="0" max="100" step="5" oninput="admSyncRev('l');admMD()"><span class="adm-rnv" id="adm-r-listener-v" style="color:var(--am)">10%</span></div></div>
+            <div class="adm-field" style="align-self:center"><div class="adm-preview" id="adm-r-preview"></div></div>
+          </div>
+          <div class="adm-div"></div>
+          <div class="adm-fg c3">
+            <div class="adm-field"><div class="adm-lbl">کارمزد برداشت کاربر</div><div class="adm-rrow"><input class="adm-rng" type="range" id="adm-f-user" min="0" max="20" step="1" oninput="admUR('adm-f-user','adm-f-user-v','%');admMD()"><span class="adm-rnv" id="adm-f-user-v">5%</span></div></div>
+            <div class="adm-field"><div class="adm-lbl">کارمزد برداشت آرتیست</div><div class="adm-rrow"><input class="adm-rng" type="range" id="adm-f-artist" min="0" max="20" step="1" oninput="admUR('adm-f-artist','adm-f-artist-v','%');admMD()"><span class="adm-rnv" id="adm-f-artist-v">3%</span></div></div>
+            <div class="adm-field"><div class="adm-lbl">کارمزد کمپین</div><div class="adm-rrow"><input class="adm-rng" type="range" id="adm-f-camp" min="0" max="30" step="1" oninput="admUR('adm-f-camp','adm-f-camp-v','%');admMD()"><span class="adm-rnv" id="adm-f-camp-v">10%</span></div></div>
+          </div>
+        </div></div>
+      </div>
+
+      <!-- WITHDRAWALS -->
+      <div class="adm-page" id="adm-withdrawals">
+        <div style="font-size:17px;font-weight:700;margin-bottom:14px">💸 برداشت‌ها</div>
+        <div class="adm-warn">درخواست‌ها در localStorage — بعد از backend از دیتابیس میاد.</div>
+        <div class="adm-card"><div class="adm-card-hdr"><i class="ti ti-clock" style="color:var(--re)"></i><b>در انتظار</b><span id="adm-wd-cnt" style="font-size:10px;background:rgba(251,191,36,.13);color:var(--am);padding:2px 8px;border-radius:8px;margin-right:auto">0</span></div><div class="adm-card-body"><div id="adm-wd-pending"></div></div></div>
+      </div>
+
+      <!-- ANTI-FRAUD -->
+      <div class="adm-page" id="adm-anticheat">
+        <div style="font-size:17px;font-weight:700;margin-bottom:14px">🛡️ Anti-Fraud</div>
+        <div class="adm-card"><div class="adm-card-body">
+          <div class="adm-tgl-row"><div style="font-size:13px">Mute Detection</div><label class="adm-tgl"><input type="checkbox" id="adm-af-mute" onchange="admMD()"><span class="adm-tgl-s"></span></label></div>
+          <div class="adm-div"></div>
+          <div class="adm-tgl-row"><div style="font-size:13px">Background Detection</div><label class="adm-tgl"><input type="checkbox" id="adm-af-bg" onchange="admMD()"><span class="adm-tgl-s"></span></label></div>
+          <div class="adm-div"></div>
+          <div class="adm-tgl-row"><div style="font-size:13px">Speed Anomaly</div><label class="adm-tgl"><input type="checkbox" id="adm-af-speed" onchange="admMD()"><span class="adm-tgl-s"></span></label></div>
+          <div class="adm-div"></div>
+          <div class="adm-tgl-row"><div style="font-size:13px">VPN Detection</div><label class="adm-tgl"><input type="checkbox" id="adm-af-vpn" onchange="admMD()"><span class="adm-tgl-s"></span></label></div>
+          <div class="adm-div"></div>
+          <div class="adm-fg c2">
+            <div class="adm-field"><div class="adm-lbl">حداکثر Session/Device/ساعت</div><input class="adm-inp" type="number" id="adm-af-dev" onchange="admMD()"></div>
+            <div class="adm-field"><div class="adm-lbl">حداکثر Session/IP/ساعت</div><input class="adm-inp" type="number" id="adm-af-ip" onchange="admMD()"></div>
+          </div>
+        </div></div>
+      </div>
+
+      <!-- EXPORT -->
+      <div class="adm-page" id="adm-export">
+        <div style="font-size:17px;font-weight:700;margin-bottom:14px">📥 خروجی JSON</div>
+        <div class="adm-warn"><i class="ti ti-alert-triangle"></i> بعد از ذخیره: دانلود → آپلود به GitHub</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
+          <div class="adm-card" style="margin:0"><div class="adm-card-hdr"><i class="ti ti-music" style="color:var(--pu)"></i><div><b>tracks.json</b><div style="font-size:11px;color:var(--mu2)" id="adm-ex-tinfo">0 ترک</div></div></div><div class="adm-card-body"><button class="adm-btn pu" onclick="admDlJSON('tracks')" style="width:100%;justify-content:center"><i class="ti ti-download"></i>دانلود</button></div></div>
+          <div class="adm-card" style="margin:0"><div class="adm-card-hdr"><i class="ti ti-bell" style="color:var(--gr)"></i><div><b>notifications.json</b><div style="font-size:11px;color:var(--mu2)" id="adm-ex-ninfo">0 اعلان</div></div></div><div class="adm-card-body"><button class="adm-btn gr" onclick="admDlJSON('notifications')" style="width:100%;justify-content:center"><i class="ti ti-download"></i>دانلود</button></div></div>
+          <div class="adm-card" style="margin:0"><div class="adm-card-hdr"><i class="ti ti-settings" style="color:var(--am)"></i><b>config.json</b></div><div class="adm-card-body"><button class="adm-btn am" onclick="admDlJSON('config')" style="width:100%;justify-content:center"><i class="ti ti-download"></i>دانلود</button></div></div>
+          <div class="adm-card" style="margin:0"><div class="adm-card-hdr"><i class="ti ti-package" style="color:var(--bl)"></i><b>همه یکجا</b></div><div class="adm-card-body"><button class="adm-btn bl" onclick="admDlAll()" style="width:100%;justify-content:center"><i class="ti ti-download"></i>همه</button></div></div>
+        </div>
+        <div class="adm-card"><div class="adm-card-hdr"><i class="ti ti-code" style="color:var(--pu)"></i><b>پیش‌نمایش</b><div style="margin-right:auto;display:flex;gap:6px"><button class="adm-btn su" onclick="admPrevJSON('tracks')">tracks</button><button class="adm-btn su" onclick="admPrevJSON('notifications')">notifs</button><button class="adm-btn su" onclick="admPrevJSON('config')">config</button></div></div><div class="adm-card-body"><textarea id="adm-json-prev" readonly style="width:100%;height:240px;background:var(--bg3);border:.5px solid var(--b2);border-radius:var(--r);color:var(--tx);font-family:monospace;font-size:11px;padding:11px;outline:none;resize:vertical;line-height:1.6"></textarea></div></div>
+        <div class="adm-card"><div class="adm-card-hdr"><i class="ti ti-upload" style="color:var(--gr)"></i><b>Import</b></div><div class="adm-card-body"><div style="display:flex;gap:9px;flex-wrap:wrap">
+          <label class="adm-btn su" style="cursor:pointer"><input type="file" accept=".json" style="display:none" onchange="admImpJSON(this,'tracks')"><i class="ti ti-upload"></i>tracks.json</label>
+          <label class="adm-btn su" style="cursor:pointer"><input type="file" accept=".json" style="display:none" onchange="admImpJSON(this,'notifications')"><i class="ti ti-upload"></i>notifications.json</label>
+          <label class="adm-btn su" style="cursor:pointer"><input type="file" accept=".json" style="display:none" onchange="admImpJSON(this,'config')"><i class="ti ti-upload"></i>config.json</label>
+        </div></div></div>
+      </div>
+
+      <!-- SECURITY -->
+      <div class="adm-page" id="adm-security">
+        <div style="font-size:17px;font-weight:700;margin-bottom:14px">🔐 تغییر رمز ادمین</div>
+        <div class="adm-card"><div class="adm-card-body">
+          <div class="adm-fg" style="max-width:360px">
+            <div class="adm-field"><div class="adm-lbl">رمز فعلی</div><input class="adm-inp" type="password" id="adm-old-pass" dir="ltr"></div>
+            <div class="adm-field"><div class="adm-lbl">رمز جدید (حداقل ۴ کاراکتر)</div><input class="adm-inp" type="password" id="adm-new-pass" dir="ltr"></div>
+            <button class="adm-btn pu" onclick="admChangePass()" style="padding:10px 18px"><i class="ti ti-lock"></i>تغییر رمز</button>
+          </div>
+          <div class="adm-div"></div>
+          <div style="font-size:12px;color:var(--mu2);line-height:1.7">
+            برای دسترسی به پنل: در صفحه <b>تنظیمات</b> روی نوشته <b>"Vibe v1.0"</b> پایین صفحه <b>۷ بار</b> ضربه بزن.
+          </div>
+        </div></div>
+      </div>
+
+    </div><!-- /adm-main -->
+  </div>
+</div><!-- /adm-layout -->
+<div class="toast-wrap" id="adm-twrap" style="top:60px"></div>
+</div><!-- /adm-panel -->
+</body>
+</html>
