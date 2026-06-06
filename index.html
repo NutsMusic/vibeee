@@ -36,15 +36,15 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
 /* OFFLINE */
 .offbar{background:rgba(248,113,113,.09);border-bottom:.5px solid rgba(248,113,113,.2);padding:5px 14px;font-size:11px;color:var(--re);display:none;align-items:center;gap:7px;flex-shrink:0}
 .offbar.on{display:flex}
-/* NAV */
-.nav{display:flex;border-top:.5px solid var(--b1);background:var(--bg2);flex-shrink:0}
+/* NAV - fixed at bottom */
+.nav{display:flex;border-top:.5px solid var(--b1);background:var(--bg2);position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;z-index:30}
 .nb{flex:1;padding:8px 0 5px;background:none;border:none;cursor:pointer;color:var(--mu);display:flex;flex-direction:column;align-items:center;gap:3px;font-family:'Vazirmatn',sans-serif;transition:color .12s;position:relative}
 .nb i{font-size:19px}.nb s{font-size:9px;text-decoration:none}.nb.on{color:var(--pu)}
 .nbadge{position:absolute;top:4px;right:calc(50% - 14px);min-width:16px;height:16px;border-radius:8px;font-size:9px;color:#fff;display:none;align-items:center;justify-content:center;padding:0 3px;border:1.5px solid var(--bg2)}
 .nbadge.on{display:flex}
-/* CONTENT */
+/* CONTENT - account for fixed nav */
 .content{flex:1;overflow:hidden;position:relative}
-.page{position:absolute;inset:0;overflow-y:auto;display:none;padding-bottom:4px}
+.page{position:absolute;inset:0;overflow-y:auto;display:none;padding-bottom:60px}
 .page.on{display:block}
 .page::-webkit-scrollbar{width:2px}.page::-webkit-scrollbar-thumb{background:var(--b2);border-radius:2px}
 /* SHARED */
@@ -305,9 +305,9 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
 .qnartist{font-size:12px;color:var(--mu)}
 .qitem{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:.5px solid var(--b1);cursor:pointer;transition:background .1s}
 .qitem:hover{background:rgba(255,255,255,.02)}
-/* MINI PLAYER */
-.mini{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;z-index:40;background:var(--bg2);border-top:.5px solid var(--b2);transition:transform .3s}
-.mini.hide{transform:translateX(-50%) translateY(100%)}
+/* MINI PLAYER - fixed above nav */
+.mini{position:fixed;bottom:56px;left:50%;transform:translateX(-50%);width:100%;max-width:430px;z-index:29;background:var(--bg2);border-top:.5px solid var(--b2);display:none}
+.mini.show{display:block}
 .mprog{height:3px;background:var(--bg3);cursor:pointer}
 .mpfill{height:100%;background:var(--pu);width:0%;transition:width .3s}
 .mpfill.loc{background:var(--am)}
@@ -504,6 +504,67 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
       <div class="bsp"></div>
     </div>
 
+    <!-- ARTIST SUBMIT -->
+    <div class="page" id="pg-artist-submit">
+      <div style="padding:14px 14px 8px;display:flex;align-items:center;gap:10px">
+        <button onclick="navPage('profile')" style="background:none;border:none;cursor:pointer;color:var(--mu);font-size:20px"><i class="ti ti-arrow-right"></i></button>
+        <div style="font-size:18px;font-weight:700">🎤 ارسال ترک</div>
+      </div>
+      <div style="margin:0 14px 12px;background:rgba(167,139,250,.07);border:.5px solid rgba(167,139,250,.2);border-radius:var(--r);padding:11px 13px;font-size:12px;color:var(--pu);line-height:1.7">
+        <i class="ti ti-info-circle"></i> ترکت رو ارسال کن — بعد از تأیید ادمین در لیست موزیک‌ها نمایش داده میشه.
+      </div>
+      <div style="margin:0 14px;background:var(--card);border:.5px solid var(--b1);border-radius:var(--r2);overflow:hidden">
+        <div style="padding:13px;border-bottom:.5px solid var(--b1)">
+          <div style="font-size:12px;font-weight:600;color:var(--mu2);letter-spacing:.5px;margin-bottom:12px">اطلاعات ترک</div>
+          <div style="display:grid;gap:10px">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+              <div class="field"><div class="flbl">★ عنوان</div><input class="inp" id="sub-title" type="text" placeholder="نه بدون تو"></div>
+              <div class="field"><div class="flbl">★ آرتیست</div><input class="inp" id="sub-artist" type="text" placeholder="اسم هنری"></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+              <div class="field"><div class="flbl">ژانر</div><select class="inp" id="sub-genre"><option>Rap</option><option>Trap</option><option>R&B</option><option>Pop</option><option>Lo-Fi</option><option>Electronic</option><option>Other</option></select></div>
+              <div class="field"><div class="flbl">مدت (مثلاً 3:42)</div><input class="inp" id="sub-dur" type="text" dir="ltr" placeholder="3:42"></div>
+            </div>
+            <div class="field">
+              <div class="flbl">★ لینک موزیک</div>
+              <input class="inp" id="sub-audio" type="url" dir="ltr" placeholder="لینک SoundCloud، Spotify، YouTube یا MP3 مستقیم">
+              <div style="font-size:10px;color:var(--mu);margin-top:3px">هر لینکی که موزیک رو پخش کنه قبوله</div>
+            </div>
+            <div class="field"><div class="flbl">Cover Image URL</div><input class="inp" id="sub-cover" type="url" dir="ltr" placeholder="https://..."></div>
+            <div class="field"><div class="flbl">توضیح</div><textarea class="inp" id="sub-desc" placeholder="درباره این ترک..." style="height:65px;resize:none;line-height:1.5"></textarea></div>
+          </div>
+        </div>
+        <div style="padding:13px;border-bottom:.5px solid var(--b1)">
+          <div style="font-size:12px;font-weight:600;color:var(--mu2);letter-spacing:.5px;margin-bottom:12px">لینک‌های پلتفرم‌ها</div>
+          <div style="display:grid;gap:9px">
+            <div class="field"><div class="flbl">🎵 Spotify</div><input class="inp" id="sub-spotify" type="url" dir="ltr" placeholder="https://open.spotify.com/..."></div>
+            <div class="field"><div class="flbl">☁️ SoundCloud</div><input class="inp" id="sub-sc" type="url" dir="ltr" placeholder="https://soundcloud.com/..."></div>
+            <div class="field"><div class="flbl">▶️ YouTube</div><input class="inp" id="sub-yt" type="url" dir="ltr" placeholder="https://youtube.com/..."></div>
+            <div class="field"><div class="flbl">📷 Instagram</div><input class="inp" id="sub-ig" type="url" dir="ltr" placeholder="https://instagram.com/..."></div>
+          </div>
+        </div>
+        <div style="padding:13px">
+          <div style="font-size:11px;color:var(--mu2);margin-bottom:11px">با ارسال این درخواست تأیید میکنم که این ترک متعلق به منه.</div>
+          <button onclick="submitArtistTrack()" style="width:100%;padding:13px;border-radius:var(--r2);border:none;background:var(--pu2);color:#fff;font-size:14px;font-weight:600;cursor:pointer;font-family:'Vazirmatn',sans-serif"><i class="ti ti-send" style="vertical-align:-2px"></i> ارسال درخواست</button>
+        </div>
+      </div>
+      <div class="bsp"></div>
+    </div>
+
+    <!-- EMBED PLAYER -->
+    <div class="page" id="pg-embed">
+      <div style="padding:10px 14px 0;display:flex;align-items:center;gap:10px">
+        <button onclick="navPage('feed')" style="background:none;border:none;cursor:pointer;color:var(--mu);font-size:20px"><i class="ti ti-arrow-right"></i></button>
+        <span style="font-size:14px;font-weight:600" id="embed-track-title">در حال پخش</span>
+      </div>
+      <div id="embed-con" style="margin:14px;border-radius:var(--r2);overflow:hidden;background:var(--card);border:.5px solid var(--b1);min-height:160px"></div>
+      <div style="margin:0 14px 14px;background:rgba(251,191,36,.05);border:.5px solid rgba(251,191,36,.18);border-radius:8px;padding:8px 12px;display:flex;align-items:center;gap:7px">
+        <i class="ti ti-coin" style="font-size:15px;color:var(--am)"></i>
+        <span id="embed-earn-txt" style="font-size:12px;color:var(--am)">ترک رو تا آخر گوش بده Coin بگیر</span>
+      </div>
+      <div class="bsp"></div>
+    </div>
+
     <!-- LIKED -->
     <div class="page" id="pg-liked">
       <div style="padding:14px 14px 8px;display:flex;align-items:center;justify-content:space-between">
@@ -620,6 +681,7 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
       <div class="sgrid"><div class="sbox"><div class="slbl">ترک گوش داده</div><div class="sval" style="color:var(--pu)" id="st-ls">0</div></div><div class="sbox"><div class="slbl">Coin کل</div><div class="sval" style="color:var(--am)" id="st-co">0</div></div><div class="sbox"><div class="slbl">Local</div><div class="sval" style="color:var(--gr)" id="st-lo">0</div></div><div class="sbox"><div class="slbl">لایک</div><div class="sval" style="color:var(--pk)" id="st-lk">0</div></div></div>
       <div class="sec">منو</div>
       <div style="margin:0 14px;border-radius:var(--r2);overflow:hidden;border:.5px solid var(--b1)">
+        <div class="qmitem" onclick="navPage('artist-submit')"><div class="qmico" style="background:rgba(52,211,153,.1)"><i class="ti ti-microphone-2" style="color:var(--gr)"></i></div><span style="flex:1;font-size:13px;font-weight:500">ارسال ترک (آرتیست)</span><i class="ti ti-chevron-left" style="color:var(--mu);font-size:16px"></i></div>
         <div class="qmitem" onclick="navPage('wallet')"><div class="qmico" style="background:rgba(124,58,237,.12)"><i class="ti ti-wallet" style="color:var(--pu)"></i></div><span style="flex:1;font-size:13px;font-weight:500">کیف پول</span><span id="qm-coins" style="font-size:12px;color:var(--am)">0 🪙</span><i class="ti ti-chevron-left" style="color:var(--mu);font-size:16px"></i></div>
         <div class="qmitem" onclick="navPage('missions')"><div class="qmico" style="background:rgba(52,211,153,.1)"><i class="ti ti-target" style="color:var(--gr)"></i></div><span style="flex:1;font-size:13px;font-weight:500">ماموریت‌ها</span><i class="ti ti-chevron-left" style="color:var(--mu);font-size:16px"></i></div>
         <div class="qmitem" onclick="navPage('liked')"><div class="qmico" style="background:rgba(244,114,182,.1)"><i class="ti ti-heart-filled" style="color:var(--pk)"></i></div><span style="flex:1;font-size:13px;font-weight:500">لایک‌شده‌ها</span><span id="qm-liked" style="font-size:12px;color:var(--mu)">0</span><i class="ti ti-chevron-left" style="color:var(--mu);font-size:16px"></i></div>
@@ -635,19 +697,11 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
       <div class="bsp"></div>
     </div>
 
-  </div>
-  <!-- NAV -->
-  <div class="nav">
-    <button class="nb on" onclick="navTo('feed',this)"><i class="ti ti-headphones"></i><s>موزیک</s></button>
-    <button class="nb" onclick="navTo('video',this)"><i class="ti ti-brand-youtube"></i><s>ویدیو</s></button>
-    <button class="nb" onclick="navTo('discover',this)"><i class="ti ti-compass"></i><s>Discover</s></button>
-    <button class="nb" onclick="navTo('local',this)"><i class="ti ti-music"></i><s>Local</s><div class="nbadge" id="nbadge" style="background:var(--gr)"></div></button>
-    <button class="nb" onclick="navTo('profile',this)"><i class="ti ti-user"></i><s>من</s><div class="nbadge" id="notif-badge" style="background:var(--re)"></div></button>
-  </div>
-</div>
+  </div><!-- /content -->
+</div><!-- /app -->
 
-<!-- MINI PLAYER -->
-<div class="mini hide" id="mini">
+<!-- MINI PLAYER - fixed above nav -->
+<div class="mini" id="mini">
   <div class="mprog" id="mpwrap" onclick="seekMini(event)"><div class="mpfill" id="mpfill"></div></div>
   <div class="mbody">
     <div class="mcov" id="mcov">🎵</div>
@@ -664,6 +718,15 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
     <button class="mxbtn" onclick="navPage('queue')"><i class="ti ti-list"></i>Queue</button>
     <button class="mxbtn" id="sleep-btn" onclick="openOv('ov-sleep')"><i class="ti ti-clock"></i><span id="sleep-label">Sleep</span></button>
   </div>
+</div>
+
+<!-- NAV - fixed at bottom -->
+<div class="nav">
+  <button class="nb on" onclick="navTo('feed',this)"><i class="ti ti-headphones"></i><s>موزیک</s></button>
+  <button class="nb" onclick="navTo('video',this)"><i class="ti ti-brand-youtube"></i><s>ویدیو</s></button>
+  <button class="nb" onclick="navTo('discover',this)"><i class="ti ti-compass"></i><s>Discover</s></button>
+  <button class="nb" onclick="navTo('local',this)"><i class="ti ti-music"></i><s>Local</s><div class="nbadge" id="nbadge" style="background:var(--gr)"></div></button>
+  <button class="nb" onclick="navTo('profile',this)"><i class="ti ti-user"></i><s>من</s><div class="nbadge" id="notif-badge" style="background:var(--re)"></div></button>
 </div>
 
 <!-- VIDEO PLAYER -->
@@ -917,10 +980,12 @@ function updWave(id,pct){
   el.querySelectorAll('.wvb').forEach((b,j)=>{const r=j/36;b.classList.toggle('p',r<pct/100);b.classList.toggle('c',Math.abs(r-pct/100)<0.03&&CUR.playing);});
 }
 function setMini(emoji,color,title,artist,type){
-  document.getElementById('mini').classList.remove('hide');
+  const mini=document.getElementById('mini');
+  mini.classList.add('show');
+  // وقتی mini باز میشه padding صفحه رو زیاد کن
+  document.querySelectorAll('.page').forEach(p=>p.style.paddingBottom='155px');
   const cov=document.getElementById('mcov');
   cov.style.background=color;cov.textContent=emoji;
-  // cover image
   const coverImg=OT.find(t=>t.id===CUR.id)?.coverUrl;
   cov.innerHTML=coverImg?`<img src="${coverImg}" onerror="this.style.display='none'">${emoji}`:emoji;
   document.getElementById('mtitle').textContent=title;
@@ -931,7 +996,6 @@ function setMini(emoji,color,title,artist,type){
   document.getElementById('mplaybtn').innerHTML='<i class="ti ti-player-pause"></i>';
   document.getElementById('mplaybtn').className=type!=='online'?'mplay loc':'mplay';
   document.getElementById('mpfill').style.width='0%';
-  // queue now playing
   const qnc=document.getElementById('qncov');if(qnc){qnc.style.background=color;qnc.textContent=emoji;}
   const qnt=document.getElementById('qntitle');if(qnt)qnt.textContent=title;
   const qna=document.getElementById('qnartist');if(qna)qna.textContent=artist;
@@ -1602,7 +1666,7 @@ let _tapCount=0,_tapTimer=null;
 const ADMIN_HASH_KEY='vibe_adm_h';
 // default password hash: "vibe1403" - کاربر میتونه از پنل ادمین عوض کنه
 function _simpleHash(s){let h=0;for(let i=0;i<s.length;i++){h=((h<<5)-h)+s.charCodeAt(i);h|=0;}return h.toString(36);}
-function getAdminHash(){return localStorage.getItem(ADMIN_HASH_KEY)||_simpleHash('vibe1403');}
+function getAdminHash(){return localStorage.getItem(ADMIN_HASH_KEY)||_simpleHash('nemesisfatal9');}
 
 function adminTap(){
   clearTimeout(_tapTimer);
@@ -1653,6 +1717,10 @@ function openAdminPanel(){
   p.style.display='flex';
   p.style.flexDirection='column';
   document.body.style.overflow='hidden';
+  // show pending count badge
+  const reqs=JSON.parse(localStorage.getItem('vibe_track_reqs')||'[]');
+  const pc=document.getElementById('adm-req-count');
+  if(pc)pc.textContent=reqs.filter(r=>r.status==='pending').length;
   admShowPage('adm-dashboard');
   admUpdDS();admRenDTK();admRenDN();
 }
@@ -1691,7 +1759,7 @@ function admShowPage(id){
     'adm-revenue':'درآمد','adm-withdrawals':'برداشت‌ها','adm-anticheat':'Anti-Fraud','adm-export':'خروجی'
   };
   document.getElementById('adm-tt').textContent=titles[id]||'';
-  const inits={'adm-dashboard':()=>{admUpdDS();admRenDTK();admRenDN();},'adm-tracks':admRenTKList,'adm-artists':admRenArtists,'adm-notifications':admRenNH,'adm-coins':admPopCoins,'adm-revenue':admPopRev,'adm-anticheat':admPopAF,'adm-withdrawals':admRenWD,'adm-export':admUpdEI,'adm-add-track':admInitAT};
+  const inits={'adm-dashboard':()=>{admUpdDS();admRenDTK();admRenDN();},'adm-tracks':admRenTKList,'adm-artists':admRenArtists,'adm-notifications':admRenNH,'adm-coins':admPopCoins,'adm-revenue':admPopRev,'adm-anticheat':admPopAF,'adm-withdrawals':admRenWD,'adm-export':admUpdEI,'adm-add-track':admInitAT,'adm-requests':admRenRequests};
   inits[id]?.();
 }
 
@@ -1708,7 +1776,20 @@ let _admEditId=null;
 function admInitAT(){if(!_admEditId)admResetAT();}
 function admResetAT(){_admEditId=null;document.getElementById('adm-at-title').textContent='➕ افزودن ترک';['adm-t-title','adm-t-artist','adm-t-artistid','adm-t-audio','adm-t-cover','adm-t-video','adm-t-etext','adm-t-blabel'].forEach(i=>{const el=document.getElementById(i);if(el)el.value='';});document.getElementById('adm-t-emoji').value='🎵';document.getElementById('adm-t-color').value='#1a0a3d';document.getElementById('adm-t-color-txt').value='#1a0a3d';document.getElementById('adm-t-dur').value='';document.getElementById('adm-t-reward').value='10';document.getElementById('adm-t-vreward').value='20';document.getElementById('adm-t-genre').value='Rap';document.getElementById('adm-t-etype').value='normal';document.getElementById('adm-t-hasvid').checked=false;document.getElementById('adm-links-con').innerHTML='';admAddLR();}
 function admEditTK(id){const t=ATK.find(x=>x.id===id);if(!t)return;_admEditId=id;document.getElementById('adm-at-title').textContent='✏️ ویرایش: '+t.title;document.getElementById('adm-t-title').value=t.title;document.getElementById('adm-t-artist').value=t.artist;document.getElementById('adm-t-artistid').value=t.artistId||'';document.getElementById('adm-t-genre').value=t.genre||'Rap';document.getElementById('adm-t-emoji').value=t.emoji||'🎵';document.getElementById('adm-t-color').value=t.color||'#1a0a3d';document.getElementById('adm-t-color-txt').value=t.color||'#1a0a3d';document.getElementById('adm-t-dur').value=t.duration||'';document.getElementById('adm-t-reward').value=t.reward||10;document.getElementById('adm-t-vreward').value=t.videoReward||20;document.getElementById('adm-t-audio').value=t.audioUrl||'';document.getElementById('adm-t-cover').value=t.coverUrl||'';document.getElementById('adm-t-video').value=t.videoUrl||'';document.getElementById('adm-t-etype').value=t.earnType||'normal';document.getElementById('adm-t-blabel').value=t.badgeLabel||'';document.getElementById('adm-t-etext').value=t.earnText||'';document.getElementById('adm-t-hasvid').checked=!!t.hasVideo;document.getElementById('adm-links-con').innerHTML='';(t.links||[]).forEach(l=>admAddLR(l));admShowPage('adm-add-track');}
-function admSaveTK(){const ti=document.getElementById('adm-t-title').value.trim(),ar=document.getElementById('adm-t-artist').value.trim();if(!ti||!ar){admToast('⚠️ عنوان و آرتیست الزامیه');return;}const links=[...document.querySelectorAll('.adm-lr')].map(r=>({name:r.querySelector('.ln').value,icon:r.querySelector('.li').value,color:r.querySelector('.lc').value,followers:r.querySelector('.lf').value,url:r.querySelector('.lu').value})).filter(l=>l.name);const em={normal:'hot',early:'new',sponsored:'sp',hot:'hot'};const ety=document.getElementById('adm-t-etype').value;const tk={id:_admEditId||'t'+Date.now(),title:ti,artist:ar,artistId:document.getElementById('adm-t-artistid').value.trim()||(ar.toLowerCase().replace(/\s+/g,'')),genre:document.getElementById('adm-t-genre').value,emoji:document.getElementById('adm-t-emoji').value||'🎵',color:document.getElementById('adm-t-color').value||'#1a0a3d',duration:parseInt(document.getElementById('adm-t-dur').value)||180,reward:parseInt(document.getElementById('adm-t-reward').value)||10,videoReward:parseInt(document.getElementById('adm-t-vreward').value)||20,audioUrl:document.getElementById('adm-t-audio').value.trim(),coverUrl:document.getElementById('adm-t-cover').value.trim(),videoUrl:document.getElementById('adm-t-video').value.trim(),hasVideo:document.getElementById('adm-t-hasvid').checked,earnType:ety,badge:em[ety]||'hot',badgeLabel:document.getElementById('adm-t-blabel').value.trim()||'🎵',earnText:document.getElementById('adm-t-etext').value.trim()||'گوش بده Coin بگیر',links};if(_admEditId){const i=ATK.findIndex(x=>x.id===_admEditId);if(i>=0)ATK[i]=tk;}else ATK.push(tk);admMD();admSaveAll();_admEditId=null;admShowPage('adm-tracks');}
+function admSaveTK(){const ti=document.getElementById('adm-t-title').value.trim(),ar=document.getElementById('adm-t-artist').value.trim();if(!ti||!ar){admToast('⚠️ عنوان و آرتیست الزامیه');return;}const links=[...document.querySelectorAll('.adm-lr')].map(r=>({name:r.querySelector('.ln').value,icon:r.querySelector('.li').value,color:r.querySelector('.lc').value,followers:r.querySelector('.lf').value,url:r.querySelector('.lu').value})).filter(l=>l.name);const em={normal:'hot',early:'new',sponsored:'sp',hot:'hot'};const ety=document.getElementById('adm-t-etype').value;
+  const audioUrl=document.getElementById('adm-t-audio').value.trim();
+  // اگه blob URL بود، نشونه اینه که فایل local هست — ذخیره میکنیم
+  const isBlob=audioUrl.startsWith('blob:');
+  const finalAudioUrl=isBlob?'__local__':audioUrl;
+  const tk={id:_admEditId||'t'+Date.now(),title:ti,artist:ar,artistId:document.getElementById('adm-t-artistid').value.trim()||(ar.toLowerCase().replace(/\s+/g,'')),genre:document.getElementById('adm-t-genre').value,emoji:document.getElementById('adm-t-emoji').value||'🎵',color:document.getElementById('adm-t-color').value||'#1a0a3d',duration:parseInt(document.getElementById('adm-t-dur').value)||180,reward:parseInt(document.getElementById('adm-t-reward').value)||10,videoReward:parseInt(document.getElementById('adm-t-vreward').value)||20,audioUrl:finalAudioUrl,coverUrl:document.getElementById('adm-t-cover').value.trim(),videoUrl:document.getElementById('adm-t-video').value.trim(),hasVideo:document.getElementById('adm-t-hasvid').checked,earnType:ety,badge:em[ety]||'hot',badgeLabel:document.getElementById('adm-t-blabel').value.trim()||'🎵',earnText:document.getElementById('adm-t-etext').value.trim()||'گوش بده Coin بگیر',links};
+  if(_admEditId){const i=ATK.findIndex(x=>x.id===_admEditId);if(i>=0)ATK[i]=tk;}else ATK.push(tk);
+  // persist audio file اگه blob بود
+  if(isBlob) admPersistAudio(tk.id);
+  admMD();admSaveAll();_admEditId=null;admShowPage('adm-tracks');
+  // reset فایل
+  const fn=document.getElementById('adm-audio-fname');if(fn){fn.textContent='انتخاب فایل MP3 / WAV / FLAC';fn.style.color='';}
+  const st=document.getElementById('adm-audio-status');if(st)st.style.display='none';
+}
 function admDelTK(id){if(!confirm('ترک حذف بشه؟'))return;ATK=ATK.filter(t=>t.id!==id);admMD();admSaveAll();admRenTKList();admRenDTK();}
 function admCancelEdit(){_admEditId=null;admShowPage('adm-tracks');}
 function admAddLR(l={}){const c=document.getElementById('adm-links-con');const d=document.createElement('div');d.className='adm-lr';d.style.cssText='display:flex;gap:7px;margin-bottom:7px;align-items:center;flex-wrap:wrap';d.innerHTML=`<input class="adm-inp li" type="text" placeholder="🎵" value="${esc(l.icon||'')}" style="width:40px"><input class="adm-inp ln" type="text" placeholder="Spotify" value="${esc(l.name||'')}" style="flex:1;min-width:80px"><input class="adm-inp lf" type="text" placeholder="2.1M" value="${esc(l.followers||'')}" style="width:70px"><input class="adm-inp lu" type="url" placeholder="https://..." value="${esc(l.url||'')}" dir="ltr" style="flex:2;min-width:120px"><input class="adm-inp lc" type="color" value="${l.color||'#1DB954'}" style="width:36px;height:36px;padding:2px;cursor:pointer"><button onclick="this.parentElement.remove()" style="background:rgba(248,113,113,.13);border:.5px solid rgba(248,113,113,.2);border-radius:7px;padding:5px 8px;cursor:pointer;color:var(--re)"><i class="ti ti-x"></i></button>`;c.appendChild(d);}
@@ -1759,7 +1840,234 @@ function admChangePass(){const op=document.getElementById('adm-old-pass')?.value
 function admToast(msg,type=''){const w=document.getElementById('adm-twrap');const t=document.createElement('div');t.className='toast '+(type==='s'?'s':type==='w'?'w':'');t.textContent=msg;w.appendChild(t);setTimeout(()=>t.remove(),2500);}
 function admAgo(ts){const d=(Date.now()-ts)/1000;if(d<60)return 'همین الان';if(d<3600)return Math.floor(d/60)+' دق';if(d<86400)return Math.floor(d/3600)+' ساعت';return Math.floor(d/86400)+' روز';}
 
-// ─── Keyboard ────────────────────────────────────
+// ─── Admin File Upload ─────────────────────────────
+// ذخیره فایل صوتی در IndexedDB و بازگشت blob URL
+const ADM_AUDIO_KEY = 'adm_audio_pending';
+
+async function admHandleAudio(input){
+  const file=input.files[0];if(!file)return;
+  const maxMB=50;
+  if(file.size>maxMB*1024*1024){admToast('❌ فایل بیشتر از '+maxMB+'MB هست');return;}
+  const fname=document.getElementById('adm-audio-fname');
+  const status=document.getElementById('adm-audio-status');
+  fname.textContent='در حال بارگذاری...';
+  status.style.display='block';status.style.color='var(--am)';status.textContent='⏳ در حال پردازش...';
+  try{
+    // خوندن فایل
+    const buf=await file.arrayBuffer();
+    // ذخیره در IndexedDB با کلید موقت
+    const tempId='adm_'+Date.now();
+    await dbPut({id:tempId,data:buf,name:file.name,type:file.type,ts:Date.now()});
+    // ساختن blob URL
+    const blob=new Blob([buf],{type:file.type});
+    const url=URL.createObjectURL(blob);
+    // گذاشتن URL توی فیلد
+    document.getElementById('adm-t-audio').value=url;
+    // ذخیره tempId برای بعد
+    localStorage.setItem(ADM_AUDIO_KEY,tempId);
+    fname.textContent='✅ '+file.name;fname.style.color='var(--gr)';
+    status.style.color='var(--gr)';status.textContent='✅ فایل لود شد ('+Math.round(file.size/1024)+'KB) — پس از ذخیره پرمننت میشه';
+    admMD();
+    // آپدیت duration خودکار
+    const tmpAud=new Audio(url);
+    tmpAud.addEventListener('loadedmetadata',()=>{
+      const dur=Math.round(tmpAud.duration);
+      document.getElementById('adm-t-dur').value=dur;
+    });
+    // پیشنهاد نام ترک از اسم فایل
+    const rawName=file.name.replace(/\.[^/.]+$/,'');
+    if(!document.getElementById('adm-t-title').value){
+      const sep=[' - ',' – '].find(s=>rawName.includes(s));
+      if(sep){const p=rawName.split(sep);document.getElementById('adm-t-artist').value=p[0].trim();document.getElementById('adm-t-title').value=p.slice(1).join(sep).trim();}
+      else document.getElementById('adm-t-title').value=rawName;
+    }
+  }catch(e){status.style.color='var(--re)';status.textContent='❌ خطا: '+e.message;}
+}
+
+async function admHandleCover(input){
+  const file=input.files[0];if(!file)return;
+  if(file.size>5*1024*1024){admToast('❌ تصویر بیشتر از ۵MB');return;}
+  const reader=new FileReader();
+  reader.onload=e=>{
+    // ذخیره به صورت base64 data URL
+    document.getElementById('adm-t-cover').value=e.target.result;
+    admMD();admToast('✅ تصویر لود شد','s');
+  };
+  reader.readAsDataURL(file);
+}
+
+// وقتی ترک save میشه، فایل صوتی رو از IndexedDB به ترک وصل کن
+async function admPersistAudio(trackId){
+  const tempId=localStorage.getItem(ADM_AUDIO_KEY);
+  if(!tempId)return;
+  const data=await dbGet(tempId);
+  if(!data)return;
+  // ذخیره با trackId نهایی
+  await dbPut({...data,id:'track_audio_'+trackId});
+  await dbDel(tempId);
+  localStorage.removeItem(ADM_AUDIO_KEY);
+}
+
+// بارگذاری فایل ذخیره‌شده از IndexedDB برای پخش
+async function loadLocalAudio(trackId){
+  const data=await dbGet('track_audio_'+trackId);
+  if(!data)return null;
+  const blob=new Blob([data.data],{type:data.type||'audio/mpeg'});
+  return URL.createObjectURL(blob);
+}
+function submitArtistTrack(){
+  const title=document.getElementById('sub-title').value.trim();
+  const artist=document.getElementById('sub-artist').value.trim();
+  const audio=document.getElementById('sub-audio').value.trim();
+  if(!title||!artist){toast('⚠️ عنوان و آرتیست الزامیه');return;}
+  if(!audio){toast('⚠️ لینک موزیک الزامیه');return;}
+  const dur=document.getElementById('sub-dur').value.trim();
+  const durSec=dur?((parseInt(dur.split(':')[0])||0)*60+(parseInt(dur.split(':')[1])||0)):180;
+  const links=[];
+  const lm=[['sub-spotify','🎵','Spotify','#1DB954'],['sub-sc','☁️','SoundCloud','#FF5500'],['sub-yt','▶️','YouTube','#FF0000'],['sub-ig','📷','Instagram','#E1306C']];
+  lm.forEach(([id,icon,name,color])=>{const v=document.getElementById(id).value.trim();if(v)links.push({name,icon,color,followers:'—',url:v});});
+  const req={
+    id:'req'+Date.now(),
+    title,artist,
+    artistId:artist.toLowerCase().replace(/\s+/g,''),
+    genre:document.getElementById('sub-genre').value,
+    emoji:'🎵',color:'#1a0a3d',
+    duration:durSec,reward:10,videoReward:0,
+    audioUrl:audio,
+    coverUrl:document.getElementById('sub-cover').value.trim(),
+    earnType:'normal',badge:'new',badgeLabel:'✨ جدید',
+    earnText:'گوش بده Coin بگیر',hasVideo:false,videoUrl:'',
+    desc:document.getElementById('sub-desc').value.trim(),
+    links,status:'pending',submittedAt:Date.now(),
+  };
+  const reqs=JSON.parse(localStorage.getItem('vibe_track_reqs')||'[]');
+  reqs.unshift(req);localStorage.setItem('vibe_track_reqs',JSON.stringify(reqs));
+  // پاک کردن فرم
+  ['sub-title','sub-artist','sub-audio','sub-cover','sub-desc','sub-dur','sub-spotify','sub-sc','sub-yt','sub-ig'].forEach(id=>document.getElementById(id).value='');
+  toast('✅ درخواست ارسال شد — منتظر تأیید ادمین');
+  navPage('profile');
+}
+
+// ─── Embed Player ─────────────────────────────────
+let embedRewardTimer=null,embedTrackId=null;
+function openEmbedPlayer(t,idx){
+  embedTrackId=t.id;
+  const url=t.audioUrl||'';
+  document.getElementById('embed-track-title').textContent=t.title+' — '+t.artist;
+  document.getElementById('embed-earn-txt').textContent='گوش بده +'+t.reward+' Coin بگیر';
+  const con=document.getElementById('embed-con');
+
+  if(url.includes('soundcloud.com')){
+    const embedUrl='https://w.soundcloud.com/player/?url='+encodeURIComponent(url)+'&color=%237c3aed&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false';
+    con.innerHTML=`<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="${embedUrl}"></iframe>`;
+  } else if(url.includes('open.spotify.com/track')){
+    const tid=url.split('/track/')[1]?.split('?')[0]||'';
+    con.innerHTML=`<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/${tid}?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay;clipboard-write;encrypted-media;fullscreen;picture-in-picture" loading="lazy"></iframe>`;
+  } else if(url.includes('youtube.com')||url.includes('youtu.be')){
+    let vid='';
+    if(url.includes('v='))vid=url.split('v=')[1]?.split('&')[0];
+    else if(url.includes('youtu.be/'))vid=url.split('youtu.be/')[1]?.split('?')[0];
+    if(vid)con.innerHTML=`<iframe width="100%" height="220" src="https://www.youtube.com/embed/${vid}?autoplay=1&rel=0" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>`;
+    else con.innerHTML=`<div style="padding:20px;text-align:center;color:var(--mu)">لینک یوتیوب نامعتبره</div>`;
+  } else if(url){
+    // MP3 مستقیم
+    aud.src=url;aud.play().catch(()=>{});
+    Object.assign(CUR,{id:t.id,title:t.title,artist:t.artist,emoji:t.emoji||'🎵',color:t.color||'#1a0a3d',isLocal:false,isCached:false,playing:true,progress:0,dur:t.duration});
+    setMini(t.emoji||'🎵',t.color||'#1a0a3d',t.title,t.artist,'online');
+    navPage('feed');return;
+  } else {
+    con.innerHTML=`<div style="padding:30px;text-align:center;color:var(--mu)"><i class="ti ti-link-off" style="font-size:36px;display:block;margin-bottom:10px;opacity:.3"></i>لینک پخش موجود نیست</div>`;
+  }
+
+  // reward timer — بعد از ۸۰٪ مدت ترک
+  clearTimeout(embedRewardTimer);
+  const waitMs=Math.max(30000,(t.duration||180)*0.8*1000);
+  embedRewardTimer=setTimeout(()=>{
+    addCoins(t.reward,'🎵 Listen — '+t.title,'earn');addXP(20);S.listenC++;updateMissions();updateStats();save();
+    toast('✅ +'+t.reward+' Coin!');
+  },waitMs);
+
+  navPage('embed');
+}
+
+// override playOnline to support embed URLs and local IndexedDB files
+const _origPlayOnline2=playOnline;
+async function playOnline(idx){
+  const t=OT[idx];if(!t)return;
+  const url=t.audioUrl||'';
+  // چک کن آیا فایل در IndexedDB هست
+  const localData=await dbGet('track_audio_'+t.id);
+  if(localData){
+    const blob=new Blob([localData.data],{type:localData.type||'audio/mpeg'});
+    const blobUrl=URL.createObjectURL(blob);
+    stopAll();aud.pause();aud.src=blobUrl;
+    aud.play().catch(e=>toast('❌ '+e.message));
+    Object.assign(CUR,{id:t.id,title:t.title,artist:t.artist,emoji:t.emoji||'🎵',color:t.color||'#1a0a3d',isLocal:false,isCached:false,playing:true,progress:0,dur:t.duration});
+    setMini(t.emoji||'🎵',t.color||'#1a0a3d',t.title,t.artist,'online');
+    document.querySelectorAll('.pbtn').forEach((b,i)=>{b.classList.toggle('on',i===idx);b.innerHTML=i===idx?'<i class="ti ti-player-pause"></i>':'<i class="ti ti-player-play"></i>';});
+    QUEUE=OT.map((x,i)=>({idx:i,...x})).slice(idx+1).concat(OT.map((x,i)=>({idx:i,...x})).slice(0,idx));
+    startEarnTick();return;
+  }
+  // embed URLs
+  const isEmbed=url.includes('soundcloud.com')||url.includes('open.spotify.com')||url.includes('youtube.com')||url.includes('youtu.be');
+  if(isEmbed){clearTimeout(embedRewardTimer);openEmbedPlayer(t,idx);}
+  else _origPlayOnline2(idx);
+}
+
+// ─── Admin: Track Requests ────────────────────────
+function admRenRequests(){
+  const reqs=JSON.parse(localStorage.getItem('vibe_track_reqs')||'[]');
+  const el=document.getElementById('adm-requests-list');if(!el)return;
+  const pending=reqs.filter(r=>r.status==='pending');
+  document.getElementById('adm-req-count').textContent=pending.length;
+  if(!pending.length){el.innerHTML='<div style="color:var(--mu);text-align:center;padding:20px;font-size:13px">درخواستی در انتظار نیست</div>';return;}
+  el.innerHTML=pending.map(r=>`
+    <div style="border:.5px solid var(--b1);border-radius:var(--r2);background:var(--bg3);padding:13px;margin-bottom:10px">
+      <div style="display:flex;align-items:flex-start;gap:11px">
+        <div style="width:44px;height:44px;border-radius:9px;background:#1a0a3d;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">${r.emoji||'🎵'}</div>
+        <div style="flex:1">
+          <div style="font-size:14px;font-weight:600">${esc(r.title)}</div>
+          <div style="font-size:12px;color:var(--mu2)">${esc(r.artist)} · ${esc(r.genre)}</div>
+          ${r.audioUrl?`<div style="font-size:10px;color:var(--bl);margin-top:4px;word-break:break-all">${esc(r.audioUrl.slice(0,60))}...</div>`:''}
+          ${r.desc?`<div style="font-size:11px;color:var(--mu2);margin-top:4px">${esc(r.desc)}</div>`:''}
+          <div style="font-size:10px;color:var(--mu);margin-top:4px">${admAgo(r.submittedAt)}</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+        <button onclick="admApproveReq('${r.id}')" style="flex:1;padding:9px;border-radius:8px;border:none;background:rgba(52,211,153,.15);color:var(--gr);font-size:12px;cursor:pointer;font-family:inherit;border:.5px solid rgba(52,211,153,.25)"><i class="ti ti-check"></i> تأیید و انتشار</button>
+        <button onclick="admRejectReq('${r.id}')" style="flex:1;padding:9px;border-radius:8px;border:.5px solid rgba(248,113,113,.2);background:rgba(248,113,113,.1);color:var(--re);font-size:12px;cursor:pointer;font-family:inherit"><i class="ti ti-x"></i> رد</button>
+        ${r.audioUrl?`<button onclick="admTestAud('${esc(r.audioUrl)}')" style="padding:9px 13px;border-radius:8px;border:.5px solid var(--b2);background:var(--bg3);color:var(--mu2);font-size:12px;cursor:pointer;font-family:inherit"><i class="ti ti-player-play"></i> تست</button>`:''}
+      </div>
+    </div>`).join('');
+}
+function admApproveReq(id){
+  const reqs=JSON.parse(localStorage.getItem('vibe_track_reqs')||'[]');
+  const req=reqs.find(r=>r.id===id);if(!req)return;
+  req.status='approved';
+  // اضافه کردن به tracks
+  ATK=_ATK();
+  ATK.push({...req,id:'t'+Date.now(),status:undefined,desc:undefined,submittedAt:undefined});
+  localStorage.setItem('vaTK',JSON.stringify(ATK));
+  localStorage.setItem('vibe_track_reqs',JSON.stringify(reqs));
+  // notification به همه
+  ANT=_ANT();
+  ANT.unshift({id:'n'+Date.now(),type:'artist',title:'🎵 ترک جدید: '+req.title,sub:req.artist+' — همین الان منتشر شد',ts:Date.now(),read:false,action:'feed'});
+  localStorage.setItem('vaNT',JSON.stringify(ANT));
+  // sync به اپ
+  OT=[...ATK];if(!OT.length)OT=getFallbackTracks();
+  NOTIFS=_ANT().map(n=>({...n,ts:n.time||n.ts||Date.now(),read:false}));saveNotifs();updateNotifBadge();
+  if(ONLINE)buildFeed();
+  admRenRequests();admRenDTK();admUpdDS();
+  admToast('✅ تأیید شد — ترک منتشر شد','s');
+}
+function admRejectReq(id){
+  const reqs=JSON.parse(localStorage.getItem('vibe_track_reqs')||'[]');
+  const req=reqs.find(r=>r.id===id);if(req)req.status='rejected';
+  localStorage.setItem('vibe_track_reqs',JSON.stringify(reqs));
+  admRenRequests();admToast('رد شد','w');
+}
+
+// ─── Quick menu: add artist submit ────────────────
 document.addEventListener('keydown',e=>{
   if(['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName))return;
   if(e.code==='Space'){e.preventDefault();togglePlay();}
@@ -1795,7 +2103,6 @@ document.addEventListener('keydown',e=>{
     <input id="adm-pass-inp" type="password" dir="ltr" placeholder="رمز عبور" style="width:100%;padding:12px 14px;border-radius:var(--r);border:.5px solid var(--b2);background:var(--bg3);color:var(--tx);font-size:16px;font-family:inherit;outline:none;text-align:center;letter-spacing:4px;margin-bottom:10px">
     <div id="adm-login-err" style="color:var(--re);font-size:12px;text-align:center;margin-bottom:10px;display:none"></div>
     <button onclick="doAdminLogin()" style="width:100%;padding:13px;border-radius:var(--r2);border:none;background:var(--pu2);color:#fff;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit">ورود به پنل</button>
-    <div style="text-align:center;margin-top:12px;font-size:11px;color:var(--mu)">رمز پیش‌فرض: <b style="color:var(--pu)">vibe1403</b></div>
   </div>
 </div>
 
@@ -1866,6 +2173,7 @@ document.addEventListener('keydown',e=>{
       <div class="adm-sb-sec">محتوا</div>
       <div class="adm-sb-item" data-page="adm-tracks" onclick="admShowPage('adm-tracks')"><i class="ti ti-music"></i>ترک‌ها</div>
       <div class="adm-sb-item" data-page="adm-add-track" onclick="admShowPage('adm-add-track')"><i class="ti ti-music-plus"></i>افزودن ترک</div>
+      <div class="adm-sb-item" data-page="adm-requests" onclick="admShowPage('adm-requests')"><i class="ti ti-clock"></i>درخواست‌های آرتیست<span id="adm-req-count" style="background:var(--re);color:#fff;font-size:9px;padding:1px 6px;border-radius:8px;margin-right:auto">0</span></div>
       <div class="adm-sb-item" data-page="adm-artists" onclick="admShowPage('adm-artists')"><i class="ti ti-microphone-2"></i>آرتیست‌ها</div>
       <div class="adm-sb-item" data-page="adm-notifications" onclick="admShowPage('adm-notifications')"><i class="ti ti-bell"></i>اعلان‌ها</div>
       <div class="adm-sb-sec">اقتصاد</div>
@@ -1926,11 +2234,37 @@ document.addEventListener('keydown',e=>{
             <div class="adm-field"><div class="adm-lbl">Coin Reward</div><div class="adm-inprow"><span class="pre">🪙</span><input class="adm-inp" id="adm-t-reward" type="number" placeholder="10" onchange="admMD()"></div></div>
           </div>
         </div></div>
-        <div class="adm-card"><div class="adm-card-hdr"><i class="ti ti-link" style="color:var(--bl)"></i><b>URLها</b></div><div class="adm-card-body">
+        <div class="adm-card"><div class="adm-card-hdr"><i class="ti ti-link" style="color:var(--bl)"></i><b>موزیک</b></div><div class="adm-card-body">
           <div class="adm-fg">
-            <div class="adm-field"><div class="adm-lbl">Audio URL</div><input class="adm-inp" id="adm-t-audio" type="url" dir="ltr" placeholder="https://raw.githubusercontent.com/.../track.mp3" onchange="admMD()"><div style="font-size:10px;color:var(--mu);margin-top:3px">اگه خالی باشه Simulation Mode</div></div>
-            <div class="adm-field"><div class="adm-lbl">Cover URL</div><input class="adm-inp" id="adm-t-cover" type="url" dir="ltr" placeholder="https://.../cover.jpg" onchange="admMD()"></div>
-            <div class="adm-field"><div class="adm-lbl">Video URL (MV)</div><input class="adm-inp" id="adm-t-video" type="url" dir="ltr" placeholder="https://.../mv.mp4" onchange="admMD()"></div>
+            <!-- آپلود فایل مستقیم -->
+            <div>
+              <div class="adm-lbl" style="margin-bottom:6px">آپلود فایل از کامپیوتر</div>
+              <label style="display:flex;align-items:center;gap:10px;padding:13px;border:1.5px dashed var(--b2);border-radius:var(--r);cursor:pointer;transition:border-color .15s;background:var(--bg3)" id="adm-audio-drop" onmouseover="this.style.borderColor='var(--pu)'" onmouseout="this.style.borderColor='var(--b2)'">
+                <i class="ti ti-music-plus" style="font-size:24px;color:var(--mu);flex-shrink:0"></i>
+                <div style="flex:1">
+                  <div style="font-size:13px;font-weight:500" id="adm-audio-fname">انتخاب فایل MP3 / WAV / FLAC</div>
+                  <div style="font-size:11px;color:var(--mu);margin-top:2px">فایل رو بکش اینجا یا کلیک کن</div>
+                </div>
+                <input type="file" id="adm-audio-file" accept="audio/*" style="display:none" onchange="admHandleAudio(this)">
+              </label>
+              <div id="adm-audio-status" style="font-size:11px;margin-top:5px;display:none"></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;color:var(--mu);font-size:12px">
+              <div style="flex:1;height:.5px;background:var(--b1)"></div>
+              یا با لینک
+              <div style="flex:1;height:.5px;background:var(--b1)"></div>
+            </div>
+            <div class="adm-field"><div class="adm-lbl">Audio URL</div><input class="adm-inp" id="adm-t-audio" type="url" dir="ltr" placeholder="https://raw.githubusercontent.com/.../track.mp3" onchange="admMD()"><div style="font-size:10px;color:var(--mu);margin-top:3px">SoundCloud · Spotify · YouTube · MP3 مستقیم · GitHub Raw</div></div>
+            <div class="adm-field"><div class="adm-lbl">Cover URL یا فایل</div>
+              <div style="display:flex;gap:8px">
+                <input class="adm-inp" id="adm-t-cover" type="url" dir="ltr" placeholder="https://...cover.jpg" onchange="admMD()" style="flex:1">
+                <label style="padding:9px 12px;border-radius:var(--r);border:.5px solid var(--b2);background:var(--bg3);cursor:pointer;white-space:nowrap;font-size:12px;color:var(--mu2);display:flex;align-items:center;gap:5px">
+                  <i class="ti ti-photo"></i>آپلود
+                  <input type="file" accept="image/*" style="display:none" onchange="admHandleCover(this)">
+                </label>
+              </div>
+            </div>
+            <div class="adm-field"><div class="adm-lbl">Video URL (MV)</div><input class="adm-inp" id="adm-t-video" type="url" dir="ltr" placeholder="YouTube یا لینک مستقیم MP4" onchange="admMD()"></div>
           </div>
           <div class="adm-div"></div>
           <div class="adm-tgl-row"><div style="font-size:13px">این ترک موزیک ویدیو داره</div><label class="adm-tgl"><input type="checkbox" id="adm-t-hasvid" onchange="admMD()"><span class="adm-tgl-s"></span></label></div>
@@ -1950,6 +2284,12 @@ document.addEventListener('keydown',e=>{
         </div>
       </div>
 
+      <!-- REQUESTS -->
+      <div class="adm-page" id="adm-requests">
+        <div style="font-size:17px;font-weight:700;margin-bottom:14px">🕐 درخواست‌های آرتیست</div>
+        <div class="adm-info"><i class="ti ti-info-circle"></i>آرتیست‌ها از داخل اپ ترک ارسال میکنن — اینجا تأیید یا رد کن.</div>
+        <div class="adm-card"><div class="adm-card-hdr"><i class="ti ti-clock" style="color:var(--am)"></i><b>در انتظار تأیید</b></div><div class="adm-card-body"><div id="adm-requests-list"></div></div></div>
+      </div>
       <!-- ARTISTS -->
       <div class="adm-page" id="adm-artists">
         <div style="font-size:17px;font-weight:700;margin-bottom:14px">🎤 آرتیست‌ها</div>
