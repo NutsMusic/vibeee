@@ -49,7 +49,7 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
 .page::-webkit-scrollbar{width:2px}.page::-webkit-scrollbar-thumb{background:var(--b2);border-radius:2px}
 /* SHARED */
 .sec{padding:13px 16px 7px;font-size:10px;font-weight:600;color:var(--mu);letter-spacing:1.1px;text-transform:uppercase}
-.bsp{height:90px}
+.bsp{height:160px}
 .chips{display:flex;gap:7px;padding:8px 14px 6px;overflow-x:auto;scrollbar-width:none}
 .chips::-webkit-scrollbar{display:none}
 .chip{padding:5px 13px;border-radius:20px;border:.5px solid var(--b2);font-size:12px;cursor:pointer;white-space:nowrap;background:var(--bg3);color:var(--mu);transition:all .13s;flex-shrink:0;font-family:'Vazirmatn',sans-serif}
@@ -363,6 +363,61 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
 .load-bar{width:120px;height:3px;background:var(--bg3);border-radius:2px;overflow:hidden;margin-top:24px}
 .load-fill{height:100%;background:var(--pu);border-radius:2px;animation:lf 1.5s ease-in-out forwards}
 @keyframes lf{from{width:0}to{width:100%}}
+/* ONBOARDING */
+.ob-screen{position:fixed;inset:0;background:var(--bg);z-index:190;display:none;flex-direction:column;align-items:center;justify-content:center;padding:24px}
+.ob-screen.on{display:flex}
+.ob-logo{font-size:56px;font-weight:900;letter-spacing:-3px;text-align:center;margin-bottom:8px}
+.ob-logo em{color:var(--pu);font-style:normal}
+.ob-step{display:none;width:100%;max-width:380px;animation:fadeIn .3s ease}
+.ob-step.on{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.ob-title{font-size:22px;font-weight:700;text-align:center;margin-bottom:8px}
+.ob-sub{font-size:14px;color:var(--mu2);text-align:center;margin-bottom:28px;line-height:1.6}
+.ob-inp{width:100%;padding:14px 16px;border-radius:var(--r2);border:.5px solid var(--b2);background:var(--bg3);color:var(--tx);font-size:16px;font-family:'Vazirmatn',sans-serif;outline:none;margin-bottom:13px;transition:border-color .15s;text-align:center}
+.ob-inp:focus{border-color:rgba(167,139,250,.5)}
+.ob-btn{width:100%;padding:14px;border-radius:var(--r2);border:none;background:var(--pu2);color:#fff;font-size:15px;font-weight:600;cursor:pointer;font-family:'Vazirmatn',sans-serif;margin-bottom:10px;transition:opacity .12s}
+.ob-btn:hover{opacity:.88}
+.ob-btn.out{background:var(--bg3);color:var(--mu);border:.5px solid var(--b2)}
+.ob-role-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px}
+.ob-role{border:.5px solid var(--b2);border-radius:var(--r2);padding:18px 14px;cursor:pointer;text-align:center;transition:all .15s;background:var(--bg3)}
+.ob-role:hover{border-color:var(--pu);background:rgba(124,58,237,.07)}
+.ob-role.sel{border-color:var(--pu);background:rgba(124,58,237,.12)}
+.ob-role-ico{font-size:32px;display:block;margin-bottom:10px}
+.ob-role-name{font-size:14px;font-weight:600}
+.ob-role-desc{font-size:11px;color:var(--mu2);margin-top:5px;line-height:1.5}
+.ob-emoji-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:20px}
+.ob-emoji-btn{width:44px;height:44px;border-radius:50%;border:.5px solid var(--b2);background:var(--bg3);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .13s}
+.ob-emoji-btn:hover{border-color:var(--pu);transform:scale(1.1)}
+.ob-emoji-btn.sel{border-color:var(--pu);background:rgba(124,58,237,.15);transform:scale(1.1)}
+.ob-dots{display:flex;gap:6px;justify-content:center;margin-bottom:28px}
+.ob-dot{width:8px;height:8px;border-radius:50%;background:var(--b2)}
+.ob-dot.on{background:var(--pu)}
+/* ROLE BADGE */
+.role-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:600}
+.role-badge.listener{background:rgba(96,165,250,.1);border:.5px solid rgba(96,165,250,.2);color:var(--bl)}
+.role-badge.artist{background:rgba(52,211,153,.1);border:.5px solid rgba(52,211,153,.2);color:var(--gr)}
+.role-badge.admin{background:rgba(248,113,113,.1);border:.5px solid rgba(248,113,113,.2);color:var(--re)}
+/* ARTIST DASHBOARD */
+.adash-stat{background:var(--card);border:.5px solid var(--b1);border-radius:var(--r2);padding:16px;text-align:center}
+.adash-val{font-size:28px;font-weight:700;margin:6px 0 3px;line-height:1}
+.adash-lbl{font-size:11px;color:var(--mu2)}
+/* CAMPAIGN CARDS */
+.camp-card{border:.5px solid var(--b1);border-radius:var(--r2);background:var(--card);padding:16px;margin-bottom:12px;cursor:pointer;transition:border-color .15s}
+.camp-card:hover{border-color:var(--b2)}
+.camp-card.sel{border-color:var(--pu);background:rgba(124,58,237,.07)}
+.camp-ico{font-size:28px;display:block;margin-bottom:8px}
+.camp-name{font-size:15px;font-weight:600}
+.camp-desc{font-size:12px;color:var(--mu2);margin-top:4px;line-height:1.5}
+.camp-price{margin-top:10px;font-size:13px;font-weight:600;color:var(--am)}
+/* PUBLIC PROFILE */
+.pub-cover{height:140px;position:relative;overflow:hidden}
+.pub-ava{width:72px;height:72px;border-radius:50%;border:3px solid var(--bg);display:flex;align-items:center;justify-content:center;font-size:28px;margin-top:-36px;flex-shrink:0}
+.pub-stat{flex:1;text-align:center}
+.pub-stat-v{font-size:18px;font-weight:700;color:var(--pu)}
+.pub-stat-l{font-size:10px;color:var(--mu);margin-top:2px}
+/* PLAYLIST SHARE */
+.pl-share-toggle{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:rgba(167,139,250,.05);border:.5px solid rgba(167,139,250,.15);border-radius:var(--r);margin:0 14px 12px}
+</style>
 </style>
 </head>
 <body>
@@ -372,6 +427,49 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
   <div class="load-logo">vi<em>be</em></div>
   <div style="font-size:13px;color:var(--mu)">گوش بده — Earn کن</div>
   <div class="load-bar"><div class="load-fill"></div></div>
+</div>
+
+<!-- ONBOARDING -->
+<div class="ob-screen" id="ob-screen">
+  <div class="ob-logo">vi<em>be</em></div>
+  <div style="font-size:13px;color:var(--mu);margin-bottom:28px;text-align:center">گوش بده — Earn کن — رشد کن</div>
+  <div class="ob-dots"><div class="ob-dot on" id="ob-d0"></div><div class="ob-dot" id="ob-d1"></div><div class="ob-dot" id="ob-d2"></div></div>
+  <!-- Step 0: Name -->
+  <div class="ob-step on" id="ob-s0" style="max-width:340px">
+    <div class="ob-title">اسمت چیه؟ 👋</div>
+    <div class="ob-sub">اسمی که بقیه کاربرها میبینن</div>
+    <input class="ob-inp" id="ob-name" type="text" placeholder="مثلاً: علی یا Nuts" maxlength="30">
+    <input class="ob-inp" id="ob-handle" type="text" dir="ltr" placeholder="@username (انگلیسی)" maxlength="20">
+    <button class="ob-btn" onclick="obNext(1)">ادامه →</button>
+  </div>
+  <!-- Step 1: Avatar -->
+  <div class="ob-step" id="ob-s1" style="max-width:340px">
+    <div class="ob-title">آواتارت رو انتخاب کن 🎨</div>
+    <div class="ob-sub">این آیکون روی پروفایلت نشون داده میشه</div>
+    <div class="ob-emoji-grid" id="ob-emoji-grid"></div>
+    <button class="ob-btn" onclick="obNext(2)">ادامه →</button>
+  </div>
+  <!-- Step 2: Role -->
+  <div class="ob-step" id="ob-s2" style="max-width:360px">
+    <div class="ob-title">چطور میخوای استفاده کنی؟</div>
+    <div class="ob-sub">بعداً هم میتونی تغییر بدی</div>
+    <div class="ob-role-cards">
+      <div class="ob-role" id="ob-role-listener" onclick="obSelectRole('listener')">
+        <span class="ob-role-ico">🎧</span>
+        <div class="ob-role-name">شنونده</div>
+        <div class="ob-role-desc">موزیک گوش بده، Coin جمع کن، پلی‌لیست بساز و Share کن</div>
+      </div>
+      <div class="ob-role" id="ob-role-artist" onclick="obSelectRole('artist')">
+        <span class="ob-role-ico">🎤</span>
+        <div class="ob-role-name">آرتیست</div>
+        <div class="ob-role-desc">ترک آپلود کن، کمپین بران، آمار و Coin بگیر</div>
+      </div>
+    </div>
+    <div id="ob-artist-note" style="display:none;background:rgba(251,191,36,.07);border:.5px solid rgba(251,191,36,.2);border-radius:var(--r);padding:10px 13px;font-size:12px;color:var(--am);margin-bottom:14px;line-height:1.7">
+      <i class="ti ti-info-circle"></i> حساب آرتیست نیاز به تأیید ادمین داره. تا تأیید به عنوان شنونده استفاده میکنی.
+    </div>
+    <button class="ob-btn" onclick="obFinish()">شروع کن 🚀</button>
+  </div>
 </div>
 
 <div class="app">
@@ -565,6 +663,120 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
       <div class="bsp"></div>
     </div>
 
+    <!-- ARTIST DASHBOARD -->
+    <div class="page" id="pg-artist-dash">
+      <div style="padding:14px 14px 8px;display:flex;align-items:center;justify-content:space-between">
+        <div><div style="font-size:18px;font-weight:700">🎤 داشبورد آرتیست</div><div style="font-size:12px;color:var(--mu2);margin-top:3px" id="adash-status-txt"></div></div>
+        <div class="role-badge artist"><i class="ti ti-microphone-2" style="font-size:11px"></i>آرتیست</div>
+      </div>
+      <div id="adash-pending-note" style="display:none;margin:0 14px 12px;background:rgba(251,191,36,.07);border:.5px solid rgba(251,191,36,.2);border-radius:var(--r);padding:11px 13px;font-size:12px;color:var(--am);line-height:1.7">
+        <i class="ti ti-clock"></i> حسابت در انتظار تأیید ادمینه. ترک‌های ارسالی بعد از تأیید نمایش داده میشن.
+      </div>
+      <!-- Stats -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;padding:0 14px 14px">
+        <div class="adash-stat"><div class="adash-val" style="color:var(--pu)" id="adash-streams">0</div><div class="adash-lbl">استریم</div></div>
+        <div class="adash-stat"><div class="adash-val" style="color:var(--am)" id="adash-coins">0</div><div class="adash-lbl">Coin کسب شده</div></div>
+        <div class="adash-stat"><div class="adash-val" style="color:var(--gr)" id="adash-followers">0</div><div class="adash-lbl">فالوور</div></div>
+      </div>
+      <!-- My Tracks -->
+      <div class="sec">ترک‌های من</div>
+      <div id="adash-tracks"></div>
+      <!-- Quick Actions -->
+      <div class="sec">اقدام‌های سریع</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 14px 14px">
+        <button onclick="navPage('artist-submit')" style="padding:13px;border-radius:var(--r2);border:.5px solid rgba(52,211,153,.25);background:rgba(52,211,153,.08);color:var(--gr);font-size:13px;font-weight:500;cursor:pointer;font-family:'Vazirmatn',sans-serif;display:flex;align-items:center;justify-content:center;gap:7px"><i class="ti ti-music-plus"></i>ارسال ترک جدید</button>
+        <button onclick="navPage('campaign-req')" style="padding:13px;border-radius:var(--r2);border:.5px solid rgba(251,191,36,.25);background:rgba(251,191,36,.08);color:var(--am);font-size:13px;font-weight:500;cursor:pointer;font-family:'Vazirmatn',sans-serif;display:flex;align-items:center;justify-content:center;gap:7px"><i class="ti ti-speakerphone"></i>درخواست کمپین</button>
+      </div>
+      <!-- Earnings breakdown -->
+      <div class="sec">درآمد از ترک‌ها</div>
+      <div id="adash-earnings" style="margin:0 14px;background:var(--card);border:.5px solid var(--b1);border-radius:var(--r2);overflow:hidden"></div>
+      <div class="bsp"></div>
+    </div>
+
+    <!-- CAMPAIGN REQUEST -->
+    <div class="page" id="pg-campaign-req">
+      <div style="padding:14px 14px 8px;display:flex;align-items:center;gap:10px">
+        <button onclick="navPage('artist-dash')" style="background:none;border:none;cursor:pointer;color:var(--mu);font-size:20px"><i class="ti ti-arrow-right"></i></button>
+        <div style="font-size:18px;font-weight:700">📣 درخواست کمپین</div>
+      </div>
+      <div style="margin:0 14px 14px;background:rgba(96,165,250,.07);border:.5px solid rgba(96,165,250,.2);border-radius:var(--r);padding:11px 13px;font-size:12px;color:var(--bl);line-height:1.7">
+        <i class="ti ti-info-circle"></i> کمپین‌ها بعد از تأیید ادمین فعال میشن. هزینه از Coin کسر میشه.
+      </div>
+      <!-- Campaign Types -->
+      <div style="padding:0 14px">
+        <div class="camp-card" id="camp-sponsored" onclick="selectCamp('sponsored')">
+          <span class="camp-ico">💼</span>
+          <div class="camp-name">Sponsored Track</div>
+          <div class="camp-desc">ترکت با badge «Sponsored» توی فید همه نشون داده میشه و Coin reward بیشتری داره</div>
+          <div class="camp-price">۵۰۰ Coin / ۷ روز</div>
+        </div>
+        <div class="camp-card" id="camp-hot" onclick="selectCamp('hot')">
+          <span class="camp-ico">🔥</span>
+          <div class="camp-name">Hot of the Week</div>
+          <div class="camp-desc">ترکت یه هفته به عنوان «ترک داغ هفته» توی Discover نمایش داده میشه</div>
+          <div class="camp-price">۱۰۰۰ Coin / ۷ روز</div>
+        </div>
+        <div class="camp-card" id="camp-trending" onclick="selectCamp('trending')">
+          <span class="camp-ico">📈</span>
+          <div class="camp-name">Trending Boost</div>
+          <div class="camp-desc">ترکت توی لیست Trending بالا نگه داشته میشه و badge «Trending» میگیره</div>
+          <div class="camp-price">۸۰۰ Coin / ۷ روز</div>
+        </div>
+        <div class="camp-card" id="camp-early" onclick="selectCamp('early')">
+          <span class="camp-ico">✨</span>
+          <div class="camp-name">Early Discover Boost</div>
+          <div class="camp-desc">کاربرانی که ترکت رو زود گوش بدن Coin بیشتری میگیرن — incentive برای discovery</div>
+          <div class="camp-price">۳۰۰ Coin / ۷ روز</div>
+        </div>
+      </div>
+      <!-- Track selector -->
+      <div class="sec">کدوم ترک؟</div>
+      <div style="padding:0 14px">
+        <select id="camp-track-sel" style="width:100%;padding:11px 13px;border-radius:var(--r);border:.5px solid var(--b2);background:var(--bg3);color:var(--tx);font-size:13px;font-family:'Vazirmatn',sans-serif;outline:none;margin-bottom:12px">
+          <option value="">انتخاب ترک...</option>
+        </select>
+        <textarea id="camp-note" placeholder="توضیح اضافه (اختیاری)..." style="width:100%;padding:11px 13px;border-radius:var(--r);border:.5px solid var(--b2);background:var(--bg3);color:var(--tx);font-size:13px;font-family:'Vazirmatn',sans-serif;outline:none;resize:none;height:70px;line-height:1.5;margin-bottom:12px"></textarea>
+        <div id="camp-cost-preview" style="background:rgba(251,191,36,.06);border:.5px solid rgba(251,191,36,.15);border-radius:var(--r);padding:11px 13px;font-size:12px;color:var(--am);margin-bottom:14px;display:none"></div>
+        <button onclick="submitCampaign()" style="width:100%;padding:13px;border-radius:var(--r2);border:none;background:var(--pu2);color:#fff;font-size:14px;font-weight:600;cursor:pointer;font-family:'Vazirmatn',sans-serif"><i class="ti ti-send" style="vertical-align:-2px"></i> ارسال درخواست</button>
+      </div>
+      <div class="bsp"></div>
+    </div>
+
+    <!-- PUBLIC PROFILE (viewer) -->
+    <div class="page" id="pg-pub-profile">
+      <div style="padding:10px 14px 0;display:flex;align-items:center;gap:10px">
+        <button id="pub-back-btn" onclick="navPage('feed')" style="background:none;border:none;cursor:pointer;color:var(--mu);font-size:20px"><i class="ti ti-arrow-right"></i></button>
+        <span style="font-size:14px;font-weight:600">پروفایل</span>
+        <button id="pub-share-btn" onclick="shareProfile()" style="margin-right:auto;background:none;border:none;cursor:pointer;color:var(--mu);font-size:18px"><i class="ti ti-share"></i></button>
+      </div>
+      <div class="pub-cover" id="pub-cover" style="background:linear-gradient(135deg,#1a0a3d,#000);margin-top:6px">
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:80px;opacity:.1" id="pub-cover-emoji">🎧</div>
+      </div>
+      <div style="padding:14px 14px 10px;display:flex;align-items:flex-start;gap:12px">
+        <div class="pub-ava" id="pub-ava" style="background:var(--bg3)">🎧</div>
+        <div style="flex:1;padding-top:8px">
+          <div style="font-size:18px;font-weight:700" id="pub-name">—</div>
+          <div style="font-size:12px;color:var(--mu);margin-top:2px" id="pub-handle">—</div>
+          <div style="margin-top:7px;display:flex;gap:7px;flex-wrap:wrap" id="pub-badges"></div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin:0 14px 14px;background:var(--card);border:.5px solid var(--b1);border-radius:var(--r2);overflow:hidden" id="pub-stats-row"></div>
+      <div id="pub-follow-btn-wrap" style="padding:0 14px 14px">
+        <button id="pub-follow-btn" onclick="togglePubFollow()" style="width:100%;padding:12px;border-radius:var(--r2);border:none;background:var(--pu2);color:#fff;font-size:14px;font-weight:600;cursor:pointer;font-family:'Vazirmatn',sans-serif">+ دنبال کن</button>
+      </div>
+      <!-- Artist tracks if artist -->
+      <div id="pub-tracks-section" style="display:none">
+        <div class="sec">ترک‌ها</div>
+        <div id="pub-tracks"></div>
+      </div>
+      <!-- Public playlists -->
+      <div id="pub-playlists-section">
+        <div class="sec">پلی‌لیست‌های عمومی</div>
+        <div id="pub-playlists"></div>
+      </div>
+      <div class="bsp"></div>
+    </div>
+
     <!-- LIKED -->
     <div class="page" id="pg-liked">
       <div style="padding:14px 14px 8px;display:flex;align-items:center;justify-content:space-between">
@@ -673,7 +885,14 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
 
     <!-- PROFILE -->
     <div class="page" id="pg-profile">
-      <div class="phero"><div class="pava" id="pava-emoji">🎧</div><div class="pname" id="pname">کاربر جدید</div><div class="phdl" id="phdl">@user</div><div class="plvl"><i class="ti ti-star" style="font-size:12px"></i><span id="plvl-t">Level 1 — Newcomer</span></div></div>
+      <div class="phero"><div class="pava" id="pava-emoji">🎧</div><div class="pname" id="pname">کاربر جدید</div><div class="phdl" id="phdl">@user</div>
+      <div style="display:flex;gap:8px;justify-content:center;margin-top:9px;flex-wrap:wrap">
+        <div class="plvl"><i class="ti ti-star" style="font-size:12px"></i><span id="plvl-t">Level 1</span></div>
+        <span class="role-badge listener" id="prof-role-badge">🎧 شنونده</span>
+      </div>
+      <!-- artist dash btn - فقط برای آرتیست‌ها -->
+      <button id="prof-artist-dash-btn" onclick="navPage('artist-dash')" style="display:none;margin-top:12px;padding:9px 20px;border-radius:var(--r2);border:.5px solid rgba(52,211,153,.25);background:rgba(52,211,153,.08);color:var(--gr);font-size:13px;font-weight:500;cursor:pointer;font-family:'Vazirmatn',sans-serif;align-items:center;gap:7px"><i class="ti ti-microphone-2"></i> داشبورد آرتیست</button>
+      </div>
       <div class="xpsec"><div class="xprow"><span id="xp-c">XP: 0</span><span id="xp-n">بعدی: 500</span></div><div class="xpbar"><div class="xpfill" id="xpf" style="width:0%"></div></div><div class="xprow" style="margin-top:4px"><span id="xp-l">Level 1</span><span id="xp-p">0٪</span></div></div>
       <div class="sec">بج‌ها</div>
       <div class="brow" id="brow"></div>
@@ -1627,7 +1846,7 @@ function navPage(id){
 }
 function runInit(id){
   if(id==='wallet')updWallet();
-  if(id==='profile'){updProfile();updateStats();updateNotifBadge();updProfMenu();}
+  if(id==='profile'){updProfile();updateStats();updateNotifBadge();updProfMenu();updProfileForRole();}
   if(id==='local'){renderLib();updateBadge();}
   if(id==='discover')buildDiscover();
   if(id==='playlist')renderPlaylists();
@@ -1637,10 +1856,269 @@ function runInit(id){
   if(id==='leaderboard')buildLeaderboard('coins');
   if(id==='settings')buildSettings();
   if(id==='missions')updateMissions();
+  if(id==='artist-dash'){ATK=_ATK();buildArtistDash();}
+  if(id==='campaign-req'){ATK=_ATK();buildCampaignPage();}
+  if(id==='pub-profile'){}
   if(id==='video'){
     if(!ONLINE){document.getElementById('video-list').style.display='none';document.getElementById('video-offline').style.display='block';}
     else{document.getElementById('video-list').style.display='';document.getElementById('video-offline').style.display='none';buildVideoFeed();}
   }
+}
+
+// ══════════════════════════════════════════════════
+//  ROLE SYSTEM + ONBOARDING
+// ══════════════════════════════════════════════════
+const ROLE_KEY='vibe_role';
+const OB_KEY='vibe_ob_done';
+const AVATARS=['🎧','🎵','🎤','🎸','🎹','🎺','🎻','🥁','🎼','🎶','🔥','⚡','🌊','🌿','💎','🏆','👑','🌙','⭐','🎯','🎭','🎨','🚀','💜'];
+let _obRole='listener',_obEmoji='🎧';
+
+function getRole(){return localStorage.getItem(ROLE_KEY)||'listener';}
+function isArtistRole(){const r=getRole();return r==='artist'||r==='artist_pending';}
+
+function showOnboarding(){
+  const grid=document.getElementById('ob-emoji-grid');
+  if(grid)grid.innerHTML=AVATARS.map(e=>`<button class="ob-emoji-btn${e===_obEmoji?' sel':''}" onclick="obPickEmoji('${e}',this)">${e}</button>`).join('');
+  document.getElementById('ob-screen').classList.add('on');
+}
+
+function obNext(step){
+  if(step===1){
+    const n=document.getElementById('ob-name').value.trim();
+    if(!n){toast('⚠️ اسمت رو وارد کن');return;}
+    const h=document.getElementById('ob-handle').value.trim();
+    S.username=n;
+    S.handle=h?(h.startsWith('@')?h:'@'+h):'@'+n.toLowerCase().replace(/\s+/g,'').replace(/[^a-z0-9_]/g,'');
+    S.avatar=_obEmoji;save();
+  }
+  document.querySelectorAll('.ob-step').forEach(s=>s.classList.remove('on'));
+  document.getElementById('ob-s'+step)?.classList.add('on');
+  document.querySelectorAll('.ob-dot').forEach((d,i)=>d.classList.toggle('on',i<=step));
+}
+
+function obPickEmoji(e,btn){
+  _obEmoji=e;
+  document.querySelectorAll('.ob-emoji-btn').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+  S.avatar=e;save();
+}
+
+function obSelectRole(role){
+  _obRole=role;
+  document.querySelectorAll('.ob-role').forEach(r=>r.classList.remove('sel'));
+  document.getElementById('ob-role-'+role)?.classList.add('sel');
+  const note=document.getElementById('ob-artist-note');
+  if(note)note.style.display=role==='artist'?'block':'none';
+}
+
+function obFinish(){
+  if(!_obRole){toast('⚠️ یه نقش انتخاب کن');return;}
+  S.avatar=_obEmoji||'🎧';
+  S.username=S.username||(document.getElementById('ob-name')?.value.trim())||'کاربر';
+  const finalRole=_obRole==='artist'?'artist_pending':'listener';
+  localStorage.setItem(ROLE_KEY,finalRole);
+  localStorage.setItem(OB_KEY,'1');
+  save();
+  document.getElementById('ob-screen').classList.remove('on');
+  if(_obRole==='artist'){
+    const reqs=JSON.parse(localStorage.getItem('vibe_artist_reqs')||'[]');
+    reqs.push({id:'ar'+Date.now(),username:S.username,handle:S.handle,avatar:S.avatar,ts:Date.now(),status:'pending'});
+    localStorage.setItem('vibe_artist_reqs',JSON.stringify(reqs));
+    toast('✅ درخواست آرتیست ارسال شد');
+  } else {
+    toast('🎧 خوش اومدی '+S.username+'!');
+  }
+  updProfile();updHdr();updProfileForRole();
+}
+
+// ── Artist Dashboard ───────────────────────────────
+function buildArtistDash(){
+  const role=getRole();
+  const pending=role==='artist_pending';
+  const el1=document.getElementById('adash-pending-note');
+  const el2=document.getElementById('adash-status-txt');
+  if(el1)el1.style.display=pending?'block':'none';
+  if(el2)el2.textContent=pending?'در انتظار تأیید ادمین':'حساب فعاله ✅';
+
+  const myHandle=(S.handle||'').replace('@','');
+  const myTracks=ATK.filter(t=>t.artistId===myHandle);
+  const totalStreams=myTracks.reduce((s,t)=>s+(t.playCount||0),0);
+  const earnedCoins=Math.round(totalStreams*0.7*getCoin('listen'));
+
+  const ds=document.getElementById('adash-streams');const dc=document.getElementById('adash-coins');const df=document.getElementById('adash-followers');
+  if(ds)ds.textContent=totalStreams.toLocaleString();
+  if(dc)dc.textContent=earnedCoins.toLocaleString();
+  if(df)df.textContent=(FOLLOWED.size||0).toLocaleString();
+
+  const tlist=document.getElementById('adash-tracks');
+  if(tlist){
+    if(!myTracks.length){
+      tlist.innerHTML='<div style="text-align:center;padding:28px 20px;color:var(--mu)"><i class="ti ti-music-off" style="font-size:36px;display:block;margin-bottom:10px;opacity:.3"></i><p style="font-size:13px">هنوز ترکی نداری<br>اولین ترکت رو بفرست!</p></div>';
+    } else {
+      tlist.innerHTML='<div style="background:var(--card);border:.5px solid var(--b1);border-radius:var(--r2);margin:0 14px;overflow:hidden">'+
+        myTracks.map(t=>`<div style="display:flex;align-items:center;gap:11px;padding:11px 13px;border-bottom:.5px solid var(--b1)">
+          <div style="width:40px;height:40px;border-radius:9px;background:${t.color};display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0">${t.emoji}</div>
+          <div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(t.title)}</div>
+          <div style="font-size:11px;color:var(--mu);margin-top:2px">${(t.playCount||0)} استریم · +${Math.round((t.playCount||0)*0.7*getCoin('listen'))} Coin</div></div>
+          <span style="font-size:10px;padding:2px 8px;border-radius:8px;background:rgba(52,211,153,.13);color:var(--gr)">فعال</span></div>`).join('')+
+      '</div>';
+    }
+  }
+
+  const earnEl=document.getElementById('adash-earnings');
+  if(earnEl)earnEl.innerHTML=`<div style="padding:14px"><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:8px"><span style="color:var(--mu2)">از استریم (۷۰٪)</span><span style="color:var(--am)">${earnedCoins} 🪙</span></div><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:8px"><span style="color:var(--mu2)">نرخ تبدیل</span><span style="color:var(--pu)">${getCoinToman()} تومان/Coin</span></div><div style="height:.5px;background:var(--b1);margin:10px 0"></div><div style="display:flex;justify-content:space-between;font-size:14px;font-weight:600"><span>قابل برداشت</span><span style="color:var(--gr)">${(earnedCoins*getCoinToman()).toLocaleString()} تومان</span></div></div>`;
+
+  // populate campaign track select
+  const sel=document.getElementById('camp-track-sel');
+  if(sel){sel.innerHTML='<option value="">انتخاب ترک...</option>'+myTracks.map(t=>`<option value="${t.id}">${esc(t.title)}</option>`).join('');}
+}
+
+// ── Campaign ──────────────────────────────────────
+const CAMP_TYPES={
+  sponsored:{name:'Sponsored Track',icon:'💼',cost:500,days:7,badge:'sp',badgeLabel:'💼 Sponsored',earnType:'sponsored'},
+  hot:{name:'Hot of the Week',icon:'🔥',cost:1000,days:7,badge:'hot',badgeLabel:'🔥 Hot هفته',earnType:'normal'},
+  trending:{name:'Trending Boost',icon:'📈',cost:800,days:7,badge:'hot',badgeLabel:'📈 Trending',earnType:'normal'},
+  early:{name:'Early Discover',icon:'✨',cost:300,days:7,badge:'new',badgeLabel:'✨ Early Discover',earnType:'early'},
+};
+let _selCamp='';
+
+function buildCampaignPage(){
+  const myHandle=(S.handle||'').replace('@','');
+  const myTracks=ATK.filter(t=>t.artistId===myHandle);
+  const sel=document.getElementById('camp-track-sel');
+  if(sel){sel.innerHTML='<option value="">انتخاب ترک...</option>'+myTracks.map(t=>`<option value="${t.id}">${esc(t.title)}</option>`).join('');}
+}
+
+function selectCamp(type){
+  _selCamp=type;
+  document.querySelectorAll('.camp-card').forEach(c=>c.classList.remove('sel'));
+  document.getElementById('camp-'+type)?.classList.add('sel');
+  const ct=CAMP_TYPES[type];
+  const prev=document.getElementById('camp-cost-preview');
+  if(prev){prev.style.display='block';prev.innerHTML=`${ct.icon} <b>${ct.name}</b> — ${ct.cost} Coin / ${ct.days} روز<br>موجودی: ${S.coins} 🪙 ${S.coins>=ct.cost?'<span style="color:var(--gr)">✓ کافیه</span>':'<span style="color:var(--re)">✗ کافی نیست</span>'}`;}
+}
+
+function submitCampaign(){
+  if(!_selCamp){toast('⚠️ نوع کمپین انتخاب کن');return;}
+  const tid=document.getElementById('camp-track-sel')?.value;
+  if(!tid){toast('⚠️ ترک رو انتخاب کن');return;}
+  const ct=CAMP_TYPES[_selCamp];
+  if(S.coins<ct.cost){toast('⚠️ '+ct.cost+' Coin لازمه — فعلاً '+S.coins+' داری');return;}
+  const reqs=JSON.parse(localStorage.getItem('vibe_camp_reqs')||'[]');
+  reqs.unshift({id:'cr'+Date.now(),type:_selCamp,trackId:tid,artistHandle:S.handle||'',cost:ct.cost,days:ct.days,note:document.getElementById('camp-note')?.value.trim()||'',status:'pending',ts:Date.now()});
+  localStorage.setItem('vibe_camp_reqs',JSON.stringify(reqs));
+  addCoins(-ct.cost,'📣 کمپین: '+ct.name,'sp');save();
+  toast('✅ درخواست ارسال شد — ادمین تأیید میکنه');
+  navPage('artist-dash');
+}
+
+// ── Public Profile ────────────────────────────────
+let _pubId=null;
+
+function openPublicProfile(userId){
+  _pubId=userId||'me';
+  const isMe=_pubId==='me';
+  const d=isMe?S:null;
+  if(!d&&!isMe){toast('پروفایل پیدا نشد');return;}
+  const u=d||S;
+  document.getElementById('pub-cover').style.background='linear-gradient(135deg,'+(u.color||'#1a0a3d')+',#000)';
+  const cEm=document.getElementById('pub-cover-emoji');if(cEm)cEm.textContent=u.avatar||'🎧';
+  const ava=document.getElementById('pub-ava');if(ava){ava.textContent=u.avatar||'🎧';ava.style.background='radial-gradient(circle,'+(u.color||'#1a0a3d')+',#000)';}
+  const pn=document.getElementById('pub-name');if(pn)pn.textContent=u.username||'کاربر';
+  const ph=document.getElementById('pub-handle');if(ph)ph.textContent=u.handle||'@user';
+  const role=isMe?getRole():'listener';
+  const bEl=document.getElementById('pub-badges');
+  if(bEl)bEl.innerHTML=`<span class="role-badge ${role.includes('artist')?'artist':'listener'}">${role.includes('artist')?'🎤 آرتیست':'🎧 شنونده'}</span>`;
+  const sr=document.getElementById('pub-stats-row');
+  if(sr)sr.innerHTML=[{v:(u.listenC||0).toLocaleString(),l:'ترک'},{v:(u.totalEarned||0).toLocaleString(),l:'Coin'},{v:(u.likeC||0).toLocaleString(),l:'لایک'}].map(s=>`<div style="padding:12px 8px;text-align:center;border-left:.5px solid var(--b1)"><div style="font-size:18px;font-weight:700;color:var(--pu)">${s.v}</div><div style="font-size:10px;color:var(--mu);margin-top:2px">${s.l}</div></div>`).join('');
+  const fbw=document.getElementById('pub-follow-btn-wrap');if(fbw)fbw.style.display=isMe?'none':'block';
+  // public playlists
+  const pubPLs=PLAYLISTS.filter(p=>p.isPublic);
+  const plEl=document.getElementById('pub-playlists');
+  if(plEl)plEl.innerHTML=pubPLs.length?pubPLs.map(pl=>`<div style="margin:0 14px 10px;background:var(--card);border:.5px solid var(--b1);border-radius:var(--r2);padding:12px 13px;cursor:pointer;display:flex;align-items:center;gap:10px" onclick="openPL('${pl.id}');navPage('playlist')"><div style="width:40px;height:40px;border-radius:9px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:18px">🎵</div><div style="flex:1"><div style="font-size:13px;font-weight:500">${esc(pl.name)}</div><div style="font-size:11px;color:var(--mu)">${pl.tracks.length} ترک · عمومی</div></div></div>`).join(''):'<div style="padding:20px;text-align:center;color:var(--mu);font-size:13px">پلی‌لیست عمومی نداره</div>';
+  navPage('pub-profile');
+}
+
+function togglePubFollow(){
+  if(!_pubId||_pubId==='me')return;
+  const fb=document.getElementById('pub-follow-btn');
+  if(FOLLOWED.has(_pubId)){FOLLOWED.delete(_pubId);if(fb){fb.textContent='+ دنبال کن';fb.style.background='var(--pu2)';fb.style.color='#fff';}toast('➖ آنفالو');}
+  else{FOLLOWED.add(_pubId);if(fb){fb.textContent='✓ دنبال شده';fb.style.background='var(--bg3)';fb.style.color='var(--mu)';}addCoins(getCoin('follow'),'👤 Follow','earn');addXP(20);save();toast('✅ +'+getCoin('follow')+' Coin');}
+  saveFollowed();
+}
+
+function shareProfile(){
+  const url=window.location.href.split('?')[0]+'?u='+(S.handle||'');
+  navigator.clipboard?.writeText(url).catch(()=>{});
+  toast('🔗 لینک پروفایل کپی شد');
+}
+
+function togglePlaylistPublic(plId){
+  const pl=PLAYLISTS.find(p=>p.id===plId);
+  if(!pl)return;pl.isPublic=!pl.isPublic;savePL();
+  toast(pl.isPublic?'🌍 عمومی شد':'🔒 خصوصی شد');
+}
+
+// ── Role-aware Profile UI ─────────────────────────
+function updProfileForRole(){
+  const role=getRole();
+  const btn=document.getElementById('prof-artist-dash-btn');
+  if(btn){btn.style.display=isArtistRole()?'flex':'none';btn.innerHTML=role==='artist_pending'?'<i class="ti ti-clock"></i> داشبورد آرتیست (در انتظار تأیید)':'<i class="ti ti-microphone-2"></i> داشبورد آرتیست';}
+  const rb=document.getElementById('prof-role-badge');
+  if(rb){const names={listener:'🎧 شنونده',artist:'🎤 آرتیست',artist_pending:'🕐 در انتظار تأیید'};rb.textContent=names[role]||'🎧 شنونده';rb.className='role-badge '+(role.includes('artist')?'artist':'listener');}
+}
+
+// ── Admin: Artist Requests ───────────────────────
+function admRenArtistReqs(){
+  const reqs=JSON.parse(localStorage.getItem('vibe_artist_reqs')||'[]');
+  const el=document.getElementById('adm-artist-reqs');if(!el)return;
+  const pending=reqs.filter(r=>r.status==='pending');
+  const c=document.getElementById('adm-arreq-cnt');if(c)c.textContent=pending.length;
+  if(!pending.length){el.innerHTML='<div style="color:var(--mu);text-align:center;padding:20px;font-size:13px">درخواستی نیست</div>';return;}
+  el.innerHTML=pending.map(r=>`<div style="display:flex;align-items:center;gap:11px;padding:12px;background:var(--bg3);border:.5px solid var(--b1);border-radius:var(--r);margin-bottom:8px"><div style="width:42px;height:42px;border-radius:50%;background:var(--pu3);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">${r.avatar||'🎤'}</div><div style="flex:1"><div style="font-size:13px;font-weight:600">${esc(r.username)}</div><div style="font-size:11px;color:var(--mu2)">${esc(r.handle)}</div><div style="font-size:10px;color:var(--mu)">${admAgo(r.ts)}</div></div><button onclick="admApproveArtist('${r.id}')" style="background:rgba(52,211,153,.15);border:.5px solid rgba(52,211,153,.25);border-radius:8px;padding:6px 12px;cursor:pointer;color:var(--gr);font-size:12px;font-family:inherit"><i class="ti ti-check"></i> تأیید</button><button onclick="admRejectArtist('${r.id}')" style="background:rgba(248,113,113,.13);border:.5px solid rgba(248,113,113,.2);border-radius:8px;padding:6px 12px;cursor:pointer;color:var(--re);font-size:12px;font-family:inherit"><i class="ti ti-x"></i></button></div>`).join('');
+}
+function admApproveArtist(id){
+  const reqs=JSON.parse(localStorage.getItem('vibe_artist_reqs')||'[]');
+  const r=reqs.find(x=>x.id===id);if(r)r.status='approved';
+  localStorage.setItem('vibe_artist_reqs',JSON.stringify(reqs));
+  if(r&&S.handle===r.handle)localStorage.setItem(ROLE_KEY,'artist');
+  admRenArtistReqs();admUpdDS();admToast('✅ آرتیست تأیید شد','s');
+}
+function admRejectArtist(id){
+  const reqs=JSON.parse(localStorage.getItem('vibe_artist_reqs')||'[]');
+  const r=reqs.find(x=>x.id===id);if(r)r.status='rejected';
+  localStorage.setItem('vibe_artist_reqs',JSON.stringify(reqs));admRenArtistReqs();
+}
+
+// ── Admin: Campaign Requests ─────────────────────
+function admRenCampReqs(){
+  const reqs=JSON.parse(localStorage.getItem('vibe_camp_reqs')||'[]');
+  const el=document.getElementById('adm-camp-reqs');if(!el)return;
+  const pending=reqs.filter(r=>r.status==='pending');
+  const c=document.getElementById('adm-creq-cnt');if(c)c.textContent=pending.length;
+  if(!pending.length){el.innerHTML='<div style="color:var(--mu);text-align:center;padding:20px;font-size:13px">درخواستی نیست</div>';return;}
+  el.innerHTML=pending.map(r=>{
+    const ct=CAMP_TYPES[r.type]||{};const track=ATK.find(t=>t.id===r.trackId)||{};
+    return`<div style="border:.5px solid var(--b1);border-radius:var(--r2);background:var(--bg3);padding:12px;margin-bottom:10px"><div style="display:flex;align-items:center;gap:10px;margin-bottom:10px"><div style="font-size:24px">${ct.icon||'📣'}</div><div style="flex:1"><div style="font-size:13px;font-weight:600">${ct.name||r.type}</div><div style="font-size:11px;color:var(--mu2)">${esc(track.title||r.trackId)} · ${esc(r.artistHandle)}</div></div><span style="font-size:11px;color:var(--am)">${r.cost} Coin</span></div>${r.note?`<div style="font-size:11px;color:var(--mu2);margin-bottom:8px">${esc(r.note)}</div>`:''}<div style="display:flex;gap:8px"><button onclick="admApproveCamp('${r.id}')" style="flex:1;padding:8px;border-radius:8px;border:.5px solid rgba(52,211,153,.25);background:rgba(52,211,153,.15);color:var(--gr);font-size:12px;cursor:pointer;font-family:inherit"><i class="ti ti-check"></i> تأیید</button><button onclick="admRejectCamp('${r.id}')" style="flex:1;padding:8px;border-radius:8px;border:.5px solid rgba(248,113,113,.2);background:rgba(248,113,113,.1);color:var(--re);font-size:12px;cursor:pointer;font-family:inherit"><i class="ti ti-x"></i> رد</button></div></div>`;
+  }).join('');
+}
+function admApproveCamp(id){
+  const reqs=JSON.parse(localStorage.getItem('vibe_camp_reqs')||'[]');
+  const r=reqs.find(x=>x.id===id);if(!r)return;r.status='approved';r.approvedAt=Date.now();
+  const ct=CAMP_TYPES[r.type]||{};ATK=_ATK();
+  const t=ATK.find(x=>x.id===r.trackId);
+  if(t){t.badge=ct.badge||'hot';t.badgeLabel=ct.badgeLabel||'🔥';t.earnType=ct.earnType||'normal';}
+  localStorage.setItem('vaTK',JSON.stringify(ATK));localStorage.setItem('vibe_camp_reqs',JSON.stringify(reqs));
+  ANT=_ANT();ANT.unshift({id:'n'+Date.now(),type:'promo',title:'📣 کمپین تأیید شد!',sub:ct.name+' فعال شد',ts:Date.now(),read:false,action:'feed'});
+  localStorage.setItem('vaNT',JSON.stringify(ANT));
+  OT=[...ATK];if(!OT.length)OT=getFallbackTracks();if(ONLINE)buildFeed();
+  admRenCampReqs();admSaveAll();admToast('✅ کمپین تأیید شد','s');
+}
+function admRejectCamp(id){
+  const reqs=JSON.parse(localStorage.getItem('vibe_camp_reqs')||'[]');
+  const r=reqs.find(x=>x.id===id);
+  if(r){r.status='rejected';addCoins(r.cost,'💸 بازگشت هزینه کمپین (رد)','bonus');}
+  localStorage.setItem('vibe_camp_reqs',JSON.stringify(reqs));admRenCampReqs();
 }
 
 // ─── Overlays ────────────────────────────────────
@@ -1714,15 +2192,15 @@ let ATK=[],ANT=[],ACF={};
 function openAdminPanel(){
   ATK=_ATK();ANT=_ANT();ACF=_ACF();
   const p=document.getElementById('adm-panel');
-  p.style.display='flex';
-  p.style.flexDirection='column';
+  p.style.display='flex';p.style.flexDirection='column';
   document.body.style.overflow='hidden';
-  // show pending count badge
   const reqs=JSON.parse(localStorage.getItem('vibe_track_reqs')||'[]');
-  const pc=document.getElementById('adm-req-count');
-  if(pc)pc.textContent=reqs.filter(r=>r.status==='pending').length;
-  admShowPage('adm-dashboard');
-  admUpdDS();admRenDTK();admRenDN();
+  const artReqs=JSON.parse(localStorage.getItem('vibe_artist_reqs')||'[]');
+  const campReqs=JSON.parse(localStorage.getItem('vibe_camp_reqs')||'[]');
+  const rc=document.getElementById('adm-req-count');if(rc)rc.textContent=reqs.filter(r=>r.status==='pending').length;
+  const ac=document.getElementById('adm-arreq-cnt');if(ac)ac.textContent=artReqs.filter(r=>r.status==='pending').length;
+  const cc=document.getElementById('adm-creq-cnt');if(cc)cc.textContent=campReqs.filter(r=>r.status==='pending').length;
+  admShowPage('adm-dashboard');admUpdDS();admRenDTK();admRenDN();
 }
 function closeAdminPanel(){
   if(_adminDirty&&!confirm('تغییرات ذخیره نشده پاک میشن. ادامه؟'))return;
@@ -1759,7 +2237,7 @@ function admShowPage(id){
     'adm-revenue':'درآمد','adm-withdrawals':'برداشت‌ها','adm-anticheat':'Anti-Fraud','adm-export':'خروجی'
   };
   document.getElementById('adm-tt').textContent=titles[id]||'';
-  const inits={'adm-dashboard':()=>{admUpdDS();admRenDTK();admRenDN();},'adm-tracks':admRenTKList,'adm-artists':admRenArtists,'adm-notifications':admRenNH,'adm-coins':admPopCoins,'adm-revenue':admPopRev,'adm-anticheat':admPopAF,'adm-withdrawals':admRenWD,'adm-export':admUpdEI,'adm-add-track':admInitAT,'adm-requests':admRenRequests};
+  const inits={'adm-dashboard':()=>{admUpdDS();admRenDTK();admRenDN();},'adm-tracks':admRenTKList,'adm-artists':admRenArtists,'adm-notifications':admRenNH,'adm-coins':admPopCoins,'adm-revenue':admPopRev,'adm-anticheat':admPopAF,'adm-withdrawals':admRenWD,'adm-export':admUpdEI,'adm-add-track':admInitAT,'adm-requests':admRenRequests,'adm-artist-reqs':admRenArtistReqs,'adm-camp-reqs':admRenCampReqs};
   inits[id]?.();
 }
 
@@ -2083,12 +2561,19 @@ document.addEventListener('keydown',e=>{
   // load all remote data (tracks + config + notifications)
   await loadRemoteData();
   // init UI
-  updHdr();updateMissions();updProfile();updateStats();updateBadge();updateNotifBadge();updProfMenu();
+  updHdr();updateMissions();updProfile();updateStats();updateBadge();updateNotifBadge();updProfMenu();updProfileForRole();
   if(ONLINE)buildFeed();else syncOnline();
   setInterval(save,30000);
   setInterval(()=>{if(CUR.id&&CUR.playing)updWave(CUR.id,CUR.progress);},500);
-  // hide loading screen
-  setTimeout(()=>{const ls=document.getElementById('loading-screen');ls.classList.add('hide');setTimeout(()=>ls.style.display='none',400);},1500);
+  // hide loading → show onboarding if new user
+  setTimeout(()=>{
+    const ls=document.getElementById('loading-screen');
+    ls.classList.add('hide');
+    setTimeout(()=>{ls.style.display='none';
+      // onboarding برای کاربر جدید
+      if(!localStorage.getItem(OB_KEY))showOnboarding();
+    },400);
+  },1500);
 })();
 </script>
 <!-- ══ ADMIN LOGIN MODAL ══ -->
@@ -2173,7 +2658,9 @@ document.addEventListener('keydown',e=>{
       <div class="adm-sb-sec">محتوا</div>
       <div class="adm-sb-item" data-page="adm-tracks" onclick="admShowPage('adm-tracks')"><i class="ti ti-music"></i>ترک‌ها</div>
       <div class="adm-sb-item" data-page="adm-add-track" onclick="admShowPage('adm-add-track')"><i class="ti ti-music-plus"></i>افزودن ترک</div>
-      <div class="adm-sb-item" data-page="adm-requests" onclick="admShowPage('adm-requests')"><i class="ti ti-clock"></i>درخواست‌های آرتیست<span id="adm-req-count" style="background:var(--re);color:#fff;font-size:9px;padding:1px 6px;border-radius:8px;margin-right:auto">0</span></div>
+      <div class="adm-sb-item" data-page="adm-requests" onclick="admShowPage('adm-requests')"><i class="ti ti-clock"></i>ترک‌های ارسالی<span id="adm-req-count" style="background:var(--re);color:#fff;font-size:9px;padding:1px 6px;border-radius:8px;margin-right:auto">0</span></div>
+      <div class="adm-sb-item" data-page="adm-artist-reqs" onclick="admShowPage('adm-artist-reqs')"><i class="ti ti-microphone-2"></i>درخواست آرتیست<span id="adm-arreq-cnt" style="background:var(--am);color:#000;font-size:9px;padding:1px 6px;border-radius:8px;margin-right:auto">0</span></div>
+      <div class="adm-sb-item" data-page="adm-camp-reqs" onclick="admShowPage('adm-camp-reqs')"><i class="ti ti-speakerphone"></i>درخواست کمپین<span id="adm-creq-cnt" style="background:var(--pu2);color:#fff;font-size:9px;padding:1px 6px;border-radius:8px;margin-right:auto">0</span></div>
       <div class="adm-sb-item" data-page="adm-artists" onclick="admShowPage('adm-artists')"><i class="ti ti-microphone-2"></i>آرتیست‌ها</div>
       <div class="adm-sb-item" data-page="adm-notifications" onclick="admShowPage('adm-notifications')"><i class="ti ti-bell"></i>اعلان‌ها</div>
       <div class="adm-sb-sec">اقتصاد</div>
@@ -2418,6 +2905,17 @@ document.addEventListener('keydown',e=>{
         </div></div></div>
       </div>
 
+      <!-- ARTIST REQUESTS -->
+      <div class="adm-page" id="adm-artist-reqs">
+        <div style="font-size:17px;font-weight:700;margin-bottom:14px">🎤 درخواست‌های آرتیست</div>
+        <div class="adm-info"><i class="ti ti-info-circle"></i>کاربرانی که درخواست حساب آرتیست دادن — تأیید کن.</div>
+        <div class="adm-card"><div class="adm-card-hdr"><i class="ti ti-users" style="color:var(--gr)"></i><b>در انتظار</b></div><div class="adm-card-body"><div id="adm-artist-reqs"></div></div></div>
+      </div>
+      <!-- CAMPAIGN REQUESTS -->
+      <div class="adm-page" id="adm-camp-reqs">
+        <div style="font-size:17px;font-weight:700;margin-bottom:14px">📣 درخواست‌های کمپین</div>
+        <div class="adm-card"><div class="adm-card-hdr"><i class="ti ti-speakerphone" style="color:var(--am)"></i><b>در انتظار</b></div><div class="adm-card-body"><div id="adm-camp-reqs"></div></div></div>
+      </div>
       <!-- SECURITY -->
       <div class="adm-page" id="adm-security">
         <div style="font-size:17px;font-weight:700;margin-bottom:14px">🔐 تغییر رمز ادمین</div>
