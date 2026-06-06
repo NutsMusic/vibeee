@@ -397,7 +397,38 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
 .role-badge.listener{background:rgba(96,165,250,.1);border:.5px solid rgba(96,165,250,.2);color:var(--bl)}
 .role-badge.artist{background:rgba(52,211,153,.1);border:.5px solid rgba(52,211,153,.2);color:var(--gr)}
 .role-badge.admin{background:rgba(248,113,113,.1);border:.5px solid rgba(248,113,113,.2);color:var(--re)}
-/* ARTIST DASHBOARD */
+/* ARTIST PAGE */
+#pg-artist{padding-top:0!important}
+.ap-mv-card{width:150px;flex-shrink:0;border-radius:var(--r);overflow:hidden;cursor:pointer;position:relative;background:var(--card)}
+.ap-mv-thumb{height:100px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.ap-mv-thumb img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.ap-mv-overlay{position:absolute;inset:0;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center}
+.ap-mv-play{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px}
+.ap-mv-info{padding:7px 9px 9px}
+.ap-mv-title{font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ap-mv-artist{font-size:10px;color:var(--mu);margin-top:2px}
+.ap-cover-cell{aspect-ratio:1;position:relative;overflow:hidden;cursor:pointer;background:var(--bg3)}
+.ap-cover-cell img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;transition:transform .2s}
+.ap-cover-cell:hover img{transform:scale(1.05)}
+.ap-cover-cell-emoji{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:28px;position:absolute;inset:0}
+.ap-cover-cell-overlay{position:absolute;inset:0;background:rgba(0,0,0,0);transition:background .15s;display:flex;align-items:center;justify-content:center}
+.ap-cover-cell:hover .ap-cover-cell-overlay{background:rgba(0,0,0,.45)}
+.ap-cover-cell-play{opacity:0;color:#fff;font-size:22px;transition:opacity .15s}
+.ap-cover-cell:hover .ap-cover-cell-play{opacity:1}
+.ap-track-row{display:flex;align-items:center;gap:11px;padding:11px 14px;border-bottom:.5px solid var(--b1);cursor:pointer;transition:background .1s}
+.ap-track-row:hover{background:rgba(255,255,255,.025)}.ap-track-row:last-child{border-bottom:none}
+.ap-track-num{width:22px;text-align:center;font-size:12px;color:var(--mu);flex-shrink:0}
+.ap-track-cov{width:40px;height:40px;border-radius:8px;flex-shrink:0;overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center;font-size:18px}
+.ap-track-cov img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.ap-trending-wrap{margin:0 14px;border-radius:var(--r2);overflow:hidden;background:var(--card);border:.5px solid var(--b1)}
+.ap-trending-inner{display:flex;align-items:center;gap:12px;padding:13px}
+.ap-trending-cov{width:64px;height:64px;border-radius:10px;flex-shrink:0;overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center;font-size:26px}
+.ap-trending-cov img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.ap-album-card{margin:0 14px 12px;background:var(--card);border:.5px solid var(--b1);border-radius:var(--r2);overflow:hidden}
+.ap-album-hdr{display:flex;align-items:center;gap:11px;padding:12px 13px;border-bottom:.5px solid var(--b1);cursor:pointer}
+.ap-album-cover{width:52px;height:52px;border-radius:9px;flex-shrink:0;overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center;font-size:22px;background:var(--bg3)}
+.ap-album-cover img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.ap-mv-slider::-webkit-scrollbar{display:none}
 .adash-stat{background:var(--card);border:.5px solid var(--b1);border-radius:var(--r2);padding:16px;text-align:center}
 .adash-val{font-size:28px;font-weight:700;margin:6px 0 3px;line-height:1}
 .adash-lbl{font-size:11px;color:var(--mu2)}
@@ -546,21 +577,103 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
 
     <!-- ARTIST PROFILE -->
     <div class="page" id="pg-artist">
-      <div style="padding:10px 14px 0;display:flex;align-items:center;gap:10px">
-        <button onclick="navPage('discover')" style="background:none;border:none;cursor:pointer;color:var(--mu);font-size:20px"><i class="ti ti-arrow-right"></i></button>
-        <span style="font-size:14px;font-weight:600">پروفایل آرتیست</span>
+      <!-- Header toolbar -->
+      <div style="position:absolute;top:0;left:0;right:0;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:11px 14px;background:linear-gradient(to bottom,rgba(0,0,0,.6),transparent);pointer-events:none">
+        <button onclick="history.back?navPage('discover'):navPage('discover')" style="background:rgba(0,0,0,.4);backdrop-filter:blur(8px);border:.5px solid rgba(255,255,255,.15);border-radius:50%;width:36px;height:36px;cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:center;pointer-events:all"><i class="ti ti-arrow-right" style="font-size:18px"></i></button>
+        <div style="display:flex;gap:8px;pointer-events:all">
+          <button onclick="shareArtistPage()" style="background:rgba(0,0,0,.4);backdrop-filter:blur(8px);border:.5px solid rgba(255,255,255,.15);border-radius:50%;width:36px;height:36px;cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:center"><i class="ti ti-share" style="font-size:16px"></i></button>
+        </div>
       </div>
-      <div class="apcover" id="apcover" style="background:linear-gradient(135deg,#1a0a3d,#000);margin-top:6px"><div class="apcoverbg" id="apemoji">🎤</div></div>
-      <div class="aprow">
-        <div class="apava" id="apava" style="background:radial-gradient(circle,#1a0a3d,#000)">🎤</div>
-        <div class="apmeta"><div class="apname" id="apname">—</div><div class="aphdl" id="aphdl">—</div><div class="apvtag"><i class="ti ti-check" style="font-size:11px"></i> تایید شده</div></div>
+      <!-- Cover Image -->
+      <div id="ap-cover-wrap" style="height:220px;position:relative;overflow:hidden;background:#0a0a1a;flex-shrink:0">
+        <img id="ap-cover-img" src="" style="width:100%;height:100%;object-fit:cover;display:none;position:absolute;inset:0">
+        <div id="ap-cover-bg" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:90px;opacity:.08"></div>
+        <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(8,8,15,.95))"></div>
       </div>
-      <div class="apstats"><div class="apstat"><div class="apstatv" id="apstr">—</div><div class="apstatl">استریم</div></div><div class="apstat"><div class="apstatv" id="apfol">—</div><div class="apstatl">فالوور</div></div><div class="apstat"><div class="apstatv" id="aptrs">—</div><div class="apstatl">ترک</div></div></div>
-      <button class="apfbtn f" id="apfbtn" onclick="toggleFollow()">+ دنبال کن</button>
-      <div class="sec">لینک‌ها</div>
-      <div class="aplinkrow" id="aplinkrow"></div>
-      <div class="sec">ترک‌ها</div>
-      <div id="aptracks"></div>
+      <!-- Avatar + Info (overlapping cover) -->
+      <div style="padding:0 16px;margin-top:-56px;position:relative;z-index:2;display:flex;align-items:flex-end;gap:14px">
+        <div id="ap-avatar-wrap" style="width:88px;height:88px;border-radius:50%;border:3px solid var(--bg);flex-shrink:0;overflow:hidden;background:var(--bg3);display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer">
+          <img id="ap-avatar-img" src="" style="width:100%;height:100%;object-fit:cover;display:none;position:absolute;inset:0">
+          <span id="ap-avatar-emoji" style="font-size:36px">🎤</span>
+        </div>
+        <div style="padding-bottom:8px;flex:1;min-width:0">
+          <div id="apname" style="font-size:22px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.5)">—</div>
+          <div id="aphdl" style="font-size:12px;color:rgba(255,255,255,.65)">@—</div>
+          <div style="display:flex;gap:6px;margin-top:5px;flex-wrap:wrap">
+            <span style="background:rgba(52,211,153,.15);border:.5px solid rgba(52,211,153,.3);border-radius:20px;padding:3px 9px;font-size:10px;color:var(--gr);display:inline-flex;align-items:center;gap:3px"><i class="ti ti-check" style="font-size:10px"></i>تایید شده</span>
+            <span id="ap-genre-tag" style="background:rgba(167,139,250,.15);border:.5px solid rgba(167,139,250,.25);border-radius:20px;padding:3px 9px;font-size:10px;color:var(--pu)">—</span>
+          </div>
+        </div>
+      </div>
+      <!-- Stats + Follow -->
+      <div style="padding:14px 16px;display:flex;align-items:center;gap:0;background:var(--card);border-bottom:.5px solid var(--b1);margin-top:10px">
+        <div style="flex:1;text-align:center"><div style="font-size:18px;font-weight:700;color:var(--pu)" id="apstr">—</div><div style="font-size:10px;color:var(--mu);margin-top:2px">استریم</div></div>
+        <div style="width:.5px;height:28px;background:var(--b1)"></div>
+        <div style="flex:1;text-align:center"><div style="font-size:18px;font-weight:700;color:var(--gr)" id="apfol">—</div><div style="font-size:10px;color:var(--mu);margin-top:2px">فالوور</div></div>
+        <div style="width:.5px;height:28px;background:var(--b1)"></div>
+        <div style="flex:1;text-align:center"><div style="font-size:18px;font-weight:700;color:var(--am)" id="aptrs">—</div><div style="font-size:10px;color:var(--mu);margin-top:2px">ترک</div></div>
+        <div style="width:.5px;height:28px;background:var(--b1)"></div>
+        <div style="flex:1;text-align:center"><div style="font-size:18px;font-weight:700;color:var(--re)" id="ap-mvcount">—</div><div style="font-size:10px;color:var(--mu);margin-top:2px">MV</div></div>
+      </div>
+      <!-- Follow + Platform Links -->
+      <div style="padding:12px 14px;display:flex;gap:9px;align-items:center">
+        <button class="apfbtn f" id="apfbtn" onclick="toggleFollow()" style="flex:1;padding:11px;border-radius:var(--r2);border:none;font-size:13px;font-weight:600;cursor:pointer;font-family:'Vazirmatn',sans-serif">+ دنبال کن</button>
+        <button onclick="shareArtistPage()" style="padding:11px 13px;border-radius:var(--r2);border:.5px solid var(--b2);background:var(--bg3);color:var(--mu2);font-size:13px;cursor:pointer;font-family:'Vazirmatn',sans-serif;display:flex;align-items:center;gap:5px"><i class="ti ti-share"></i></button>
+      </div>
+      <!-- Platform links row -->
+      <div class="aplinkrow" id="aplinkrow" style="padding:0 14px 4px"></div>
+
+      <!-- ① TRENDING TRACK -->
+      <div id="ap-trending-track-sec">
+        <div style="padding:14px 16px 8px;display:flex;align-items:center;justify-content:space-between">
+          <div style="font-size:12px;font-weight:700;color:var(--am);letter-spacing:.8px;text-transform:uppercase">🔥 Trending Track</div>
+        </div>
+        <div id="ap-trending-track"></div>
+      </div>
+
+      <!-- ② TRENDING MV -->
+      <div id="ap-trending-mv-sec">
+        <div style="padding:14px 16px 8px">
+          <div style="font-size:12px;font-weight:700;color:var(--re);letter-spacing:.8px;text-transform:uppercase">🎬 Trending Music Video</div>
+        </div>
+        <div id="ap-trending-mv"></div>
+      </div>
+
+      <!-- ③ MUSIC VIDEOS SLIDER -->
+      <div id="ap-mv-sec">
+        <div style="padding:14px 16px 8px;display:flex;align-items:center;justify-content:space-between">
+          <div style="font-size:12px;font-weight:700;color:var(--mu2);letter-spacing:.8px;text-transform:uppercase">موزیک ویدیوها</div>
+          <span id="ap-mv-count" style="font-size:11px;color:var(--mu)"></span>
+        </div>
+        <div id="ap-mv-slider" style="display:flex;gap:10px;padding:0 14px 4px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch">
+        </div>
+      </div>
+
+      <!-- ④ COVER ART GRID -->
+      <div id="ap-covers-sec">
+        <div style="padding:14px 16px 8px">
+          <div style="font-size:12px;font-weight:700;color:var(--mu2);letter-spacing:.8px;text-transform:uppercase">آلبوم آرت</div>
+        </div>
+        <div id="ap-covers-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;padding:0 2px 4px"></div>
+      </div>
+
+      <!-- ⑤ TRACK LIST -->
+      <div id="ap-tracks-sec">
+        <div style="padding:14px 16px 8px;display:flex;align-items:center;justify-content:space-between">
+          <div style="font-size:12px;font-weight:700;color:var(--mu2);letter-spacing:.8px;text-transform:uppercase">همه ترک‌ها</div>
+          <button id="ap-play-all" onclick="playArtistAll()" style="background:var(--pu2);border:none;border-radius:20px;color:#fff;padding:5px 14px;font-size:11px;cursor:pointer;font-family:'Vazirmatn',sans-serif;display:flex;align-items:center;gap:4px"><i class="ti ti-player-play" style="font-size:12px"></i>پلی همه</button>
+        </div>
+        <div id="ap-tracks-list" style="background:var(--card);border:.5px solid var(--b1);border-radius:var(--r2);margin:0 14px;overflow:hidden"></div>
+      </div>
+
+      <!-- ⑥ ALBUMS -->
+      <div id="ap-albums-sec">
+        <div style="padding:14px 16px 8px">
+          <div style="font-size:12px;font-weight:700;color:var(--mu2);letter-spacing:.8px;text-transform:uppercase">آلبوم‌ها</div>
+        </div>
+        <div id="ap-albums-list"></div>
+      </div>
+
       <div class="bsp"></div>
     </div>
 
@@ -929,6 +1042,7 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
       <button class="mcbtn" onclick="prevTr()"><i class="ti ti-player-skip-back"></i></button>
       <button class="mplay" id="mplaybtn" onclick="togglePlay()"><i class="ti ti-player-pause"></i></button>
       <button class="mcbtn" onclick="nextTr()"><i class="ti ti-player-skip-forward"></i></button>
+      <button class="mcbtn" onclick="closeMiniPlayer()" style="color:var(--re);opacity:.7;font-size:18px" title="بستن"><i class="ti ti-x"></i></button>
     </div>
   </div>
   <div class="mextra">
@@ -1693,34 +1807,357 @@ function buildDiscover(){
   </div>`).join('');
 }
 
-// ─── Artist Profile ───────────────────────────────
+// ══════════════════════════════════════════════════
+//  ARTIST PROFILE PAGE — Complete
+// ══════════════════════════════════════════════════
 let curArtistId=null;
-function openArtistPage(id){
-  const artists=getArtists(),a=artists.find(x=>x.id===id);if(!a)return;
-  curArtistId=id;
-  document.getElementById('apcover').style.background=`linear-gradient(135deg,${a.color},#000)`;
-  document.getElementById('apemoji').textContent=a.emoji;
-  document.getElementById('apava').textContent=a.emoji;document.getElementById('apava').style.background=`radial-gradient(circle,${a.color},#000)`;
-  document.getElementById('apname').textContent=a.name;document.getElementById('aphdl').textContent='@'+id+' · '+a.genre;
-  document.getElementById('apstr').textContent=(a.tracks.reduce((s,t)=>s+t.reward*100,0)).toLocaleString();
-  document.getElementById('apfol').textContent=FOLLOWED.has(id)?'دنبال شده':'—';
-  document.getElementById('aptrs').textContent=a.tracks.length;
-  const isF=FOLLOWED.has(id);const fb=document.getElementById('apfbtn');
-  fb.textContent=isF?'✓ دنبال شده':'+ دنبال کن';fb.className='apfbtn '+(isF?'uf':'f');
-  const links=a.tracks[0]?.links||[];
-  document.getElementById('aplinkrow').innerHTML=links.map(l=>`<div class="aplinkchip" onclick="${l.url?'window.open(\''+l.url+'\',\'_blank\')':''}toast('🔗 '+esc('${l.name}')+' — '+esc('${l.followers}'))">
-    <span style="font-size:16px">${l.icon}</span><span style="font-size:12px;font-weight:500">${esc(l.name)}</span><span style="font-size:10px;color:var(--mu)">${esc(l.followers)}</span>
-  </div>`).join('');
-  document.getElementById('aptracks').innerHTML=a.tracks.map(t=>`<div class="tc" style="margin:0 14px 10px" onclick="playOnline(${OT.indexOf(t)})">
-    <div class="tctop"><div class="tccov" style="background:${t.color}">${t.emoji}</div><div class="tcinfo"><div class="tct">${esc(t.title)}</div><div class="tca">${esc(t.artist)}</div><div class="tcm"><span class="bdg b${t.badge}">${t.badgeLabel}</span><span style="font-size:10px;color:var(--mu)">${fmtT(t.duration)}</span></div></div>
-    <button class="pbtn" onclick="event.stopPropagation();playOnline(${OT.indexOf(t)})"><i class="ti ti-player-play"></i></button></div>
-  </div>`).join('');
+let _apTracks=[];  // ترک‌های artist جاری
+
+function openArtistPage(artistId){
+  if(!artistId)return;
+  curArtistId=artistId;
+
+  // پیدا کردن ترک‌های این آرتیست
+  _apTracks=OT.filter(t=>t.artistId===artistId);
+  if(!_apTracks.length){toast('ترکی از این آرتیست نداریم');return;}
+
+  const sample=_apTracks[0];
+  const artistData=getArtistData(artistId)||{};
+
+  // Cover
+  const coverImg=document.getElementById('ap-cover-img');
+  const coverBg=document.getElementById('ap-cover-bg');
+  const savedCover=artistData.coverUrl||sample.artistCoverUrl||'';
+  if(savedCover){coverImg.src=savedCover;coverImg.style.display='block';}
+  else{coverImg.style.display='none';}
+  document.getElementById('ap-cover-wrap').style.background=`linear-gradient(135deg,${sample.color||'#1a0a3d'},#000)`;
+  coverBg.textContent=sample.emoji||'🎤';
+
+  // Avatar
+  const avatarImg=document.getElementById('ap-avatar-img');
+  const avatarEmoji=document.getElementById('ap-avatar-emoji');
+  const savedAvatar=artistData.avatarUrl||sample.artistAvatarUrl||'';
+  if(savedAvatar){avatarImg.src=savedAvatar;avatarImg.style.display='block';avatarEmoji.style.opacity='0';}
+  else{avatarImg.style.display='none';avatarEmoji.style.opacity='1';avatarEmoji.textContent=sample.emoji||'🎤';}
+
+  // اگه artist خودش هست، بهش اجازه ویرایش بده
+  const isOwnProfile=isArtistRole()&&(S.handle||'').replace('@','')===artistId;
+  document.getElementById('ap-avatar-wrap').onclick=isOwnProfile?()=>editArtistAvatar():null;
+  document.getElementById('ap-cover-wrap').ondblclick=isOwnProfile?()=>editArtistCover():null;
+
+  // Info
+  document.getElementById('apname').textContent=sample.artist||'—';
+  document.getElementById('aphdl').textContent='@'+artistId;
+  document.getElementById('ap-genre-tag').textContent=sample.genre||'—';
+
+  // Stats
+  const totalStreams=_apTracks.reduce((s,t)=>s+(t.playCount||0),0);
+  const mvCount=_apTracks.filter(t=>t.hasVideo).length;
+  document.getElementById('apstr').textContent=totalStreams>999?Math.round(totalStreams/1000)+'K':totalStreams;
+  document.getElementById('apfol').textContent=Math.floor(Math.random()*900+100);  // placeholder تا backend وصل بشه
+  document.getElementById('aptrs').textContent=_apTracks.length;
+  document.getElementById('ap-mvcount').textContent=mvCount;
+
+  // Follow btn
+  const isF=FOLLOWED.has(artistId);
+  const fb=document.getElementById('apfbtn');
+  fb.textContent=isF?'✓ دنبال شده':'+ دنبال کن';
+  fb.style.background=isF?'var(--bg3)':'var(--pu2)';
+  fb.style.color=isF?'var(--mu)':'#fff';
+
+  // Platform links
+  const links=sample.links||[];
+  document.getElementById('aplinkrow').innerHTML=links.map(l=>
+    `<div class="aplinkchip" onclick="${l.url?`window.open('${l.url}','_blank')`:''}toast('${esc(l.name)}')" style="background:${l.color}18;border-color:${l.color}44">
+      <span style="font-size:16px">${l.icon}</span>
+      <div><div style="font-size:12px;font-weight:500">${esc(l.name)}</div><div style="font-size:10px;color:var(--mu)">${esc(l.followers||'')}</div></div>
+    </div>`
+  ).join('');
+
+  // Build sections
+  buildApTrending();
+  buildApMVSlider();
+  buildApCoversGrid();
+  buildApTrackList();
+  buildApAlbums();
+
   navPage('artist');
 }
+
+function getArtistData(id){
+  try{return JSON.parse(localStorage.getItem('vibe_artist_data_'+id)||'{}');}catch{return {};}
+}
+function saveArtistData(id,data){
+  localStorage.setItem('vibe_artist_data_'+id,JSON.stringify(data));
+}
+
+// ① Trending Track
+function buildApTrending(){
+  const sorted=[..._apTracks].sort((a,b)=>(b.playCount||0)-(a.playCount||0));
+  const top=sorted[0];
+  const topMV=sorted.find(t=>t.hasVideo);
+
+  const tSec=document.getElementById('ap-trending-track-sec');
+  const mSec=document.getElementById('ap-trending-mv-sec');
+
+  if(!top){if(tSec)tSec.style.display='none';if(mSec)mSec.style.display='none';return;}
+
+  if(tSec)tSec.style.display='';
+  const tEl=document.getElementById('ap-trending-track');
+  if(tEl) tEl.innerHTML=buildTrendingCard(top,false);
+
+  if(topMV&&mSec){
+    mSec.style.display='';
+    const mEl=document.getElementById('ap-trending-mv');
+    if(mEl) mEl.innerHTML=buildTrendingCard(topMV,true);
+  } else if(mSec) mSec.style.display='none';
+}
+
+function buildTrendingCard(t,isMV){
+  const idx=OT.indexOf(t);
+  return `<div class="ap-trending-wrap">
+    <div class="ap-trending-inner">
+      <div class="ap-trending-cov" style="background:${t.color}">${t.coverUrl?`<img src="${t.coverUrl}" onerror="this.style.display='none'">`:''}${t.emoji}</div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:15px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(t.title)}</div>
+        <div style="font-size:12px;color:var(--mu);margin-top:3px">${fmtT(t.duration)} · ${t.genre}</div>
+        <div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap">
+          ${isMV?'<span style="background:rgba(248,113,113,.13);color:var(--re);font-size:10px;padding:2px 8px;border-radius:8px">🎬 MV</span>':''}
+          <span style="background:rgba(251,191,36,.1);color:var(--am);font-size:10px;padding:2px 8px;border-radius:8px">#1 Trending</span>
+          <span style="font-size:10px;color:var(--mu)">${(t.playCount||0).toLocaleString()} استریم</span>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:7px;align-items:flex-end">
+        <button onclick="${isMV?`openVideo('${t.id}')`:`playOnline(${idx})`}" style="width:40px;height:40px;border-radius:50%;background:${isMV?'var(--re)':'var(--pu2)'};border:none;cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px">
+          <i class="ti ti-${isMV?'player-play':'player-play'}"></i>
+        </button>
+        <button onclick="shareTrackLink('${t.id}')" style="background:none;border:.5px solid var(--b2);border-radius:8px;padding:4px 9px;cursor:pointer;color:var(--mu);font-size:11px;font-family:inherit;display:flex;align-items:center;gap:4px"><i class="ti ti-link" style="font-size:12px"></i>لینک</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ② Music Videos Slider
+function buildApMVSlider(){
+  const mvs=_apTracks.filter(t=>t.hasVideo).sort((a,b)=>(b.addedAt||0)-(a.addedAt||0));
+  const sec=document.getElementById('ap-mv-sec');
+  if(!mvs.length){if(sec)sec.style.display='none';return;}
+  if(sec)sec.style.display='';
+  const cnt=document.getElementById('ap-mv-count');
+  if(cnt)cnt.textContent=mvs.length+' ویدیو';
+  const slider=document.getElementById('ap-mv-slider');
+  if(!slider)return;
+  slider.innerHTML=mvs.map(t=>`
+    <div class="ap-mv-card">
+      <div class="ap-mv-thumb" style="background:${t.color}">
+        ${t.coverUrl?`<img src="${t.coverUrl}" onerror="this.style.display='none'">`:''}
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:44px;opacity:.1">${t.emoji}</div>
+        <div class="ap-mv-overlay">
+          <div class="ap-mv-play"><i class="ti ti-player-play"></i></div>
+        </div>
+        <div style="position:absolute;top:6px;right:6px;background:rgba(248,113,113,.85);border-radius:5px;font-size:9px;padding:1px 6px;color:#fff;font-weight:600">MV</div>
+        <div style="position:absolute;bottom:6px;left:6px;background:rgba(0,0,0,.7);border-radius:4px;font-size:9px;padding:2px 6px;color:#fff">${fmtT(t.duration)}</div>
+      </div>
+      <div class="ap-mv-info">
+        <div class="ap-mv-title">${esc(t.title)}</div>
+        <div style="display:flex;gap:5px;margin-top:5px">
+          <button onclick="openVideo('${t.id}')" style="flex:1;padding:5px;border-radius:7px;background:rgba(248,113,113,.13);border:.5px solid rgba(248,113,113,.2);color:var(--re);font-size:11px;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:3px"><i class="ti ti-player-play" style="font-size:11px"></i>پخش</button>
+          <button onclick="shareTrackLink('${t.id}')" style="padding:5px 7px;border-radius:7px;border:.5px solid var(--b2);background:var(--bg3);color:var(--mu);font-size:11px;cursor:pointer;display:flex;align-items:center"><i class="ti ti-link" style="font-size:12px"></i></button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+// ③ Cover Art Grid
+function buildApCoversGrid(){
+  const grid=document.getElementById('ap-covers-grid');
+  const sec=document.getElementById('ap-covers-sec');
+  if(!grid)return;
+  const withCover=_apTracks.filter(t=>t.coverUrl||true);  // همه رو نشون بده
+  if(!withCover.length){if(sec)sec.style.display='none';return;}
+  if(sec)sec.style.display='';
+  grid.innerHTML=withCover.map(t=>{
+    const idx=OT.indexOf(t);
+    return `<div class="ap-cover-cell" onclick="playOnline(${idx})" title="${esc(t.title)}" style="background:${t.color}">
+      ${t.coverUrl?`<img src="${t.coverUrl}" onerror="this.style.display='none'">`:``}
+      <div class="ap-cover-cell-emoji">${t.emoji}</div>
+      <div class="ap-cover-cell-overlay">
+        <i class="ti ti-player-play ap-cover-cell-play"></i>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ④ Track List
+function buildApTrackList(){
+  const list=document.getElementById('ap-tracks-list');
+  const sec=document.getElementById('ap-tracks-sec');
+  if(!list)return;
+  if(!_apTracks.length){if(sec)sec.style.display='none';return;}
+  if(sec)sec.style.display='';
+  const sorted=[..._apTracks].sort((a,b)=>(b.addedAt||0)-(a.addedAt||0));
+  list.innerHTML=sorted.map((t,i)=>{
+    const idx=OT.indexOf(t);
+    return `<div class="ap-track-row" onclick="playOnline(${idx})">
+      <div class="ap-track-num">${i+1}</div>
+      <div class="ap-track-cov" style="background:${t.color}">
+        ${t.coverUrl?`<img src="${t.coverUrl}" onerror="this.style.display='none'">`:''}
+        ${t.emoji}
+      </div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(t.title)}</div>
+        <div style="font-size:11px;color:var(--mu);margin-top:2px;display:flex;align-items:center;gap:5px">
+          <span>${fmtT(t.duration)}</span>
+          ${t.hasVideo?'<span style="background:rgba(248,113,113,.12);color:var(--re);font-size:9px;padding:1px 5px;border-radius:5px">MV</span>':''}
+          <span style="font-size:10px;color:var(--mu)">${esc(t.genre)}</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:5px;align-items:center">
+        <button onclick="event.stopPropagation();shareTrackLink('${t.id}')" style="background:none;border:.5px solid var(--b2);border-radius:8px;padding:5px 8px;cursor:pointer;color:var(--mu);font-size:11px;display:flex;align-items:center;gap:3px"><i class="ti ti-link" style="font-size:12px"></i></button>
+        <button onclick="event.stopPropagation();doShare('${esc(t.title)}')" style="background:none;border:.5px solid var(--b2);border-radius:8px;padding:5px 8px;cursor:pointer;color:var(--mu);font-size:11px;display:flex;align-items:center"><i class="ti ti-share" style="font-size:12px"></i></button>
+        ${t.hasVideo?`<button onclick="event.stopPropagation();openVideo('${t.id}')" style="background:rgba(248,113,113,.1);border:.5px solid rgba(248,113,113,.2);border-radius:8px;padding:5px 8px;cursor:pointer;color:var(--re);font-size:11px"><i class="ti ti-player-play" style="font-size:12px"></i></button>`:''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ⑤ Albums
+function buildApAlbums(){
+  const sec=document.getElementById('ap-albums-sec');
+  const list=document.getElementById('ap-albums-list');
+  if(!list)return;
+
+  // گروه‌بندی بر اساس album
+  const albumMap={};
+  _apTracks.forEach(t=>{
+    const al=t.album||'Singles';
+    if(!albumMap[al])albumMap[al]={name:al,tracks:[],cover:t.coverUrl||'',color:t.color,emoji:t.emoji};
+    albumMap[al].tracks.push(t);
+  });
+
+  const albums=Object.values(albumMap);
+  // اگه فقط Singles داریم و یه ترکه، پنهان
+  if(albums.length===1&&albums[0].name==='Singles'&&albums[0].tracks.length<=1){
+    if(sec)sec.style.display='none';return;
+  }
+  if(sec)sec.style.display='';
+
+  list.innerHTML=albums.map(al=>`
+    <div class="ap-album-card">
+      <div class="ap-album-hdr" onclick="toggleAlbum('${esc(al.name)}')">
+        <div class="ap-album-cover" style="background:${al.color}">
+          ${al.cover?`<img src="${al.cover}" onerror="this.style.display='none'">`:''}
+          ${al.emoji}
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:14px;font-weight:600">${esc(al.name)}</div>
+          <div style="font-size:11px;color:var(--mu);margin-top:2px">${al.tracks.length} ترک</div>
+        </div>
+        <button onclick="event.stopPropagation();playAlbum('${esc(al.name)}')" style="background:var(--pu2);border:none;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer;flex-shrink:0"><i class="ti ti-player-play" style="font-size:14px"></i></button>
+        <i class="ti ti-chevron-down" id="alico-${esc(al.name).replace(/\s/g,'_')}" style="font-size:16px;color:var(--mu);margin-right:8px"></i>
+      </div>
+      <div id="altracks-${esc(al.name).replace(/\s/g,'_')}" style="display:none">
+        ${al.tracks.map((t,i)=>{const idx=OT.indexOf(t);return`<div class="ap-track-row" onclick="playOnline(${idx})" style="padding-right:70px">
+          <div class="ap-track-num">${i+1}</div>
+          <div class="ap-track-cov" style="background:${t.color}">${t.coverUrl?`<img src="${t.coverUrl}" onerror="this.style.display='none'">`:''}${t.emoji}</div>
+          <div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(t.title)}</div><div style="font-size:11px;color:var(--mu)">${fmtT(t.duration)}</div></div>
+          <div style="display:flex;gap:5px">
+            <button onclick="event.stopPropagation();shareTrackLink('${t.id}')" style="background:none;border:.5px solid var(--b2);border-radius:8px;padding:5px 8px;cursor:pointer;color:var(--mu)"><i class="ti ti-link" style="font-size:12px"></i></button>
+            <button onclick="event.stopPropagation();doShare('${esc(t.title)}')" style="background:none;border:.5px solid var(--b2);border-radius:8px;padding:5px 8px;cursor:pointer;color:var(--mu)"><i class="ti ti-share" style="font-size:12px"></i></button>
+          </div>
+        </div>`;}).join('')}
+      </div>
+    </div>`).join('');
+}
+
+function toggleAlbum(name){
+  const key=name.replace(/\s/g,'_');
+  const el=document.getElementById('altracks-'+key);
+  const ico=document.getElementById('alico-'+key);
+  if(!el)return;
+  const open=el.style.display==='block';
+  el.style.display=open?'none':'block';
+  if(ico)ico.style.transform=open?'':'rotate(180deg)';
+}
+
+function playArtistAll(){
+  if(!_apTracks.length)return;
+  const first=OT.indexOf(_apTracks[0]);
+  if(first>=0)playOnline(first);
+  QUEUE=_apTracks.slice(1).map(t=>({...t,idx:OT.indexOf(t)}));
+}
+
+function playAlbum(name){
+  const al=_apTracks.filter(t=>(t.album||'Singles')===name);
+  if(!al.length)return;
+  const first=OT.indexOf(al[0]);
+  if(first>=0)playOnline(first);
+  QUEUE=al.slice(1).map(t=>({...t,idx:OT.indexOf(t)}));
+  toast('▶ آلبوم: '+name);
+}
+
+function shareTrackLink(trackId){
+  const t=OT.find(x=>x.id===trackId);if(!t)return;
+  const url=window.location.href.split('?')[0]+'?track='+trackId;
+  navigator.clipboard?.writeText(url).catch(()=>{});
+  toast('🔗 لینک ترک کپی شد!');
+}
+
+function shareArtistPage(){
+  const url=window.location.href.split('?')[0]+'?artist='+curArtistId;
+  navigator.clipboard?.writeText(url).catch(()=>{});
+  toast('🔗 لینک آرتیست کپی شد!');
+}
+
+// ویرایش cover و avatar آرتیست (فقط برای خود آرتیست)
+function editArtistCover(){
+  const inp=document.createElement('input');inp.type='file';inp.accept='image/*';
+  inp.onchange=async e=>{
+    const file=e.target.files[0];if(!file)return;
+    const reader=new FileReader();
+    reader.onload=ev=>{
+      const url=ev.target.result;
+      const d=getArtistData(curArtistId);d.coverUrl=url;saveArtistData(curArtistId,d);
+      // آپدیت ترک‌های این آرتیست
+      ATK=_ATK();ATK.forEach(t=>{if(t.artistId===curArtistId)t.artistCoverUrl=url;});
+      localStorage.setItem('vaTK',JSON.stringify(ATK));
+      document.getElementById('ap-cover-img').src=url;document.getElementById('ap-cover-img').style.display='block';
+      toast('✅ Cover ذخیره شد');
+    };
+    reader.readAsDataURL(file);
+  };inp.click();
+}
+
+function editArtistAvatar(){
+  const inp=document.createElement('input');inp.type='file';inp.accept='image/*';
+  inp.onchange=async e=>{
+    const file=e.target.files[0];if(!file)return;
+    const reader=new FileReader();
+    reader.onload=ev=>{
+      const url=ev.target.result;
+      const d=getArtistData(curArtistId);d.avatarUrl=url;saveArtistData(curArtistId,d);
+      ATK=_ATK();ATK.forEach(t=>{if(t.artistId===curArtistId)t.artistAvatarUrl=url;});
+      localStorage.setItem('vaTK',JSON.stringify(ATK));
+      document.getElementById('ap-avatar-img').src=url;document.getElementById('ap-avatar-img').style.display='block';
+      document.getElementById('ap-avatar-emoji').style.opacity='0';
+      toast('✅ آواتار ذخیره شد');
+    };
+    reader.readAsDataURL(file);
+  };inp.click();
+}
 function toggleFollow(){
-  if(!curArtistId)return;const fb=document.getElementById('apfbtn');
-  if(FOLLOWED.has(curArtistId)){FOLLOWED.delete(curArtistId);fb.textContent='+ دنبال کن';fb.className='apfbtn f';toast('➖ آنفالو شد');}
-  else{FOLLOWED.add(curArtistId);fb.textContent='✓ دنبال شده';fb.className='apfbtn uf';addCoins(10,'👤 Follow','earn');addXP(20);save();toast('✅ +10 Coin');}
+  if(!curArtistId)return;
+  const fb=document.getElementById('apfbtn');
+  if(FOLLOWED.has(curArtistId)){
+    FOLLOWED.delete(curArtistId);
+    fb.textContent='+ دنبال کن';fb.style.background='var(--pu2)';fb.style.color='#fff';
+    toast('➖ آنفالو شد');
+  } else {
+    FOLLOWED.add(curArtistId);
+    fb.textContent='✓ دنبال شده';fb.style.background='var(--bg3)';fb.style.color='var(--mu)';
+    addCoins(getCoin('follow'),'👤 Follow','earn');addXP(20);save();
+    toast('✅ +'+getCoin('follow')+' Coin');
+  }
   saveFollowed();
 }
 
@@ -2259,7 +2696,9 @@ function admSaveTK(){const ti=document.getElementById('adm-t-title').value.trim(
   // اگه blob URL بود، نشونه اینه که فایل local هست — ذخیره میکنیم
   const isBlob=audioUrl.startsWith('blob:');
   const finalAudioUrl=isBlob?'__local__':audioUrl;
-  const tk={id:_admEditId||'t'+Date.now(),title:ti,artist:ar,artistId:document.getElementById('adm-t-artistid').value.trim()||(ar.toLowerCase().replace(/\s+/g,'')),genre:document.getElementById('adm-t-genre').value,emoji:document.getElementById('adm-t-emoji').value||'🎵',color:document.getElementById('adm-t-color').value||'#1a0a3d',duration:parseInt(document.getElementById('adm-t-dur').value)||180,reward:parseInt(document.getElementById('adm-t-reward').value)||10,videoReward:parseInt(document.getElementById('adm-t-vreward').value)||20,audioUrl:finalAudioUrl,coverUrl:document.getElementById('adm-t-cover').value.trim(),videoUrl:document.getElementById('adm-t-video').value.trim(),hasVideo:document.getElementById('adm-t-hasvid').checked,earnType:ety,badge:em[ety]||'hot',badgeLabel:document.getElementById('adm-t-blabel').value.trim()||'🎵',earnText:document.getElementById('adm-t-etext').value.trim()||'گوش بده Coin بگیر',links};
+  const existingTrack=_admEditId?ATK.find(x=>x.id===_admEditId):null;
+  const tk={id:_admEditId||'t'+Date.now(),title:ti,artist:ar,artistId:document.getElementById('adm-t-artistid').value.trim()||(ar.toLowerCase().replace(/\s+/g,'')),genre:document.getElementById('adm-t-genre').value,emoji:document.getElementById('adm-t-emoji').value||'🎵',color:document.getElementById('adm-t-color').value||'#1a0a3d',duration:parseInt(document.getElementById('adm-t-dur').value)||180,reward:parseInt(document.getElementById('adm-t-reward').value)||10,videoReward:parseInt(document.getElementById('adm-t-vreward').value)||20,audioUrl:finalAudioUrl,coverUrl:document.getElementById('adm-t-cover').value.trim(),videoUrl:document.getElementById('adm-t-video').value.trim(),hasVideo:document.getElementById('adm-t-hasvid').checked,earnType:ety,badge:em[ety]||'hot',badgeLabel:document.getElementById('adm-t-blabel').value.trim()||'🎵',earnText:document.getElementById('adm-t-etext').value.trim()||'گوش بده Coin بگیر',links,
+    addedAt:existingTrack?.addedAt||Date.now()};
   if(_admEditId){const i=ATK.findIndex(x=>x.id===_admEditId);if(i>=0)ATK[i]=tk;}else ATK.push(tk);
   // persist audio file اگه blob بود
   if(isBlob) admPersistAudio(tk.id);
@@ -2318,7 +2757,131 @@ function admChangePass(){const op=document.getElementById('adm-old-pass')?.value
 function admToast(msg,type=''){const w=document.getElementById('adm-twrap');const t=document.createElement('div');t.className='toast '+(type==='s'?'s':type==='w'?'w':'');t.textContent=msg;w.appendChild(t);setTimeout(()=>t.remove(),2500);}
 function admAgo(ts){const d=(Date.now()-ts)/1000;if(d<60)return 'همین الان';if(d<3600)return Math.floor(d/60)+' دق';if(d<86400)return Math.floor(d/3600)+' ساعت';return Math.floor(d/86400)+' روز';}
 
-// ─── Admin File Upload ─────────────────────────────
+// ─── Close Mini Player ────────────────────────────
+function closeMiniPlayer(){
+  stopAll();
+  aud.pause();aud.src='';
+  CUR.id=null;CUR.playing=false;CUR.progress=0;
+  document.getElementById('mini').classList.remove('show');
+  document.querySelectorAll('.page').forEach(p=>p.style.paddingBottom='');
+  document.querySelectorAll('.pbtn').forEach(b=>{b.classList.remove('on');b.innerHTML='<i class="ti ti-player-play"></i>';});
+  renderLib();
+}
+
+// ─── No Demo Tracks — فقط از admin ───────────────
+function getFallbackTracks(){ return []; }  // demo ها حذف شدن
+
+// ─── Trending Logic — 10 روز ────────────────────
+function buildFeed(genre){
+  if(genre!==undefined)currentGenre=genre;
+  const list=document.getElementById('feed-list');
+  const now=Date.now();
+  const tenDays=10*24*60*60*1000;
+
+  let tracks=[...OT];
+
+  // ترک‌های ۱۰ روز اخیر → trending badge + اول لیست
+  tracks=tracks.map(t=>{
+    const age=now-(t.addedAt||0);
+    const isNew=age<tenDays;
+    return{...t,_isNew:isNew,_age:age};
+  });
+
+  // Sort: جدیدترین‌ها بالا
+  tracks.sort((a,b)=>(a._age||Infinity)-(b._age||Infinity));
+
+  // اعمال فیلتر ژانر
+  if(currentGenre!=='all') tracks=tracks.filter(t=>t.genre===currentGenre);
+
+  if(!tracks.length){
+    list.innerHTML=`<div style="text-align:center;padding:60px 20px;color:var(--mu)"><i class="ti ti-music" style="font-size:48px;display:block;margin-bottom:14px;opacity:.2"></i><p style="font-size:14px;line-height:1.8">هنوز موزیکی اضافه نشده<br><span style="font-size:12px">ادمین به زودی ترک اضافه میکنه</span></p></div>`;
+    return;
+  }
+
+  list.innerHTML=tracks.map((t,i)=>{
+    const globalIdx=OT.indexOf(OT.find(x=>x.id===t.id));
+    const isNew10=t._isNew;
+    const badge=isNew10&&t.badge==='hot'?'hot':t.badge;
+    const badgeLabel=isNew10&&!t.badgeLabel?'✨ جدید':t.badgeLabel;
+    return `
+    <div class="tc" id="tc-${t.id}">
+      <div class="tctop">
+        <div class="tccov" style="background:${t.color}">${t.coverUrl?`<img src="${t.coverUrl}" onerror="this.style.display='none'" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;border-radius:10px">`:''}<span style="${t.coverUrl?'opacity:.01':''}">${t.emoji}</span></div>
+        <div class="tcinfo">
+          <div class="tct">${esc(t.title)}</div>
+          <div class="tca" onclick="openArtistPage('${t.artistId}')">${esc(t.artist)} <i class="ti ti-external-link" style="font-size:10px"></i></div>
+          <div class="tcm">
+            <span class="bdg b${badge||'new'}">${badgeLabel||'🎵'}</span>
+            ${isNew10?'<span class="bdg bnew">🆕 جدید</span>':''}
+            ${t.hasVideo?`<span class="bdg bmv" onclick="openVideo('${t.id}')">🎬 MV</span>`:''}
+            <span style="font-size:10px;color:var(--mu)">${fmtT(t.duration)}</span>
+          </div>
+        </div>
+      </div>
+      <div class="wvwrap" id="wv-${t.id}" onclick="seekWave('${t.id}',event)"></div>
+      <div class="tprog" onclick="seekWave('${t.id}',event)"><div class="tpfill" id="tp-${t.id}" style="width:0%"></div></div>
+      <div class="tcacts">
+        <button class="abtn" id="lb-${t.id}" onclick="doLike(this,'${t.id}')"><i class="ti ti-heart"></i></button>
+        <button class="abtn" id="sb-${t.id}" onclick="doSave(this,'${t.id}')"><i class="ti ti-bookmark"></i></button>
+        <button class="abtn" onclick="doShare('${esc(t.title)}')"><i class="ti ti-share"></i></button>
+        <button class="abtn" id="dlbtn-${t.id}" onclick="downloadTrack('${t.id}')"><i class="ti ti-cloud-download"></i></button>
+        <button class="abtn" onclick="addToPlaylist(${globalIdx})"><i class="ti ti-playlist-add"></i></button>
+        <button class="pbtn" id="opb-${globalIdx}" onclick="playOnline(${globalIdx})"><i class="ti ti-player-play"></i></button>
+      </div>
+      <div class="erow${t.earnType==='early'?' early':''}">
+        <i class="ti ti-coin" style="font-size:15px;color:${t.earnType==='early'?'var(--gr)':'var(--am)'}"></i>
+        <span>${t.earnText||'گوش بده Coin بگیر'}</span>
+      </div>
+    </div>`;
+  }).join('');
+  tracks.forEach(t=>mkWave(t.id));
+}
+
+// ══════════════════════════════════════════════════
+//  SYNC SYSTEM — Local-first + Server when ready
+// ══════════════════════════════════════════════════
+const SYNC_KEY='vibe_sync_q';
+function getServerUrl(){return localStorage.getItem('vibe_server_url')||'';}
+
+function queueSync(type,data){
+  const url=getServerUrl();if(!url)return;
+  const q=JSON.parse(localStorage.getItem(SYNC_KEY)||'[]');
+  q.push({type,data,ts:Date.now(),sent:false});
+  if(q.length>500)q.splice(0,500);
+  localStorage.setItem(SYNC_KEY,JSON.stringify(q));
+}
+
+async function trySyncToServer(silent=false){
+  const url=getServerUrl();if(!url||!ONLINE)return;
+  const q=JSON.parse(localStorage.getItem(SYNC_KEY)||'[]');
+  const pending=q.filter(x=>!x.sent);
+  if(!pending.length){if(!silent)toast('✅ همه چیز sync شده');return;}
+  try{
+    const r=await fetch(url+'/api/sync',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({items:pending,deviceId:localStorage.getItem('vibe_device')||'web'}),
+      signal:AbortSignal.timeout(8000)});
+    if(r.ok){pending.forEach(x=>x.sent=true);localStorage.setItem(SYNC_KEY,JSON.stringify(q));if(!silent)toast('✅ Sync شد');}
+    else{if(!silent)toast('⚠️ Sync ناموفق');}
+  }catch{if(!silent)toast('⚠️ سرور در دسترس نیست');}
+}
+
+// وقتی اینترنت وصل میشه
+window.addEventListener('online',()=>{
+  ONLINE=true;syncOnline();
+  const url=getServerUrl();const q=JSON.parse(localStorage.getItem(SYNC_KEY)||'[]');
+  const pending=q.filter(x=>!x.sent).length;
+  if(url&&pending>0){
+    if(confirm('📡 اینترنت وصل شد. '+pending+' تغییر محلی رو sync کنم؟'))
+      trySyncToServer();
+  }
+});
+
+function admSetServerUrl(){
+  const cur=getServerUrl();
+  const url=prompt('آدرس سرور backend:\n(خالی بذار برای غیرفعال کردن)',cur||'https://');
+  if(url!==null){localStorage.setItem('vibe_server_url',url.trim());admToast(url.trim()?'✅ سرور تنظیم شد':'⚠️ سرور غیرفعال شد','s');}
+}
+
 // ذخیره فایل صوتی در IndexedDB و بازگشت blob URL
 const ADM_AUDIO_KEY = 'adm_audio_pending';
 
@@ -2891,6 +3454,11 @@ document.addEventListener('keydown',e=>{
       <div class="adm-page" id="adm-export">
         <div style="font-size:17px;font-weight:700;margin-bottom:14px">📥 خروجی JSON</div>
         <div class="adm-warn"><i class="ti ti-alert-triangle"></i> بعد از ذخیره: دانلود → آپلود به GitHub</div>
+        <!-- Server Sync -->
+        <div class="adm-card" style="margin-bottom:14px"><div class="adm-card-hdr"><i class="ti ti-server" style="color:var(--bl)"></i><b>Sync به سرور</b><span style="font-size:10px;color:var(--mu2);margin-right:auto" id="adm-sync-status">غیرفعال</span></div><div class="adm-card-body">
+          <div style="font-size:11px;color:var(--mu2);margin-bottom:9px">وقتی backend راه‌اندازی کردی، اینجا آدرسش رو بزار تا داده‌ها auto-sync بشن</div>
+          <div style="display:flex;gap:7px"><input id="adm-server-url-inp" type="url" dir="ltr" placeholder="https://yourserver.com" style="flex:1;padding:9px 11px;border-radius:var(--r);border:.5px solid var(--b2);background:var(--bg3);color:var(--tx);font-size:12px;font-family:inherit;outline:none"><button class="adm-btn bl" onclick="const u=document.getElementById('adm-server-url-inp').value.trim();localStorage.setItem('vibe_server_url',u);document.getElementById('adm-sync-status').textContent=u?'✅ فعال':'غیرفعال';admToast(u?'✅ سرور ذخیره شد':'⚠️ غیرفعال','s')"><i class="ti ti-check"></i></button><button class="adm-btn su" onclick="trySyncToServer()"><i class="ti ti-refresh"></i>Sync</button></div>
+        </div></div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
           <div class="adm-card" style="margin:0"><div class="adm-card-hdr"><i class="ti ti-music" style="color:var(--pu)"></i><div><b>tracks.json</b><div style="font-size:11px;color:var(--mu2)" id="adm-ex-tinfo">0 ترک</div></div></div><div class="adm-card-body"><button class="adm-btn pu" onclick="admDlJSON('tracks')" style="width:100%;justify-content:center"><i class="ti ti-download"></i>دانلود</button></div></div>
           <div class="adm-card" style="margin:0"><div class="adm-card-hdr"><i class="ti ti-bell" style="color:var(--gr)"></i><div><b>notifications.json</b><div style="font-size:11px;color:var(--mu2)" id="adm-ex-ninfo">0 اعلان</div></div></div><div class="adm-card-body"><button class="adm-btn gr" onclick="admDlJSON('notifications')" style="width:100%;justify-content:center"><i class="ti ti-download"></i>دانلود</button></div></div>
